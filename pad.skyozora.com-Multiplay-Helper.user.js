@@ -120,7 +120,7 @@ function registerPage()
 	chkUpt.value = "检查今日开放关卡";
 	chkUpt.onclick = checkTodayUpdate;
 
-	var chkStgLst = document.createElement("input");box.appendChild(chkUpt);
+	var chkStgLst = document.createElement("input");box.appendChild(chkStgLst);
 	chkStgLst.type = "button";
 	chkStgLst.id = chkUpt.className = "check-stage-list";
 	chkStgLst.value = "获取完整地下城列表（慢，建议每次出新图更新一次）";
@@ -222,6 +222,34 @@ function checkTodayUpdate()
 		console.log("金币地下城获取完毕",config);
 	}
 }
+//单个难度地下城关卡
+function Stage(name,iconUrl)
+{
+	this.name = name;
+	this.iconUrl = iconUrl;
+	return this;
+}
+//多个难度的地下城关卡
+function mainStage(name,iconUrl)
+{
+	var obj = new Stage(name,iconUrl);
+	obj.subStage = [];
+	function dealSubStage(response)
+	{
+		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
+		obj.subStage.length = 0; //先清空
+
+	}
+	obj.checkSubStage = function(callback)
+	{
+		GM_xmlhttpRequest({
+			method: "GET",
+			url: "stage/" + this.name,
+			onload: dealSubStage,
+		});
+	}
+	return obj;
+}
 function checkAllStageList()
 {
 	GM_xmlhttpRequest({
@@ -233,18 +261,22 @@ function checkAllStageList()
 	function dealStageList(response)
 	{
 		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
-		config.coinStage.length = 0; //先清空
-		//金币地下城表格
-		var stageTable = PageDOM.querySelector("#wrapper>table:nth-of-type(3) table");
-		//今天的紧急
-		for (var ri=1;ri<stageTable.rows.length;ri++)
+		config.stageList.length = 0; //先清空
+		//所有地下城表格
+		var stageTd = PageDOM.querySelector("#wrapper>table:nth-of-type(3) td");
+		var stages = stageTd.getElementsByClassName("stage");
+		//所有地下城
+		for (var si=1,si_l=stages.length;si<si_l;si++)
 		{
-			var link = stageTable.rows[ri].cells[1].querySelector("a");
+			var link = stages[si].querySelector("a");
 			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
 			{
-				config.coinStage.push(link.textContent);
+				imgUrl = link.querySelector("img").getAttribute("data-original");
+				var stage = new mainStage(link.title,imgUrl);
+				config.stageList.push(stage);
 			}
 		}
-		console.log("金币地下城获取完毕",config);
+
+		console.log("所有地下城获取完毕",config);
 	}
 }
