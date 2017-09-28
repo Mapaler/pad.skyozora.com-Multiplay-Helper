@@ -84,7 +84,7 @@ if(typeof(GM_listValues) == "undefined")
 
 var config={
 	version:1, //储存当前设置结构版本
-	updateDate:0, //储存当前开放地图上次更新时间
+	updateDate:0, //储存今日开放地图上次更新时间
 	todayStage:[], //储存当前开放的地图
 	stageList:[], //储存全部地图的数据
 }
@@ -92,11 +92,26 @@ var stageTestReg = "^/?s(?:tage)?/"; //用来测试href是不是地下城的
 
 if (GM_getValue("helper-config")==undefined)
 {
-	console.log("配置不存在")
+	saveConfig();
+	console.log("配置不存在，储存默认配置");
 }else
 {
-	console.log("配置存在")
+	loadConfig();
+	console.log("配置存在",config);
 }
+function loadConfig()
+{
+	var configStr = GM_getValue("helper-config");
+	var saConfig = JSON.parse(configStr);
+	if (typeof(saConfig) == "object")
+		config = Object.assign(config, saConfig);
+}
+function saveConfig()
+{
+	var configStr = JSON.stringify(config);
+	GM_setValue("helper-config", configStr); //下载方案
+}
+
 
 if(location.pathname == "/multiplay/register/") //注册页面
 {
@@ -124,18 +139,6 @@ function registerPage()
 	chkStgLst.id = chkUpt.className = "check-stage-list";
 	chkStgLst.value = "获取完整地下城列表（极慢，每次出新图更新一次）";
 	chkStgLst.onclick = checkAllStageList;
-}
-
-function multiplayPage()
-{
-	var table = document.querySelector("#wrapper>table:nth-of-type(3) table"); //协力请求表格
-	for (var ri=table.rows.length-1;ri>0;ri--)
-	{
-		if (table.rows[ri].cells.length<2)
-		{
-			table.rows[ri].remove(); //去除广告
-		}
-	}
 }
 function checkTodayUpdate()
 {
@@ -185,6 +188,12 @@ function checkTodayUpdate()
 			{
 				typeStr = typeSpan.textContent;
 			}
+			var endTime = "";
+			var endTimeTd = ChangQiEvent.rows[ri].cells[3];
+			if (endTimeTd != undefined)
+			{
+				endTime = endTimeTd.childNodes[1].nodeValue;
+			}
 			for (var ii=0;ii<imgs.length;ii++)
 			{
 				var link = imgs[ii].parentElement;
@@ -192,22 +201,25 @@ function checkTodayUpdate()
 					&& !/coin\.png/igm.test(imgs[ii].getAttribute("src")) //不是金币地下城
 					&& !/一次通關限定/igm.test(typeStr) //不是一次通关限定
 					&& !/每天一場/igm.test(typeStr) //不是每天一场限定
+					&& !/後開始/igm.test(endTime) //不是还没有开始的
 				)
 				{
 					config.todayStage.push(link.title);
 				}
 			}
 		}
+		config.updateDate = new Date().getTime();
 		console.log("今日地下城获取完毕",config);
+		saveConfig();
 	}
 }
-//关卡大家都有的部分
+//关卡大家都有的部分，类
 function minStage(name,iconUrl)
 {
 	this.name = name;
 	this.iconUrl = iconUrl;
 }
-//单个难度地下城关卡
+//单个难度地下城关卡，类
 function Stage(name,iconUrl,stamina,battles)
 {
 	var obj = new minStage(name,iconUrl);
@@ -215,7 +227,7 @@ function Stage(name,iconUrl,stamina,battles)
 	obj.battles = battles; //层数
 	return obj;
 }
-//多个难度的地下城关卡
+//多个难度的地下城关卡，类
 function mainStage(name,iconUrl)
 {
 	var obj = new minStage(name,iconUrl);
@@ -230,12 +242,16 @@ function mainStage(name,iconUrl)
 			onload: function(response){ //获取成功
 				var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
 				var subStageList = PageDOM.querySelector("#wrapper>table:nth-of-type(3) ul"); //子关卡的列表ul
-				var subStage = subStageList.children; //所有的li
+				var subStage = subStageList.getElementsByTagName("li"); //所有的li
 				for (var si=0;si<subStage.length;si++)
 				{
 					var link = subStage[si].querySelector("div a"); //图标链接
 					var iconUrl = link.querySelector("img").getAttribute("data-original");
 					var detailTd = subStage[si].querySelector("div:nth-of-type(2)"); //介绍格
+					if (detailTd == undefined)
+					{ //目前不知道到底是谁错了
+						console.error("没有介绍格",subStage[si]);
+					}
 					var name = detailTd.querySelector("a").textContent.replace(/\s*關卡資料.*$/igm,"");
 					var stamina = parseInt(detailTd.querySelector("span").textContent);
 					var battles = parseInt(detailTd.querySelector("span:nth-of-type(2)").textContent);
@@ -280,10 +296,14 @@ function checkAllStageList()
 				config.stageList.push(stage);
 			}
 		}
-		var debugArr = config.stageList.slice(0,3);
-		getStageDetail(debugArr,function(){console.log("所有地下城获取完毕",config)});
+		var stageArr = config.stageList;
+		//var stageArr = config.stageList.slice(398,400); //debug用
+		getStageDetail(stageArr,stageArr.length,function(){
+			console.log("所有地下城获取完毕",config);
+			saveConfig();
+		});
 	}
-	function getStageDetail(stgArr,callback)
+	function getStageDetail(stgArr,max,callback)
 	{
 		if (stgArr.length < 1)
 		{
@@ -294,7 +314,41 @@ function checkAllStageList()
 		var thisStg = newStgArr.shift(); //删除新数组的第一个元素
 
 		thisStg.checkSubStage(function(){
-			getStageDetail(newStgArr,callback);
+			console.log("已获取" + (max-newStgArr.length) + "/" + max);
+			getStageDetail(newStgArr,max,callback);
 		});
+	}
+}
+
+/*
+ * 协力列表页面
+ * 
+ */
+function multiplayPage()
+{
+	var table = document.querySelector("#wrapper>table:nth-of-type(3) table"); //协力请求表格
+	for (var ri=table.rows.length-1;ri>0;ri--)
+	{
+		if (table.rows[ri].cells.length<2)
+		{
+			table.rows[ri].remove(); //去除广告
+		}
+	}
+	table.rows[0].cells[0].colSpan += 1; //标题添加一格合并
+	for (var ri=1;ri<table.rows.length;ri++)
+	{
+		var stageNameCell = table.rows[ri].cells[1]; //获取名字的格
+		var link1 = stageNameCell.querySelector("a");
+		var link2 = stageNameCell.querySelector("a:nth-of-type(2)");
+		var stage1 = config.stageList.filter(function(item){
+			return item.name == link1.textContent;
+		})[0];
+		var stage2 = stage1.subStage.filter(function(item){
+			return item.name == link2.textContent;
+		})[0];
+		var newCell = table.rows[ri].insertCell(2);
+		newCell.appendChild(document.createTextNode(stage2.stamina + "体"));
+		newCell.appendChild(document.createElement("br"));
+		newCell.appendChild(document.createTextNode(stage2.battles + "层"));
 	}
 }
