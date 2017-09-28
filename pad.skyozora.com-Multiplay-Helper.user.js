@@ -105,6 +105,14 @@ function loadConfig()
 	var saConfig = JSON.parse(configStr);
 	if (typeof(saConfig) == "object")
 		config = Object.assign(config, saConfig);
+	var now = new Date();var last = new Date(config.updateDate);
+	if (now > last && now.getDate() != last.getDate())
+	{
+		console.log("今天的开放地图还没检查");
+	}else
+	{
+		console.log("已经是今天的开放地图");
+	}
 }
 function saveConfig()
 {
@@ -137,7 +145,7 @@ function registerPage()
 	var chkStgLst = document.createElement("input");box.appendChild(chkStgLst);
 	chkStgLst.type = "button";
 	chkStgLst.id = chkUpt.className = "check-stage-list";
-	chkStgLst.value = "获取完整地下城列表（极慢，每次出新图更新一次）";
+	chkStgLst.value = "获取完整地下城数据（极慢，每次出新图更新一次）";
 	chkStgLst.onclick = checkAllStageList;
 }
 function checkTodayUpdate()
@@ -253,8 +261,15 @@ function mainStage(name,iconUrl)
 						console.error("没有介绍格",subStage[si]);
 					}
 					var name = detailTd.querySelector("a").textContent.replace(/\s*關卡資料.*$/igm,"");
-					var stamina = parseInt(detailTd.querySelector("span").textContent);
-					var battles = parseInt(detailTd.querySelector("span:nth-of-type(2)").textContent);
+					var stamina = 0;var battles = 0;
+					for (var ci=0;ci<detailTd.childNodes.length;ci++)
+					{
+						var cld = detailTd.childNodes[ci];
+						if (cld.nodeName == "SPAN" && /體力/igm.test(cld.previousSibling.nodeValue))
+							var stamina = parseInt(cld.textContent);
+						if (cld.nodeName == "SPAN" && /層數/igm.test(cld.previousSibling.nodeValue))
+							var battles = parseInt(cld.textContent);
+					}
 					var stage = new Stage(name,iconUrl,stamina,battles);
 					obj.subStage.push(stage);
 				}
@@ -347,7 +362,9 @@ function multiplayPage()
 			return item.name == link2.textContent;
 		})[0];
 		var newCell = table.rows[ri].insertCell(2);
-		newCell.appendChild(document.createTextNode(stage2.stamina + "体"));
+		//newCell.appendChild(document.createTextNode(stage2.stamina + "体"));
+		//newCell.appendChild(document.createElement("br"));
+		newCell.appendChild(document.createTextNode("协力" + Math.round(stage2.stamina/2) + "体"));
 		newCell.appendChild(document.createElement("br"));
 		newCell.appendChild(document.createTextNode(stage2.battles + "层"));
 	}
