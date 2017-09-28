@@ -147,6 +147,12 @@ function registerPage()
 	chkStgLst.id = chkUpt.className = "check-stage-list";
 	chkStgLst.value = "获取完整地下城数据（极慢，每次出新图更新一次）";
 	chkStgLst.onclick = checkAllStageList;
+
+	var ioCfg = document.createElement("input");box.appendChild(ioCfg);
+	ioCfg.type = "button";
+	ioCfg.id = chkUpt.className = "input-output-config";
+	ioCfg.value = "导入/导出本脚本设置";
+	ioCfg.onclick = null;
 }
 function checkTodayUpdate()
 {
