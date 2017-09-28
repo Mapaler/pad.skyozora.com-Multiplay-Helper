@@ -86,7 +86,6 @@ var config={
 	version:1, //储存当前设置结构版本
 	updateDate:0, //储存当前开放地图上次更新时间
 	todayStage:[], //储存当前开放的地图
-	coinStage:[], //储存配信中的金币地下城
 	stageList:[], //储存全部地图的数据
 }
 var stageTestReg = "^/?s(?:tage)?/"; //用来测试href是不是地下城的
@@ -123,7 +122,7 @@ function registerPage()
 	var chkStgLst = document.createElement("input");box.appendChild(chkStgLst);
 	chkStgLst.type = "button";
 	chkStgLst.id = chkUpt.className = "check-stage-list";
-	chkStgLst.value = "获取完整地下城列表（慢，建议每次出新图更新一次）";
+	chkStgLst.value = "获取完整地下城列表（极慢，每次出新图更新一次）";
 	chkStgLst.onclick = checkAllStageList;
 }
 
@@ -144,11 +143,9 @@ function checkTodayUpdate()
 		method: "GET",
 		url: location.origin, //主页
 		onload: dealMainPage,
-	});
-	GM_xmlhttpRequest({
-		method: "GET",
-		url: "stage/配信中的金幣地下城",
-		onload: dealCoinPage,
+		onerror: function(response) {
+			console.error("获取主页地下城活动失败",response);
+		}
 	});
 
 	function dealMainPage(response)
@@ -203,49 +200,53 @@ function checkTodayUpdate()
 		}
 		console.log("今日地下城获取完毕",config);
 	}
-
-	function dealCoinPage(response)
-	{
-		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
-		config.coinStage.length = 0; //先清空
-		//金币地下城表格
-		var stageTable = PageDOM.querySelector("#wrapper>table:nth-of-type(3) table");
-		//今天的紧急
-		for (var ri=1;ri<stageTable.rows.length;ri++)
-		{
-			var link = stageTable.rows[ri].cells[1].querySelector("a");
-			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
-			{
-				config.coinStage.push(link.textContent);
-			}
-		}
-		console.log("金币地下城获取完毕",config);
-	}
 }
-//单个难度地下城关卡
-function Stage(name,iconUrl)
+//关卡大家都有的部分
+function minStage(name,iconUrl)
 {
 	this.name = name;
 	this.iconUrl = iconUrl;
-	return this;
+}
+//单个难度地下城关卡
+function Stage(name,iconUrl,stamina,battles)
+{
+	var obj = new minStage(name,iconUrl);
+	obj.stamina = stamina; //体力
+	obj.battles = battles; //层数
+	return obj;
 }
 //多个难度的地下城关卡
 function mainStage(name,iconUrl)
 {
-	var obj = new Stage(name,iconUrl);
+	var obj = new minStage(name,iconUrl);
+	obj.name = name;
+	obj.iconUrl = iconUrl;
 	obj.subStage = [];
-	function dealSubStage(response)
-	{
-		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
-		obj.subStage.length = 0; //先清空
-
-	}
 	obj.checkSubStage = function(callback)
 	{
 		GM_xmlhttpRequest({
 			method: "GET",
 			url: "stage/" + this.name,
-			onload: dealSubStage,
+			onload: function(response){ //获取成功
+				var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
+				var subStageList = PageDOM.querySelector("#wrapper>table:nth-of-type(3) ul"); //子关卡的列表ul
+				var subStage = subStageList.children; //所有的li
+				for (var si=0;si<subStage.length;si++)
+				{
+					var link = subStage[si].querySelector("div a"); //图标链接
+					var iconUrl = link.querySelector("img").getAttribute("data-original");
+					var detailTd = subStage[si].querySelector("div:nth-of-type(2)"); //介绍格
+					var name = detailTd.querySelector("a").textContent.replace(/\s*關卡資料.*$/igm,"");
+					var stamina = parseInt(detailTd.querySelector("span").textContent);
+					var battles = parseInt(detailTd.querySelector("span:nth-of-type(2)").textContent);
+					var stage = new Stage(name,iconUrl,stamina,battles);
+					obj.subStage.push(stage);
+				}
+				callback();
+			},
+			onerror: function(response) {
+				console.error("获取 " + obj.name + " 详情失败",response);
+			},
 		});
 	}
 	return obj;
@@ -256,6 +257,9 @@ function checkAllStageList()
 		method: "GET",
 		url: "stage",
 		onload: dealStageList,
+		onerror: function(response) {
+			console.error("获取全部地下城列表失败",response);
+		},
 	});
 
 	function dealStageList(response)
@@ -276,7 +280,21 @@ function checkAllStageList()
 				config.stageList.push(stage);
 			}
 		}
+		var debugArr = config.stageList.slice(0,3);
+		getStageDetail(debugArr,function(){console.log("所有地下城获取完毕",config)});
+	}
+	function getStageDetail(stgArr,callback)
+	{
+		if (stgArr.length < 1)
+		{
+			callback();
+			return;
+		}
+		var newStgArr = stgArr.concat();
+		var thisStg = newStgArr.shift(); //删除新数组的第一个元素
 
-		console.log("所有地下城获取完毕",config);
+		thisStg.checkSubStage(function(){
+			getStageDetail(newStgArr,callback);
+		});
 	}
 }
