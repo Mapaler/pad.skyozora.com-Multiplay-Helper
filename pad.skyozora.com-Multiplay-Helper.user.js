@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.0
+// @version     1.0.1
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -451,7 +451,7 @@ function registerPage()
 	var btnRemoveAllStg = document.createElement("input");btnBox1.appendChild(btnRemoveAllStg);
 	btnRemoveAllStg.type = "button";
 	btnRemoveAllStg.id = btnRemoveAllStg.className = "remove-stage";
-	btnRemoveAllStg.value = "清空地下城收藏";
+	btnRemoveAllStg.value = "清空我的收藏";
 	btnRemoveAllStg.onclick = function(){
 		removeStarStage();
 	};
