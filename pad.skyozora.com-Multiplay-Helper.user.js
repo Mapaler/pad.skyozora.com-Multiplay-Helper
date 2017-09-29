@@ -6,7 +6,7 @@
 // @description:zh-CN	智龙迷城战友系统及资讯网，协力页面，显示体力，登陆页面可快速添加今日地图
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
-// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v3
+// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
 // @version     1.0.0
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
