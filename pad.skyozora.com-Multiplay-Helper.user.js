@@ -109,8 +109,9 @@ var config={
 	updateDate:0, //储存今日开放地图上次更新时间
 	todayStage:[], //储存当前开放的地图
 	starStage:[], //储存收藏的地图
-	stageList:[], //储存全部地图的数据
-}
+};
+var stageList=[]; //储存全部地图的数据
+
 var stageTestReg = "^/?s(?:tage)?/"; //用来测试href是不是地下城的
 
 if (GM_getValue("helper-config")==undefined)
@@ -119,18 +120,9 @@ if (GM_getValue("helper-config")==undefined)
 	console.log("配置不存在，储存默认配置");
 }else
 {
-	loadConfig();
+	loadConfig(GM_getValue("helper-config"),GM_getValue("helper-stage-list"));
 	console.log("配置存在",config);
-}
-function loadConfig()
-{
-	var configStr = GM_getValue("helper-config");
-	var saConfig = JSON.parse(configStr);
-	if (typeof(saConfig) == "object")
-		config = Object.assign(config, saConfig);
-	else
-		console.error("配置损坏，使用默认配置");
-	
+
 	var now = new Date();var last = new Date(config.updateDate);
 	if (now > last && now.getDate() != last.getDate())
 	{
@@ -140,10 +132,36 @@ function loadConfig()
 		console.log("已经是今天的开放地图");
 	}
 }
+function loadConfig(configStr,stageListStr)
+{
+	var bk = [true,true];
+	var saConfig = JSON.parse(configStr);
+	var saStageList = JSON.parse(stageListStr);
+
+	if (typeof(saConfig) == "object")
+		config = Object.assign(config, saConfig);
+	else
+	{
+		console.error("配置损坏，使用默认配置");
+		bk[0] = false;
+	}
+		
+	
+	if (typeof(saStageList) == "object")
+		stageList = saStageList;
+	else
+	{
+		console.error("完整地下城数据丢失，使用空配置");
+		bk[1] = false;
+	}
+	return bk;
+}
 function saveConfig()
 {
 	var configStr = JSON.stringify(config);
+	var stageListStr = JSON.stringify(stageList);
 	GM_setValue("helper-config", configStr);
+	GM_setValue("helper-stage-list", stageListStr);
 }
 
 
@@ -186,7 +204,7 @@ function registerPage()
 
 
 	var msgBox = document.createElement("div");stgBox.appendChild(msgBox);
-	msgBox.className = "stg-box stg-box-3";
+	msgBox.className = "stg-box msg-box";
 	var msgUl = document.createElement("ul");msgBox.appendChild(msgUl);
 
 
@@ -194,7 +212,6 @@ function registerPage()
 	function refreshStageList1(type)
 	{
 		if (type == undefined)type = 0;
-		console.log(type)
 		for (var ci = stg2Ul.childNodes.length-1;ci>=0;ci--) //清空主图列表
 		{
 			stg2Ul.childNodes[ci].remove();
@@ -222,7 +239,7 @@ function registerPage()
 
 			var icon = document.createElement("div"); stgLbl.appendChild(icon);
 			icon.className = "stage-icon";
-			var thisStage = config.stageList.filter(function(stg){return stg.name == _stgName;})[0]
+			var thisStage = stageList.filter(function(stg){return stg.name == _stgName;})[0]
 			if (thisStage) icon.style.backgroundImage = "url(" + thisStage.iconUrl + ")";
 			
 			var detail =  document.createElement("div"); stgLbl.appendChild(detail);
@@ -235,7 +252,7 @@ function registerPage()
 	{
 		if (!this.checked) return; //如果并不是自身被选中，那么就没反应
 		var _stgName = this.value;
-		var thisStage = config.stageList.filter(function(stg){return stg.name == _stgName;})[0]
+		var thisStage = stageList.filter(function(stg){return stg.name == _stgName;})[0]
 		if (thisStage == undefined)
 		{
 			alert("😱数据库里没有这个地下城");
@@ -299,7 +316,7 @@ function registerPage()
 	var chkStgLst = document.createElement("input");btnBox.appendChild(chkStgLst);
 	chkStgLst.type = "button";
 	chkStgLst.id = chkUpt.className = "check-stage-list";
-	chkStgLst.value = "获取完整地下城数据（极慢，每次出新图更新一次）";
+	chkStgLst.value = "获取完整地下城数据";
 	chkStgLst.onclick = checkAllStageList;
 
 	var ioCfg = document.createElement("input");btnBox.appendChild(ioCfg);
@@ -310,7 +327,8 @@ function registerPage()
 		var dlg = ioConfigDialog();
 		document.body.appendChild(dlg);
 		dlg.classList.remove("display-none");
-		dlg.txt.value = JSON.stringify(config);
+		dlg.configText.value = JSON.stringify(config);
+		dlg.stageListText.value = JSON.stringify(stageList);
 	};
 
 	//收藏按钮
@@ -485,16 +503,16 @@ function checkAllStageList(resetAll = false)
 	function dealStageList(response)
 	{
 		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
-		if (resetAll) config.stageList.length = 0; //先清空
+		if (resetAll) stageList.length = 0; //先清空
 		//所有地下城表格
 		var stageTd = PageDOM.querySelector("#wrapper>table:nth-of-type(3) td");
-		var stages = stageTd.getElementsByClassName("stage");
+		var stages = stageTd.getElementsByClassName("tooltip"); //获取所有的链接
 
 
 		//检查是否已经存在，否则添加新的
 		function checkExistAdd(newStage,resetAll = false)
 		{
-			var oldStage = config.stageList.filter(function(item){ //查找以前有没有这个地图
+			var oldStage = stageList.filter(function(item){ //查找以前有没有这个地图
 				return item.name == link.title;
 			})[0];
 			if (!resetAll && oldStage != undefined)
@@ -511,7 +529,7 @@ function checkAllStageList(resetAll = false)
 		//所有地下城
 		for (var si=1,si_l=stages.length;si<si_l;si++)
 		{
-			var link = stages[si].querySelector("a");
+			var link = stages[si];
 			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
 			{
 				imgUrl = link.querySelector("img").getAttribute("data-original");
@@ -519,13 +537,12 @@ function checkAllStageList(resetAll = false)
 			}
 		}
 		//▼添加暂时没有的特殊图
-		checkExistAdd(new mainStage("光の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3838_zpsognjozvw.png"),resetAll);
-		checkExistAdd(new mainStage("闇の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3839_zpsinupxf0j.png"),resetAll);
+		//checkExistAdd(new mainStage("闇の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3839_zpsinupxf0j.png"),resetAll);
 		//▲添加暂时没有的特殊图
 
-		//var stageArr = config.stageList.slice(398,400); //debug用
+		//var stageArr = stageList.slice(398,400); //debug用
 		getStageDetail(newStages,newStages.length,function(){
-			config.stageList = config.stageList.concat(newStages);
+			stageList = stageList.concat(newStages);
 			console.log("所有地下城获取完毕",config);
 			saveConfig();
 		});
@@ -569,17 +586,22 @@ function multiplayPage()
 
 		var link1 = stageNameCell.querySelector("a");
 		var link2 = stageNameCell.querySelector("a:nth-of-type(2)");
-		var stage1 = config.stageList.filter(function(item){
+		var stage1 = stageList.filter(function(item){
 			return item.name == link1.textContent;
 		})[0];
 		if (stage1 == undefined) //如果发现没有数据的图，跳过
 		{
-			console.error("没有关卡数据",link1.textContent)
+			console.error("没有主关卡数据",link1.textContent)
 			continue;
 		}
 		var stage2 = stage1.subStage.filter(function(item){
 			return item.name == link2.textContent;
 		})[0];
+		if (stage2 == undefined) //如果发现没有数据的图，跳过
+		{
+			console.error("没有子关卡数据",link2.textContent)
+			continue;
+		}
 		//newCell.appendChild(document.createTextNode(stage2.stamina + "体"));
 		//newCell.appendChild(document.createElement("br"));
 		newCell.appendChild(document.createTextNode("协力" + Math.round(stage2.stamina/2) + "体"));
@@ -598,27 +620,43 @@ function ioConfigDialog()
 	box.id = box.className = "io-config-dialog";
 	box.className = "display-none";
 
-	var txt = document.createElement("textarea");box.appendChild(txt);
-	txt.id = txt.className = "config-text";
-	txt.value = "";
-	box.txt = txt;
+	var txtBox = document.createElement("div");box.appendChild(txtBox);
+	var divConfig = document.createElement("div");txtBox.appendChild(divConfig);
+	divConfig.className = "text-box";
+	var lblConfig = document.createElement("label");divConfig.appendChild(lblConfig);
+	lblConfig.appendChild(document.createTextNode("设置："));
+	lblConfig.appendChild(document.createElement("br"));
+	var txtConfig = document.createElement("textarea");lblConfig.appendChild(txtConfig);
+	txtConfig.id = txtConfig.className = "text-config";
+	txtConfig.value = "";
+	box.configText = txtConfig;
+
+	var divStageList = document.createElement("div");txtBox.appendChild(divStageList);
+	divStageList.className = "text-box";
+	var lblStageList = document.createElement("label");divStageList.appendChild(lblStageList);
+	lblStageList.appendChild(document.createTextNode("地下城列表："));
+	lblStageList.appendChild(document.createElement("br"));
+	var txtStageList = document.createElement("textarea");lblStageList.appendChild(txtStageList);
+	txtStageList.id = txtStageList.className = "text-stage-list";
+	txtStageList.value = "";
+	box.stageListText = txtStageList;
 
 	var btnBox = document.createElement("div");box.appendChild(btnBox);
+	btnBox.className = "botton-box";
 	var btnIpt = document.createElement("input");btnBox.appendChild(btnIpt);
 	btnIpt.type = "button";
 	btnIpt.id = btnIpt.className = "input-config";
 	btnIpt.value = "导入设置";
 	btnIpt.onclick = function(){
-		var configStr = txt.value;
-		var saConfig = JSON.parse(configStr);
-		if (typeof(saConfig) == "object")
+		var bk = loadConfig(txtConfig.value,txtStageList.value);
+		if (bk[0] && bk[1])
 		{
-			config = Object.assign(config, saConfig);
 			saveConfig();
 			alert("😄导入成功");
 		}else
 		{
-			alert("😰该配置信息格式不正确");
+			if(!bk[0])alert("😰该设置信息格式不正确");
+			if(!bk[1])alert("😰该地下城列表信息格式不正确");
 		}
 	}
 
