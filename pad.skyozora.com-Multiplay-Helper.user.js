@@ -82,6 +82,27 @@ if(typeof(GM_listValues) == "undefined")
 		return keys;
 	}
 }
+//创建带Label的Input类
+var LabelInput = function(text, classname, name, type, value, title = "", beforeText = true) {
+	var label = document.createElement("label");
+	if (text != undefined) label.appendChild(document.createTextNode(text));
+	label.className = classname;
+	if (typeof(title) != "undefined")
+		label.title = title;
+
+	var ipt = document.createElement("input");
+	ipt.name = name;
+	ipt.id = ipt.name;
+	ipt.type = type;
+	ipt.value = value;
+
+	label.input = ipt;
+	if (beforeText)
+		label.insertBefore(ipt, label.firstChild);
+	else
+		label.appendChild(ipt);
+	return label;
+};
 
 var config={
 	version:1, //储存当前设置结构版本
@@ -137,23 +158,151 @@ if(location.pathname == "/multiplay/register/") //注册页面
 function registerPage()
 {
 	var form = document.querySelector("#wrapper>table:nth-of-type(3) form"); //主要版面的表单
+	form.querySelector("p:nth-last-of-type(1)").remove() //去除最后面那个无用的东西
 	//new Date().getDate()
 	var box = document.createElement("div");form.parentElement.appendChild(box);
 	box.id = box.className = "mlt-helper";
 
-	var chkUpt = document.createElement("input");box.appendChild(chkUpt);
+
+	function typeClick(){refreshStageList1(this.value)};
+
+	var stgBox = document.createElement("div");box.appendChild(stgBox);
+	var stg1Box = document.createElement("div");stgBox.appendChild(stg1Box);
+	stg1Box.className = "stg-box stg-box-1";
+	var stg1Ul = document.createElement("ul");stg1Box.appendChild(stg1Ul);
+	var stg1UlLi1 = document.createElement("li");stg1Ul.appendChild(stg1UlLi1);
+	var stgType1 = new LabelInput("今日地下城", "stg-type","stg-type","radio","0","今天开放的降临地下城与活动地下城");
+	stgType1.input.checked = true;
+	stgType1.input.onclick = typeClick;
+	stg1UlLi1.appendChild(stgType1);
+	var stg1UlLi2 = document.createElement("li");stg1Ul.appendChild(stg1UlLi2);
+	var stgType2 = new LabelInput("我的收藏", "stg-type","stg-type","radio","1","我收藏的地下城");
+	stgType2.input.onclick = typeClick;
+	stg1UlLi2.appendChild(stgType2);
+
+	var stg2Box = document.createElement("div");stgBox.appendChild(stg2Box);
+	stg2Box.className = "stg-box stg-box-2";
+	var stg2Ul = document.createElement("ul");stg2Box.appendChild(stg2Ul);
+
+
+	var msgBox = document.createElement("div");stgBox.appendChild(msgBox);
+	msgBox.className = "stg-box stg-box-3";
+	var msgUl = document.createElement("ul");msgBox.appendChild(msgUl);
+
+
+	//刷新地下城列表类型
+	function refreshStageList1(type)
+	{
+		if (type == undefined)type = 0;
+		console.log(type)
+		for (var ci = stg2Ul.childNodes.length-1;ci>=0;ci--) //清空主图列表
+		{
+			stg2Ul.childNodes[ci].remove();
+		}
+		var stages; //需要处理的数组
+		if (type == 0)
+		{
+			stages = config.todayStage
+		}else if (type == 1)
+		{
+			stages = config.starStage
+		}else
+		{
+			console.error("未知的地下城类型");
+			return;
+		}
+
+		stages.forEach(function(stgName)
+		{
+			var _stgName = stgName;
+			var li = document.createElement("li");stg2Ul.appendChild(li);
+			var stgLbl = new LabelInput(null, "stg-list","stg-list","radio",_stgName,"地下城大关卡：" + _stgName);
+			li.appendChild(stgLbl);
+			stgLbl.input.onclick = refreshStageList2;
+
+			var icon = document.createElement("div"); stgLbl.appendChild(icon);
+			icon.className = "stage-icon";
+			var thisStage = config.stageList.filter(function(stg){return stg.name == _stgName;})[0]
+			if (thisStage) icon.style.backgroundImage = "url(" + thisStage.iconUrl + ")";
+			
+			var detail =  document.createElement("div"); stgLbl.appendChild(detail);
+			detail.className = "stage-detail";
+			detail.appendChild(document.createTextNode(_stgName));
+			
+		})
+	}
+	function refreshStageList2()
+	{
+		if (!this.checked) return; //如果并不是自身被选中，那么就没反应
+		var _stgName = this.value;
+		var thisStage = config.stageList.filter(function(stg){return stg.name == _stgName;})[0]
+		if (thisStage == undefined)
+		{
+			alert("😱数据库里没有这个地下城");
+			return;
+		}
+		/*
+		//添加脚本的地下城类型
+		function checkOptionValue(select,value)
+		{
+			var otps = select.options;
+			for (var oi=0,oi_l = otps.length;oi<oi_l;oi++)
+			{
+				if (otps[oi].value == value)
+				{
+					return oi;
+				}
+			}
+			return -1;
+		}
+		var newTypeName = "脚本选中>>";
+		var typeIdx = checkOptionValue(stage0,newTypeName);
+		if (typeIdx>=0)
+		{
+			stage0.selectedIndex = typeIdx;
+		}else
+		{
+			var opt = new Option(newTypeName, newTypeName);
+			stage0.add(opt);
+			stage0.selectedIndex = stage0.options.length - 1;
+		}
+		*/
+		stage0.selectedIndex = stage0.options.length - 1; //选中“上次登录的关卡”
+
+		while(stage1.options.length>0) //清空原来的主地下城列表
+		{
+			stage1.remove(0);
+		}
+		while(stage2.options.length>0) //清空原来的子地下城列表
+		{
+			stage2.remove(0);
+		}
+
+		var opt = new Option(thisStage.name, thisStage.name);
+		stage1.add(opt);
+		stage1.selectedIndex = stage1.options.length - 1;
+
+		thisStage.subStage.forEach(function(stg){
+			var opt = new Option(stg.name, stg.name);
+			stage2.add(opt);
+		})
+		stage2.selectedIndex = 0;
+	}
+
+	var btnBox = document.createElement("div");box.appendChild(btnBox);
+	var chkUpt = document.createElement("input");btnBox.appendChild(chkUpt);
 	chkUpt.type = "button";
 	chkUpt.id = chkUpt.className = "checkUpdate";
 	chkUpt.value = "检查今日开放关卡";
 	chkUpt.onclick = checkTodayUpdate;
 
-	var chkStgLst = document.createElement("input");box.appendChild(chkStgLst);
+	var chkStgLst = document.createElement("input");btnBox.appendChild(chkStgLst);
 	chkStgLst.type = "button";
 	chkStgLst.id = chkUpt.className = "check-stage-list";
 	chkStgLst.value = "获取完整地下城数据（极慢，每次出新图更新一次）";
 	chkStgLst.onclick = checkAllStageList;
 
-	var ioCfg = document.createElement("input");box.appendChild(ioCfg);
+	var ioCfg = document.createElement("input");btnBox.appendChild(ioCfg);
 	ioCfg.type = "button";
 	ioCfg.id = chkUpt.className = "input-output-config";
 	ioCfg.value = "导入/导出本脚本设置";
@@ -164,7 +313,27 @@ function registerPage()
 		dlg.txt.value = JSON.stringify(config);
 	};
 
+	//收藏按钮
+	var stage0 = form.querySelector("[name=column1]");
+	var stage1 = form.querySelector("#stage");
+	var stage2 = form.querySelector("#stage2"); stage2.onchange = null;
+	var starStg = document.createElement("input");form.insertBefore(starStg,stage2.nextSibling);
+	starStg.type = "button";
+	starStg.id = starStg.className = "star-stage";
+	starStg.value = "收藏该地下城";
+	starStg.onclick = function(){
+		if (config.starStage.indexOf(stage1.value)<0)
+		{
+			config.starStage.push(stage1.value);
+			saveConfig();
+			alert("💗“"+ stage1.value +"”收藏成功");
+		}else
+		{
+			alert("😅“"+ stage1.value +"”已经收藏过了");
+		}
+	};
 
+	refreshStageList1(0); //先刷新地下城吧
 }
 function checkTodayUpdate()
 {
@@ -446,9 +615,10 @@ function ioConfigDialog()
 		{
 			config = Object.assign(config, saConfig);
 			saveConfig();
+			alert("😄导入成功");
 		}else
 		{
-			alert("该配置信息格式不正确");
+			alert("😰该配置信息格式不正确");
 		}
 	}
 
@@ -456,7 +626,7 @@ function ioConfigDialog()
 	btnCls.type = "button";
 	btnCls.id = btnCls.className = "close-dialog";
 	btnCls.value = "关闭";
-	btnCls.onclick = function(){box.classList.add("box");}
+	btnCls.onclick = function(){box.classList.add("display-none");}
 
 	return box;
 }
