@@ -9,6 +9,10 @@
   {
     margin-bottom: 5px;
   }
+  .main-stg-box
+  {
+    height:200px;
+  }
   .stg-box
   {
     display:inline-block;
@@ -19,10 +23,12 @@
     box-sizing: border-box;
     border-radius: 4px;
     margin-right: 5px;
+    float:left;
   }
   .stg-box-1
   {
     width: 100px;
+    background: #226;
   }
   .stg-box-2
   {
@@ -31,6 +37,17 @@
   .msg-box
   {
     width: 250px;
+  }
+  .msg-box-control
+  {
+    float:left;
+    width: 25px;
+  }
+  .msg-box-control input
+  {
+    width: 25px;
+    height: 25px;
+    box-sizing: border-box;
   }
   .stg-box ul
   {
