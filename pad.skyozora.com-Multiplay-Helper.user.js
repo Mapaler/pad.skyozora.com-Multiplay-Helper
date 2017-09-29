@@ -6,7 +6,7 @@
 // @description:zh-CN	智龙迷城战友系统及资讯网，协力页面，显示体力，登陆页面可快速添加今日地图
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
-// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v1
+// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v3
 // @version     1.0.0
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
@@ -131,12 +131,10 @@ var stageTestReg = "^/?s(?:tage)?/"; //用来测试href是不是地下城的
 
 if(typeof(GM_getResourceText) != "undefined") //用了GM插件
 {
-	try{
-		var styleDom = document.createElement("style");
-		styleDom.type = "text/css";
-		styleDom.appendChild(document.createTextNode(GM_getResourceText('style')));
-		document.head.appendChild(styleDom);
-	}catch(e){console.log(e)}
+	var styleDom = document.createElement("style");
+	styleDom.type = "text/css";
+	styleDom.appendChild(document.createTextNode(GM_getResourceText('style')));
+	document.head.appendChild(styleDom);
 }
 
 if (GM_getValue("helper-config")==undefined)
