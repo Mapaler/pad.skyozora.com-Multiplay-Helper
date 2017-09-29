@@ -4,7 +4,7 @@
 [智龙迷城战友系统及资讯网 pad.skyozora.com](http://pad.skyozora.com/)
 
 协力列表页面添加体力显示，登陆房间页面，可以快速添加指定的地下城和短语  
-![预览图](http://wx2.sinaimg.cn/large/6c84b2d6gy1fk101hkty0j20n80u7abe.jpg)
+![预览图](https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/images/preview.png)
 
 ## 使用方法
 1. 安装用户脚本扩展，用于安装 EhTagBuilder，从翻译数据库生成 CSS。
@@ -13,7 +13,7 @@
 2. 到 Greasy Fork [安装 "EhTagBuilder" 脚本](https://greasyfork.org/scripts/33628)，油猴可以自动更新脚本。  
    也可以直接在本项目直接访问源码安装。
 3. 点击“导入/导出设置&地下城列表”按钮，并在弹出框内地下城列表输入[地下城列表数据](https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/stage-list.json)文件内的所有文本，并导入。  
-   ![导入设置](http://wx1.sinaimg.cn/small/6c84b2d6gy1fk109xwfbhj20k60b43yq.jpg)  
+   ![导入设置](https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/images/ioconfig.png)  
    （如果不做这一步，也可以自行“获取完整地下城数据”，但是这个过程极其缓慢）  
 4. 点击“检查今日开放地下城”，获取今天开放的地下城。
 5. 进入[登陆房间页面](http://pad.skyozora.com/multiplay/register/)享受便捷。
