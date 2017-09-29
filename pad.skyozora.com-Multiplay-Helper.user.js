@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.1
+// @version     1.0.2
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -179,7 +179,7 @@ function loadConfig(configStr,stageListStr,reset = false)
 		bk[0] = false;
 	}
 	if (typeof(saStageList) == "object")
-		stageList = saStageList;
+		stageList = saStageList.concat();
 	else
 	{
 		console.error("完整地下城数据丢失，使用空配置");
@@ -189,7 +189,7 @@ function loadConfig(configStr,stageListStr,reset = false)
 }
 function saveConfig(type)
 {
-	if (type == undefined) type == 255;
+	if (type == undefined) type = 255;
 	if (1 == (type & 1))
 	{
 		var configStr = JSON.stringify(config);
