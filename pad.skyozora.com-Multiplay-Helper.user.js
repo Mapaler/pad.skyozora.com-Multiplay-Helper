@@ -140,6 +140,7 @@ if(typeof(GM_getResourceText) != "undefined") //用了GM插件
 if (GM_getValue("helper-config")==undefined)
 {
 	saveConfig();
+	alert("💗欢迎使用！\n请先导入地下城列表数据\n然后检查今日开放地下城。");
 	console.log("配置不存在，储存默认配置");
 }else
 {
@@ -478,7 +479,7 @@ function registerPage()
 	var ioCfg = document.createElement("input");btnBox2.appendChild(ioCfg);
 	ioCfg.type = "button";
 	ioCfg.id = chkUpt.className = "input-output-config";
-	ioCfg.value = "导入/导出本脚本设置";
+	ioCfg.value = "导入/导出设置&地下城列表";
 	ioCfg.onclick = function(){
 		var dlg = ioConfigDialog();
 		document.body.appendChild(dlg);
