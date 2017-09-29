@@ -10,7 +10,8 @@
 
 
 //仿GM_xmlhttpRequest函数v1.3
-if (typeof(GM_xmlhttpRequest) == "undefined") {
+if (typeof(GM_xmlhttpRequest) == "undefined")
+{
     var GM_xmlhttpRequest = function(GM_param) {
 
         var xhr = new XMLHttpRequest(); //创建XMLHttpRequest对象
@@ -86,6 +87,7 @@ var config={
 	version:1, //储存当前设置结构版本
 	updateDate:0, //储存今日开放地图上次更新时间
 	todayStage:[], //储存当前开放的地图
+	starStage:[], //储存收藏的地图
 	stageList:[], //储存全部地图的数据
 }
 var stageTestReg = "^/?s(?:tage)?/"; //用来测试href是不是地下城的
@@ -105,6 +107,9 @@ function loadConfig()
 	var saConfig = JSON.parse(configStr);
 	if (typeof(saConfig) == "object")
 		config = Object.assign(config, saConfig);
+	else
+		console.error("配置损坏，使用默认配置");
+	
 	var now = new Date();var last = new Date(config.updateDate);
 	if (now > last && now.getDate() != last.getDate())
 	{
@@ -117,7 +122,7 @@ function loadConfig()
 function saveConfig()
 {
 	var configStr = JSON.stringify(config);
-	GM_setValue("helper-config", configStr); //下载方案
+	GM_setValue("helper-config", configStr);
 }
 
 
@@ -134,7 +139,7 @@ function registerPage()
 	var form = document.querySelector("#wrapper>table:nth-of-type(3) form"); //主要版面的表单
 	//new Date().getDate()
 	var box = document.createElement("div");form.parentElement.appendChild(box);
-	box.id = "helper";
+	box.id = box.className = "mlt-helper";
 
 	var chkUpt = document.createElement("input");box.appendChild(chkUpt);
 	chkUpt.type = "button";
@@ -152,7 +157,14 @@ function registerPage()
 	ioCfg.type = "button";
 	ioCfg.id = chkUpt.className = "input-output-config";
 	ioCfg.value = "导入/导出本脚本设置";
-	ioCfg.onclick = null;
+	ioCfg.onclick = function(){
+		var dlg = ioConfigDialog();
+		document.body.appendChild(dlg);
+		dlg.classList.remove("display-none");
+		dlg.txt.value = JSON.stringify(config);
+	};
+
+
 }
 function checkTodayUpdate()
 {
@@ -290,7 +302,7 @@ function mainStage(name,iconUrl)
 	}
 	return obj;
 }
-function checkAllStageList()
+function checkAllStageList(resetAll = false)
 {
 	GM_xmlhttpRequest({
 		method: "GET",
@@ -304,10 +316,29 @@ function checkAllStageList()
 	function dealStageList(response)
 	{
 		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
-		//config.stageList.length = 0; //先清空
+		if (resetAll) config.stageList.length = 0; //先清空
 		//所有地下城表格
 		var stageTd = PageDOM.querySelector("#wrapper>table:nth-of-type(3) td");
 		var stages = stageTd.getElementsByClassName("stage");
+
+
+		//检查是否已经存在，否则添加新的
+		function checkExistAdd(newStage,resetAll = false)
+		{
+			var oldStage = config.stageList.filter(function(item){ //查找以前有没有这个地图
+				return item.name == link.title;
+			})[0];
+			if (!resetAll && oldStage != undefined)
+			{
+				oldStage.name = newStage.name;
+				oldStage.iconUrl = newStage.iconUrl;
+			}else
+			{ //没有就添加新的
+				newStages.push(newStage);
+			}
+		}
+
+		var newStages = [];
 		//所有地下城
 		for (var si=1,si_l=stages.length;si<si_l;si++)
 		{
@@ -315,33 +346,17 @@ function checkAllStageList()
 			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
 			{
 				imgUrl = link.querySelector("img").getAttribute("data-original");
-				var stage = config.stageList.filter(function(item){ //查找以前有没有这个地图
-					return item.name == link.title;
-				})[0];
-				if (stage != undefined)
-				{
-					stage.name = link.title;
-					stage.iconUrl = imgUrl;
-				}else
-				{ //没有就添加新的
-					var stage = new mainStage(link.title,imgUrl);
-					config.stageList.push(stage);
-				}
-				
+				checkExistAdd(new mainStage(link.title,imgUrl),resetAll);
 			}
 		}
-		/*
-		 * ▼添加暂时没有的特殊图
-		 */
-		config.stageList.push(new mainStage("光の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3838_zpsognjozvw.png"));
-		config.stageList.push(new mainStage("闇の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3839_zpsinupxf0j.png"));
-		/*
-		 * ▲添加暂时没有的特殊图
-		 */
+		//▼添加暂时没有的特殊图
+		checkExistAdd(new mainStage("光の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3838_zpsognjozvw.png"),resetAll);
+		checkExistAdd(new mainStage("闇の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3839_zpsinupxf0j.png"),resetAll);
+		//▲添加暂时没有的特殊图
 
-		var stageArr = config.stageList;
 		//var stageArr = config.stageList.slice(398,400); //debug用
-		getStageDetail(stageArr,stageArr.length,function(){
+		getStageDetail(newStages,newStages.length,function(){
+			config.stageList = config.stageList.concat(newStages);
 			console.log("所有地下城获取完毕",config);
 			saveConfig();
 		});
@@ -402,4 +417,46 @@ function multiplayPage()
 		newCell.appendChild(document.createElement("br"));
 		newCell.appendChild(document.createTextNode(stage2.battles + "层"));
 	}
+}
+
+
+function ioConfigDialog()
+{
+	var box = document.querySelector("#io-config-dialog");
+	if (box != undefined) return box;
+
+	var box = document.createElement("div");
+	box.id = box.className = "io-config-dialog";
+	box.className = "display-none";
+
+	var txt = document.createElement("textarea");box.appendChild(txt);
+	txt.id = txt.className = "config-text";
+	txt.value = "";
+	box.txt = txt;
+
+	var btnBox = document.createElement("div");box.appendChild(btnBox);
+	var btnIpt = document.createElement("input");btnBox.appendChild(btnIpt);
+	btnIpt.type = "button";
+	btnIpt.id = btnIpt.className = "input-config";
+	btnIpt.value = "导入设置";
+	btnIpt.onclick = function(){
+		var configStr = txt.value;
+		var saConfig = JSON.parse(configStr);
+		if (typeof(saConfig) == "object")
+		{
+			config = Object.assign(config, saConfig);
+			saveConfig();
+		}else
+		{
+			alert("该配置信息格式不正确");
+		}
+	}
+
+	var btnCls = document.createElement("input");btnBox.appendChild(btnCls);
+	btnCls.type = "button";
+	btnCls.id = btnCls.className = "close-dialog";
+	btnCls.value = "关闭";
+	btnCls.onclick = function(){box.classList.add("box");}
+
+	return box;
 }
