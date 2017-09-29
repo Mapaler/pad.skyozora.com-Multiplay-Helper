@@ -145,8 +145,6 @@ function loadConfig(configStr,stageListStr)
 		console.error("配置损坏，使用默认配置");
 		bk[0] = false;
 	}
-		
-	
 	if (typeof(saStageList) == "object")
 		stageList = saStageList;
 	else
