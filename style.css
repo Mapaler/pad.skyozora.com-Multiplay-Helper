@@ -9,6 +9,10 @@
   {
     margin-bottom: 5px;
   }
+  #mlt-helper input
+  {
+    color: #fff;
+  }
   .main-stg-box
   {
     height:200px;
@@ -28,7 +32,7 @@
   .stg-box-1
   {
     width: 100px;
-    background: #226;
+    background: #223;
   }
   .stg-box-2
   {
@@ -37,6 +41,7 @@
   .msg-box
   {
     width: 250px;
+    background: #555;
   }
   .msg-box-control
   {

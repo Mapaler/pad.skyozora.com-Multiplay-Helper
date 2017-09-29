@@ -1,11 +1,15 @@
 // ==UserScript==
 // @name        pad.skyozora.com-Multiplay-Helper
+// @name:zh-CN	智龙迷城战友系统及资讯网协力页面辅助器 
 // @namespace   http://www.mapaler.com/
-// @description show体力
+// @description show stamina and fast add stage
+// @description:zh-CN	智龙迷城战友系统及资讯网，协力页面，显示体力，登陆页面可快速添加今日地图
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
+// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v1
 // @version     1.0.0
-// @grant       none
+// @copyright	2017+, Mapaler <mapaler@163.com>
+// @grant       GM_getResourceText
 // ==/UserScript==
 
 
@@ -125,6 +129,16 @@ var stageList=[]; //储存全部地图的数据
 
 var stageTestReg = "^/?s(?:tage)?/"; //用来测试href是不是地下城的
 
+if(typeof(GM_getResourceText) != "undefined") //用了GM插件
+{
+	try{
+		var styleDom = document.createElement("style");
+		styleDom.type = "text/css";
+		styleDom.appendChild(document.createTextNode(GM_getResourceText('style')));
+		document.head.appendChild(styleDom);
+	}catch(e){console.log(e)}
+}
+
 if (GM_getValue("helper-config")==undefined)
 {
 	saveConfig();
@@ -132,7 +146,7 @@ if (GM_getValue("helper-config")==undefined)
 }else
 {
 	loadConfig(GM_getValue("helper-config"),GM_getValue("helper-stage-list"));
-	console.log("配置存在",config);
+	//console.log("配置存在",config);
 
 	var now = new Date();var last = new Date(config.updateDate);
 	if (now > last && now.getDate() != last.getDate())
