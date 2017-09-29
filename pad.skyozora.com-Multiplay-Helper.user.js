@@ -257,6 +257,8 @@ function mainStage(name,iconUrl)
 				var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
 				var subStageList = PageDOM.querySelector("#wrapper>table:nth-of-type(3) ul"); //子关卡的列表ul
 				var subStage = subStageList.getElementsByTagName("li"); //所有的li
+
+				obj.subStage.length = 0; //去掉所有的旧数据
 				for (var si=0;si<subStage.length;si++)
 				{
 					var link = subStage[si].querySelector("div a"); //图标链接
@@ -302,7 +304,7 @@ function checkAllStageList()
 	function dealStageList(response)
 	{
 		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
-		config.stageList.length = 0; //先清空
+		//config.stageList.length = 0; //先清空
 		//所有地下城表格
 		var stageTd = PageDOM.querySelector("#wrapper>table:nth-of-type(3) td");
 		var stages = stageTd.getElementsByClassName("stage");
@@ -313,10 +315,30 @@ function checkAllStageList()
 			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
 			{
 				imgUrl = link.querySelector("img").getAttribute("data-original");
-				var stage = new mainStage(link.title,imgUrl);
-				config.stageList.push(stage);
+				var stage = config.stageList.filter(function(item){ //查找以前有没有这个地图
+					return item.name == link.title;
+				})[0];
+				if (stage != undefined)
+				{
+					stage.name = link.title;
+					stage.iconUrl = imgUrl;
+				}else
+				{ //没有就添加新的
+					var stage = new mainStage(link.title,imgUrl);
+					config.stageList.push(stage);
+				}
+				
 			}
 		}
+		/*
+		 * ▼添加暂时没有的特殊图
+		 */
+		config.stageList.push(new mainStage("光の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3838_zpsognjozvw.png"));
+		config.stageList.push(new mainStage("闇の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3839_zpsinupxf0j.png"));
+		/*
+		 * ▲添加暂时没有的特殊图
+		 */
+
 		var stageArr = config.stageList;
 		//var stageArr = config.stageList.slice(398,400); //debug用
 		getStageDetail(stageArr,stageArr.length,function(){
@@ -358,16 +380,22 @@ function multiplayPage()
 	table.rows[0].cells[0].colSpan += 1; //标题添加一格合并
 	for (var ri=1;ri<table.rows.length;ri++)
 	{
+		var newCell = table.rows[ri].insertCell(2); //添加新格
 		var stageNameCell = table.rows[ri].cells[1]; //获取名字的格
+
 		var link1 = stageNameCell.querySelector("a");
 		var link2 = stageNameCell.querySelector("a:nth-of-type(2)");
 		var stage1 = config.stageList.filter(function(item){
 			return item.name == link1.textContent;
 		})[0];
+		if (stage1 == undefined) //如果发现没有数据的图，跳过
+		{
+			console.error("没有关卡数据",link1.textContent)
+			continue;
+		}
 		var stage2 = stage1.subStage.filter(function(item){
 			return item.name == link2.textContent;
 		})[0];
-		var newCell = table.rows[ri].insertCell(2);
 		//newCell.appendChild(document.createTextNode(stage2.stamina + "体"));
 		//newCell.appendChild(document.createElement("br"));
 		newCell.appendChild(document.createTextNode("协力" + Math.round(stage2.stamina/2) + "体"));
