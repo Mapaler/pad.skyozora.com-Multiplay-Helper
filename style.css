@@ -1,0 +1,43 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@-moz-document url("http://pad.skyozora.com/multiplay/register/") {
+  .display-none
+	{/*任何需要隐藏的*/
+		display:none !important;
+	}
+  .stg-box
+  {
+    display:inline-block;
+    height:200px;
+    background: #222;
+    border: 1px solid red;
+    overflow: auto;
+  }
+  .stg-box-1
+  {
+    width: 100px;
+  }
+  .stg-box-2
+  {
+    width: 300px;
+  }
+  .stg-box ul
+  {
+    list-style: none;
+    padding: 0;
+  }
+  .stage-icon
+  {
+    width:32px;
+    height:32px;
+    background-size: contain;
+  }
+  .stage-icon,.stage-detail
+  {
+    margin-top: 0;
+    height:32px;
+    display:inline-block;
+    line-height: 32px;
+    vertical-align: middle;
+  }
+}
