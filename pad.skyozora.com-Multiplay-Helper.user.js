@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.3
+// @version     1.0.4
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -126,7 +126,7 @@ var config={
 	message:[],
 };
 var stageList=[]; //储存全部地图的数据
-
+var mobile = false; //是否为手机版
 var stageTestReg = "^/?s(?:tage)?/"; //用来测试href是不是地下城的
 
 if(typeof(GM_getResourceText) != "undefined") //用了GM插件
@@ -733,18 +733,42 @@ function checkAllStageList(resetAll = false)
 function multiplayPage()
 {
 	var table = document.querySelector("#wrapper>table:nth-of-type(3) table"); //协力请求表格
+	if (table == undefined) //如果没找到，试试手机版
+	{
+		table = document.querySelector(".content>table");
+		if (table!=undefined)
+		{
+			mobile = true;
+		}else
+		{
+			alert("😰未找到协力列表");
+		}
+	}
+	var cellMaxLength = 0;
+	for (var ci=0;ci<table.rows[0].cells.length;ci++)
+	{
+		cellMaxLength += table.rows[0].cells[ci].colSpan; //计算宽度
+	}
 	for (var ri=table.rows.length-1;ri>0;ri--)
 	{
-		if (table.rows[ri].cells.length<2)
+		if (table.rows[ri].cells[0].colSpan >= cellMaxLength)
 		{
 			table.rows[ri].remove(); //去除广告
 		}
 	}
-	table.rows[0].cells[0].colSpan += 1; //标题添加一格合并
-	for (var ri=1;ri<table.rows.length;ri++)
+	if (!mobile) table.rows[0].cells[0].colSpan += 1; //标题添加一格合并
+	for (var ri=(mobile?0:1);ri<table.rows.length;(mobile?ri+=nextRow+1:ri++))
 	{
-		var newCell = table.rows[ri].insertCell(2); //添加新格
 		var stageNameCell = table.rows[ri].cells[1]; //获取名字的格
+		if (mobile)
+		{
+			var nextRow = table.rows[ri].cells[0].rowSpan++; //增加一跨行
+			var newRow = table.insertRow(ri+nextRow);
+			var newCell = newRow.insertCell(0); //添加新格
+		}else
+		{
+			var newCell = table.rows[ri].insertCell(2); //添加新格
+		}
 
 		var link1 = stageNameCell.querySelector("a");
 		var link2 = stageNameCell.querySelector("a:nth-of-type(2)");
@@ -767,7 +791,7 @@ function multiplayPage()
 		//newCell.appendChild(document.createTextNode(stage2.stamina + "体"));
 		//newCell.appendChild(document.createElement("br"));
 		newCell.appendChild(document.createTextNode("协力" + Math.round(stage2.stamina/2) + "体"));
-		newCell.appendChild(document.createElement("br"));
+		if (!mobile) newCell.appendChild(document.createElement("br")); else newCell.appendChild(document.createTextNode("，"));
 		newCell.appendChild(document.createTextNode(stage2.battles + "层"));
 	}
 }
