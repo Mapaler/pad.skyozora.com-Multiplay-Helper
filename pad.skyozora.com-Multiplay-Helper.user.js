@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.2
+// @version     1.0.3
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -162,9 +162,11 @@ function loadConfig(configStr,stageListStr,reset = false)
 {
 	var bk = [true,true];
 	var saConfig = JSON.parse(configStr);
+	console.log(saConfig)
 	var saStageList = JSON.parse(stageListStr);
+	console.log(saStageList)
 
-	if (typeof(saConfig) == "object")
+	if (saConfig != null && typeof(saConfig) == "object")
 	{
 		if (reset)
 		{
@@ -178,7 +180,8 @@ function loadConfig(configStr,stageListStr,reset = false)
 		console.error("配置损坏，使用默认配置");
 		bk[0] = false;
 	}
-	if (typeof(saStageList) == "object")
+	console.log(typeof(saStageList),saStageList)
+	if (saStageList != null && typeof(saStageList) == "object")
 		stageList = saStageList.concat();
 	else
 	{
