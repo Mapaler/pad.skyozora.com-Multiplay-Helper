@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.4
+// @version     1.0.5
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -137,7 +137,7 @@ if(typeof(GM_getResourceText) != "undefined") //用了GM插件
 	document.head.appendChild(styleDom);
 }
 
-if (GM_getValue("helper-config")==undefined)
+if (GM_getValue("helper-config") == undefined && location.pathname == "/multiplay/register/")
 {
 	saveConfig();
 	alert("💗欢迎使用！\n请先导入地下城列表数据\n然后检查今日开放地下城。");
@@ -151,7 +151,7 @@ if (GM_getValue("helper-config")==undefined)
 	if (now > last && now.getDate() != last.getDate())
 	{
 		console.log("今天的开放地图还没检查");
-		alert("💗又是新的一天了！\n请检查今天开放的地下城。");
+		if(location.pathname == "/multiplay/register/") alert("💗又是新的一天了！\n请检查今天开放的地下城。");
 		config.todayStage.length = 0; //清空昨天的
 	}else
 	{
@@ -524,10 +524,13 @@ function checkTodayUpdate(callback)
 	function dealMainPage(response)
 	{
 		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
-		config.todayStage.length = 0; //先清空
 		//紧急活动地下城表格
 		var JinJiEvent = PageDOM.querySelector("#container>.item:nth-of-type(1)>table:nth-of-type(2)");
 		//今天的降临
+		if (JinJiEvent.rows[2] == undefined || JinJiEvent.rows[2].cells[1] == undefined) {alert("😅未发现今日数据，是不是主页格式有问题？"); return;}
+		
+		config.todayStage.length = 0; //先清空
+
 		var JiangLin = JinJiEvent.rows[2].cells[1].getElementsByTagName("a");
 		for (var ai=0;ai<JiangLin.length;ai++)
 		{
@@ -570,6 +573,7 @@ function checkTodayUpdate(callback)
 				if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) //是场景
 					&& !/coin\.png/igm.test(imgs[ii].getAttribute("src")) //不是金币地下城
 					&& !/一次通關限定/igm.test(typeStr) //不是一次通关限定
+					&& !/排名地下城/igm.test(typeStr) //不是排名地下城
 					&& !/每天一場/igm.test(typeStr) //不是每天一场限定
 					&& !/後開始/igm.test(endTime) //不是还没有开始的
 				)
