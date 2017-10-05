@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.5
+// @version     1.0.6
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -768,6 +768,7 @@ function multiplayPage()
 		{
 			var nextRow = table.rows[ri].cells[0].rowSpan++; //增加一跨行
 			var newRow = table.insertRow(ri+nextRow);
+			newRow.bgColor = table.rows[ri].bgColor;
 			var newCell = newRow.insertCell(0); //添加新格
 		}else
 		{
