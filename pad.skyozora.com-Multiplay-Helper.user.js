@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.6
+// @version     1.0.7
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -116,7 +116,20 @@ function log(str) //在信息框显示内容的
 	}
 	infoBox.appendChild(document.createTextNode(str));
 }
-
+//得到标准时区的时间的函数
+function getLocalTime(i)
+{
+	//参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
+	if (typeof i !== 'number') return;
+	var d = new Date();
+	//得到1970年一月一日到现在的秒数
+	var len = d.getTime();
+	//本地时间与GMT时间的时间偏移差
+	var offset = d.getTimezoneOffset() * 60000;
+	//得到现在的格林尼治时间
+	var utcTime = len + offset;
+	return new Date(utcTime + 3600000 * i);
+}
 
 var config={
 	version:1, //储存当前设置结构版本
@@ -147,7 +160,7 @@ if (GM_getValue("helper-config") == undefined && location.pathname == "/multipla
 	loadConfig(GM_getValue("helper-config"),GM_getValue("helper-stage-list"));
 	//console.log("配置存在",config);
 
-	var now = new Date();var last = new Date(config.updateDate);
+	var now = getLocalTime(9);var last = new Date(config.updateDate);
 	if (now > last && now.getDate() != last.getDate())
 	{
 		console.log("今天的开放地图还没检查");
@@ -218,7 +231,6 @@ function registerPage()
 {
 	var form = document.querySelector("#wrapper>table:nth-of-type(3) form"); //主要版面的表单
 	form.querySelector("p:nth-last-of-type(1)").remove() //去除最后面那个无用的东西
-	//new Date().getDate()
 	var box = document.createElement("div");form.parentElement.appendChild(box);
 	box.id = box.className = "mlt-helper";
 
@@ -582,7 +594,7 @@ function checkTodayUpdate(callback)
 				}
 			}
 		}
-		config.updateDate = new Date().getTime();
+		config.updateDate = getLocalTime(9).getTime();
 		log("今日有" + config.todayStage.length + "个地下城");
 		//console.log("今日地下城获取完毕",config);
 		callback();
