@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.7
+// @version     1.0.8
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -134,7 +134,12 @@ function getLocalTime(i)
 var config={
 	version:1, //储存当前设置结构版本
 	updateDate:0, //储存今日开放地图上次更新时间
-	todayStage:[], //储存当前开放的地图
+	todayStage:[
+		{name:"每日降临",detail:"每天都会更换一次的降临神，保持24小时。",stages:[]},
+		{name:"紧急降临",detail:"每天分组出现的紧急本，每个组一小时。",stages:[]},
+		{name:"耀日本",detail:"每周分星期几固定出现的本",stages:[]},
+		{name:"活动本",detail:"各种活动的本",stages:[]}
+	], //储存当前开放的地图
 	starStage:[], //储存收藏的地图
 	message:[],
 };
@@ -175,9 +180,9 @@ function loadConfig(configStr,stageListStr,reset = false)
 {
 	var bk = [true,true];
 	var saConfig = JSON.parse(configStr);
-	console.log(saConfig)
+	console.log("设置",saConfig)
 	var saStageList = JSON.parse(stageListStr);
-	console.log(saStageList)
+	console.log("地图数据",saStageList)
 
 	if (saConfig != null && typeof(saConfig) == "object")
 	{
@@ -193,7 +198,6 @@ function loadConfig(configStr,stageListStr,reset = false)
 		console.error("配置损坏，使用默认配置");
 		bk[0] = false;
 	}
-	console.log(typeof(saStageList),saStageList)
 	if (saStageList != null && typeof(saStageList) == "object")
 		stageList = saStageList.concat();
 	else
@@ -243,13 +247,19 @@ function registerPage()
 	var stg1Box = document.createElement("div");stgBox.appendChild(stg1Box);
 	stg1Box.className = "stg-box stg-box-1";
 	var stg1Ul = document.createElement("ul");stg1Box.appendChild(stg1Ul);
-	var stg1UlLi1 = document.createElement("li");stg1Ul.appendChild(stg1UlLi1);
-	var stgType1 = new LabelInput("今日地下城", "stg-type","stg-type","radio","0","今天开放的降临地下城与活动地下城");
-	stgType1.input.checked = true;
-	stgType1.input.onclick = typeClick;
-	stg1UlLi1.appendChild(stgType1);
+
+	//添加每日类型
+	config.todayStage.forEach(function(stgs,index){
+		var stg1UlLi1 = document.createElement("li");stg1Ul.appendChild(stg1UlLi1);
+		var stgType1 = new LabelInput(stgs.name, "stg-type","stg-type","radio",index,stgs.name.detail);
+		if (index == 0) stgType1.input.checked = true;
+		stgType1.input.onclick = typeClick;
+		stg1UlLi1.appendChild(stgType1);
+	})
+
+
 	var stg1UlLi2 = document.createElement("li");stg1Ul.appendChild(stg1UlLi2);
-	var stgType2 = new LabelInput("我的收藏", "stg-type","stg-type","radio","1","我收藏的地下城");
+	var stgType2 = new LabelInput("我的收藏", "stg-type","stg-type","radio",100,"我收藏的地下城");
 	stgType2.input.onclick = typeClick;
 	stg1UlLi2.appendChild(stgType2);
 
@@ -311,15 +321,15 @@ function registerPage()
 			stg2Ul.childNodes[ci].remove();
 		}
 		var stages; //需要处理的数组
-		if (type == 0)
+		if (type == 100)
 		{
-			stages = config.todayStage
-		}else if (type == 1)
+			stages = config.starStage;
+		}else if (type >=0 )
 		{
-			stages = config.starStage
+			stages = config.todayStage[type].stages;
 		}else
 		{
-			console.error("未知的地下城类型");
+			console.error("未知的地下城类型",type,stages);
 			return;
 		}
 
@@ -544,27 +554,48 @@ function checkTodayUpdate(callback)
 		config.todayStage.length = 0; //先清空
 
 		var JiangLin = JinJiEvent.rows[2].cells[1].getElementsByTagName("a");
+		var stgs1 = {name:"每日降临",detail:"每天都会更换一次的降临神，保持24小时。",stages:[]};
 		for (var ai=0;ai<JiangLin.length;ai++)
 		{
 			var link = JiangLin[ai];
-			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
+			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) && stgs1.stages.indexOf(link.title)<0)
 			{
-				config.todayStage.push(link.title);
+				stgs1.stages.push(link.title);
 			}
 		}
+		config.todayStage.push(stgs1);
 		//今天的紧急
+		var stgs2 = {name:"紧急降临",detail:"每天分组出现的紧急本，每个组一小时。",stages:[]};
 		for (var ri=1;ri<JinJiEvent.rows[2].cells[0].rowSpan;ri++)
 		{
 			var link = JinJiEvent.rows[2+ri].cells[0].querySelector("a");
-			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
+			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) && stgs2.stages.indexOf(link.title)<0)
 			{
-				config.todayStage.push(link.title);
+				stgs2.stages.push(link.title);
 			}
 		}
+		config.todayStage.push(stgs2);
 	
 		//长期活动地下城表格
+		//第一行周回本
 		var ChangQiEvent = PageDOM.querySelector("#container>.item:nth-of-type(2)>table:nth-of-type(2)");
-		for (var ri=1;ri<ChangQiEvent.rows.length;ri++)
+		var stgs3 = {name:"耀日本",detail:"每周分星期几固定出现的本",stages:[]};
+		var imgs = ChangQiEvent.rows[1].getElementsByTagName("img");
+		for (var ii=0;ii<imgs.length;ii++)
+		{
+			var link = imgs[ii].parentElement;
+			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) //是场景
+				&& stgs3.stages.indexOf(link.title)<0
+			)
+			{
+				stgs3.stages.push(link.title);
+			}
+		}
+		config.todayStage.push(stgs3);
+
+		//后面的活动
+		var stgs4 = {name:"长期活动",detail:"各种活动的本",stages:[]};
+		for (var ri=4;ri<ChangQiEvent.rows.length;ri++)
 		{
 			var imgs = ChangQiEvent.rows[ri].getElementsByTagName("img");
 			var typeStr = ""; //储存地下城类型说明
@@ -588,14 +619,17 @@ function checkTodayUpdate(callback)
 					&& !/排名地下城/igm.test(typeStr) //不是排名地下城
 					&& !/每天一場/igm.test(typeStr) //不是每天一场限定
 					&& !/後開始/igm.test(endTime) //不是还没有开始的
+					&& stgs4.stages.indexOf(link.title)<0
 				)
 				{
-					config.todayStage.push(link.title);
+					stgs4.stages.push(link.title);
 				}
 			}
 		}
+		config.todayStage.push(stgs4);
+
 		config.updateDate = getLocalTime(9).getTime();
-		log("今日有" + config.todayStage.length + "个地下城");
+		log("今日有" + config.todayStage.reduce(function(previous, current){return previous + current.stages.length},0) + "个地下城");
 		//console.log("今日地下城获取完毕",config);
 		callback();
 	}
