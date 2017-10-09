@@ -12,12 +12,12 @@
 }
 .main-stg-box
 {
-  height:200px;
+  height:205px;
 }
 .stg-box
 {
   display:inline-block;
-  height:200px;
+  height:205px;
   background: #222;
   border: 1px solid #999;
   overflow: auto;

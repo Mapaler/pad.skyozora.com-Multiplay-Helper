@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.8
+// @version     1.0.9
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -535,7 +535,7 @@ function checkTodayUpdate(callback)
 	log("开始检查今日地下城");
 	GM_xmlhttpRequest({
 		method: "GET",
-		url: location.origin, //主页
+		url: "desktop/", //主页
 		onload: dealMainPage,
 		onerror: function(response) {
 			log("获取主页地下城活动失败");
