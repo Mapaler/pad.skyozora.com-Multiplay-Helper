@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.9
+// @version     1.0.10
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -262,6 +262,7 @@ function registerPage()
 	//添加每日类型
 	config.todayStage.forEach(function(stgs,index){
 		var stg1UlLi1 = document.createElement("li");stg1Ul.appendChild(stg1UlLi1);
+		if (typeof(stgs) != "object") return;
 		var stgType1 = new LabelInput(stgs.name, "stg-type","stg-type","radio",index,stgs.name.detail);
 		if (index == 0) stgType1.input.checked = true;
 		stgType1.input.onclick = typeClick;
@@ -344,6 +345,7 @@ function registerPage()
 			return;
 		}
 
+		if (typeof(stages) != "object") return;
 		stages.forEach(function(stgName)
 		{
 			var _stgName = stgName;
