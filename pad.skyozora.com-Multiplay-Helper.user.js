@@ -234,7 +234,18 @@ if(location.pathname == "/multiplay/register/") //注册页面
 function registerPage()
 {
 	var form = document.querySelector("#wrapper>table:nth-of-type(3) form"); //主要版面的表单
-	form.querySelector("p:nth-last-of-type(1)").remove() //去除最后面那个无用的东西
+	if (form == undefined) //如果没找到，试试手机版
+	{
+		form = document.querySelector(".content>form");
+		if (form!=undefined)
+		{
+			mobile = true;
+		}else
+		{
+			alert("😰未找到协力登陆窗口");
+		}
+	}
+	if (!mobile) form.querySelector("p:nth-last-of-type(1)").remove() //去除最后面那个无用的东西
 	var box = document.createElement("div");form.parentElement.appendChild(box);
 	box.id = box.className = "mlt-helper";
 
@@ -362,32 +373,7 @@ function registerPage()
 			alert("😱数据库里没有这个地下城");
 			return;
 		}
-		/*
-		//添加脚本的地下城类型
-		function checkOptionValue(select,value)
-		{
-			var otps = select.options;
-			for (var oi=0,oi_l = otps.length;oi<oi_l;oi++)
-			{
-				if (otps[oi].value == value)
-				{
-					return oi;
-				}
-			}
-			return -1;
-		}
-		var newTypeName = "脚本选中>>";
-		var typeIdx = checkOptionValue(stage0,newTypeName);
-		if (typeIdx>=0)
-		{
-			stage0.selectedIndex = typeIdx;
-		}else
-		{
-			var opt = new Option(newTypeName, newTypeName);
-			stage0.add(opt);
-			stage0.selectedIndex = stage0.options.length - 1;
-		}
-		*/
+
 		stage0.selectedIndex = stage0.options.length - 1; //选中“上次登录的关卡”
 
 		while(stage1.options.length>0) //清空原来的主地下城列表
