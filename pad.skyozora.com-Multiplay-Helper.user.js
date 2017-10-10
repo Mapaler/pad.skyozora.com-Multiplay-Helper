@@ -6,8 +6,8 @@
 // @description:zh-CN	智龙迷城战友系统及资讯网，协力页面，显示体力，登陆页面可快速添加今日地图
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
-// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v4
-// @version     1.0.10
+// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v5
+// @version     1.1.11
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -733,8 +733,23 @@ function checkAllStageList(resetAll = false)
 		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
 		if (resetAll) stageList.length = 0; //先清空
 		//所有地下城表格
-		var stageTd = PageDOM.querySelector("#wrapper>table:nth-of-type(3) td");
+		var stageTd = PageDOM.querySelector(".content>table:nth-of-type(3) td");
+		if (stageTd == undefined) //如果没找到，试试手机版
+		{
+			stageTd = document.querySelector(".content");
+			if (stageTd!=undefined)
+			{
+				mobile = true;
+			}else
+			{
+				alert("😰未找到地下城列表");
+			}
+		}
 		var stages = stageTd.getElementsByClassName("tooltip"); //获取所有的链接
+		if(mobile)
+		{
+			stages = stageTd.getElementsByTagName("a"); //获取所有的链接
+		}
 
 
 		//检查是否已经存在，否则添加新的
@@ -760,8 +775,9 @@ function checkAllStageList(resetAll = false)
 			var link = stages[si];
 			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
 			{
-				imgUrl = link.querySelector("img").getAttribute("data-original");
-				checkExistAdd(new mainStage(link.title,imgUrl),resetAll);
+				var img= link.querySelector("img");
+				imgUrl = img.getAttribute("data-original");
+				checkExistAdd(new mainStage(mobile?img.alt:link.title,imgUrl),resetAll);
 			}
 		}
 		//▼添加暂时没有的特殊图
