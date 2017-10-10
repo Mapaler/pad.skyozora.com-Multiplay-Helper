@@ -293,8 +293,10 @@ function registerPage()
 	msgBox.size = 5;
 	msgBox.className = "stg-box msg-box";
 	msgBox.onclick = function(){
-		if (config.message[this.value] !== undefined)
-			req.value += config.message[this.value];
+		var msg = config.message[this.value];
+		if (msg !== undefined)
+			insertText(req,msg);
+			//req.value += msg;
 	}
 
 	function refreshMessageList()
@@ -308,6 +310,23 @@ function registerPage()
 			msgBox.add(opt);
 		})
 	}
+	function insertText(obj,str) {
+		if (document.selection) {
+			var sel = document.selection.createRange();
+			sel.text = str;
+		} else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+			var startPos = obj.selectionStart,
+			endPos = obj.selectionEnd,
+			cursorPos = startPos,
+			tmpStr = obj.value;
+			obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
+			cursorPos += str.length;
+			obj.selectionStart = obj.selectionEnd = cursorPos;
+		} else {
+			obj.value += str;
+		}
+	}
+
 	var msgBoxCtl = document.createElement("div");stgBox.appendChild(msgBoxCtl);
 	msgBoxCtl.className = "msg-box-control";
 	var msgAdd = document.createElement("input");msgBoxCtl.appendChild(msgAdd);
@@ -345,6 +364,7 @@ function registerPage()
 			stages = config.starStage;
 		}else if (type >=0 )
 		{
+			if (config.todayStage[type] == undefined) return;
 			stages = config.todayStage[type].stages;
 		}else
 		{
