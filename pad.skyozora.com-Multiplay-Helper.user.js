@@ -524,7 +524,7 @@ function registerPage()
 	ioCfg.value = "导入/导出设置&地下城列表";
 	ioCfg.onclick = function(){
 		var dlg = ioConfigDialog();
-		document.body.appendChild(dlg);
+		form.parentElement.appendChild(dlg);
 		dlg.classList.remove("display-none");
 		dlg.configText.value = JSON.stringify(config);
 		dlg.stageListText.value = JSON.stringify(stageList);
@@ -892,8 +892,9 @@ function ioConfigDialog()
 	box.className = "display-none";
 
 	var txtBox = document.createElement("div");box.appendChild(txtBox);
+	txtBox.className = "text-box";
 	var divConfig = document.createElement("div");txtBox.appendChild(divConfig);
-	divConfig.className = "text-box";
+	divConfig.className = "text-lbl-box";
 	var lblConfig = document.createElement("label");divConfig.appendChild(lblConfig);
 	lblConfig.appendChild(document.createTextNode("设置："));
 	lblConfig.appendChild(document.createElement("br"));
@@ -903,7 +904,7 @@ function ioConfigDialog()
 	box.configText = txtConfig;
 
 	var divStageList = document.createElement("div");txtBox.appendChild(divStageList);
-	divStageList.className = "text-box";
+	divStageList.className = "text-lbl-box";
 	var lblStageList = document.createElement("label");divStageList.appendChild(lblStageList);
 	lblStageList.appendChild(document.createTextNode("地下城列表："));
 	lblStageList.appendChild(document.createElement("br"));

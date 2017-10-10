@@ -6,7 +6,7 @@
 {
   margin-bottom: 5px;
 }
-#mlt-helper input
+#mlt-helper input,#io-config-dialog  input
 {
   color: #fff;
 }
@@ -110,12 +110,34 @@
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #fff;
+  z-index: 1000;
 }
-#io-config-dialog .text-box
+.content #io-config-dialog
+{
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: none;
+  border-radius: unset;
+  box-sizing: border-box;
+}
+.content #io-config-dialog .text-box
+{
+  height: calc(100% - 36px);
+  box-sizing: border-box;
+}
+#io-config-dialog .text-lbl-box
 {
   width:50%;
   display:inline-block;
+  box-sizing: border-box;
 }
+.content #io-config-dialog .text-lbl-box
+{
+  width: 100%;
+  height: 50%;
+} 
 #io-config-dialog label>textarea
 {
   width:100%;
@@ -123,9 +145,19 @@
   resize: none;
   box-sizing: border-box;
 }
+.content #io-config-dialog label>textarea
+{
+  height: calc(100% - 24px);
+  display: initial;
+}
 #io-config-dialog .botton-box
 {
   text-align: center;
+}
+.content #io-config-dialog .botton-box
+{
+  width: 100%;
+  height: 36px;
 }
 #io-config-dialog .botton-box input
 {
