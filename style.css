@@ -14,6 +14,10 @@
 {
   height:205px;
 }
+.content .main-stg-box
+{
+  height:510px;
+}
 .stg-box
 {
   display:inline-block;
@@ -31,19 +35,39 @@
   width: 100px;
   background: #223;
 }
+.content .stg-box-1
+{
+  width: 100%;
+  height:140px;
+}
 .stg-box-2
 {
   width: 300px;
+}
+.content .stg-box-2
+{
+  width: 100%;
+  height:205px;
 }
 .msg-box
 {
   width: 250px;
   background: #555;
 }
+.content .msg-box
+{
+  width: 100%;
+  height:140px;
+}
 .msg-box-control
 {
   float:left;
   width: 25px;
+}
+.content .msg-box-control
+{
+  width: 100%;
+  height: 25px;
 }
 .msg-box-control input
 {
