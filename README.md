@@ -7,9 +7,9 @@
 ![手机预览图](https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/images/preview-android.png)
 
 ## 使用方法
-1. 安装用户脚本扩展，用于安装 EhTagBuilder，从翻译数据库生成 CSS。
+1. 安装用户脚本扩展，用于执行脚本。
    * 桌面电脑
-     * [![](https://www.mozilla.org/media/img/firefox/favicon.dc6635050bf5.ico)FireFox](http://www.firefox.com) 安装 [![](https://github.com/greasemonkey/greasemonkey/raw/master/skin/icon32.png)GreaseMonkey](https://addons.mozilla.org/firefox/addon/greasemonkey/) 扩展。
+     * [![](https://www.mozilla.org/media/img/firefox/favicon.dc6635050bf5.ico)FireFox](http://www.firefox.com) 安装 [![](https://github.com/greasemonkey/greasemonkey/raw/master/skin/icon32.png)GreaseMonkey](https://addons.mozilla.org/firefox/addon/greasemonkey/)(油猴) 扩展。
      * ![](http://www.chromium.org/_/rsrc/1438879449147/config/customLogo.gif)Chromium 系安装 [![](https://addons.cdn.mozilla.net/user-media/addon_icons/683/683490-64.png?modified=1463757971)Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-CN) 扩展。
    * ![](https://www.android.com/static/2016/img/logo-android-green_1x.png)安卓手机（其他系统请自己想办法）
      * [![](https://www.mozilla.org/media/img/firefox/favicon.dc6635050bf5.ico)安卓火狐](https://www.mozilla.org/zh-CN/firefox/android/) 安装 [![](https://addons.cdn.mozilla.net/user-media/addon_icons/597/597912-64.png?modified=1506370821)USI](https://addons.mozilla.org/zh-CN/android/addon/userunified-script-injector/) 扩展。
