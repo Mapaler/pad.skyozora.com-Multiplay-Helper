@@ -6,17 +6,19 @@
 
 ## 使用方法
 1. 安装用户脚本扩展，用于安装 EhTagBuilder，从翻译数据库生成 CSS。
-   * [![](https://www.mozilla.org/media/img/firefox/favicon.dc6635050bf5.ico)FireFox](http://www.firefox.com) 安装 [![](https://github.com/greasemonkey/greasemonkey/raw/master/skin/icon32.png)GreaseMonkey](https://addons.mozilla.org/firefox/addon/greasemonkey/) 扩展。
-   * ![](http://www.chromium.org/_/rsrc/1438879449147/config/customLogo.gif)Chromium 系安装 [![](https://addons.cdn.mozilla.net/user-media/addon_icons/683/683490-64.png?modified=1463757971)Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-CN) 扩展。
-   * [![](https://www.mozilla.org/media/img/firefox/favicon.dc6635050bf5.ico)安卓火狐](http://www.firefox.com) 安装 [![](https://addons.cdn.mozilla.net/user-media/addon_icons/597/597912-64.png?modified=1506370821)USI](https://addons.mozilla.org/zh-CN/android/addon/userunified-script-injector/) 扩展。
-   * 不使用火狐的 ![](https://www.android.com/static/2016/img/logo-android-green_1x.png)安卓手机 安装 [![](https://lh3.ggpht.com/s4QefQLlT37lHeDcnxPkw66VMciHW0I2KPHaPRBkCzlYm8fBjimDoASWjU-HbjrfP9g=w48)Tampermonkey](https://play.google.com/store/apps/details?id=net.biniok.tampermonkey) 应用。
+   * PC
+     * [![](https://www.mozilla.org/media/img/firefox/favicon.dc6635050bf5.ico)FireFox](http://www.firefox.com) 安装 [![](https://github.com/greasemonkey/greasemonkey/raw/master/skin/icon32.png)GreaseMonkey](https://addons.mozilla.org/firefox/addon/greasemonkey/) 扩展。
+     * ![](http://www.chromium.org/_/rsrc/1438879449147/config/customLogo.gif)Chromium 系安装 [![](https://addons.cdn.mozilla.net/user-media/addon_icons/683/683490-64.png?modified=1463757971)Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-CN) 扩展。
+   * 安卓手机（苹果请自己想办法）
+     * [![](https://www.mozilla.org/media/img/firefox/favicon.dc6635050bf5.ico)安卓火狐](https://www.mozilla.org/zh-CN/firefox/android/) 安装 [![](https://addons.cdn.mozilla.net/user-media/addon_icons/597/597912-64.png?modified=1506370821)USI](https://addons.mozilla.org/zh-CN/android/addon/userunified-script-injector/) 扩展。
+     * 不使用火狐的 ![](https://www.android.com/static/2016/img/logo-android-green_1x.png)安卓手机 安装 [![](https://lh3.ggpht.com/s4QefQLlT37lHeDcnxPkw66VMciHW0I2KPHaPRBkCzlYm8fBjimDoASWjU-HbjrfP9g=w48)Tampermonkey](https://play.google.com/store/apps/details?id=net.biniok.tampermonkey) 应用。
 2. 到 Greasy Fork [安装脚本](https://greasyfork.org/scripts/33628)，油猴可以自动更新脚本。  
-   也可以直接在本项目直接访问源码安装。
-3. 点击“导入/导出设置&地下城列表”按钮，并在弹出框内地下城列表输入[地下城列表数据](https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/stage-list.json)文件内的所有文本，并导入。  
+   也可以直接在本项目直接[访问源码](https://github.com/Mapaler/pad.skyozora.com-Multiplay-Helper/raw/master/pad.skyozora.com-Multiplay-Helper.user.js)安装。
+3. 进入[登陆房间页面](http://pad.skyozora.com/multiplay/register/)享受便捷。
+4. 点击“导入/导出设置&地下城列表”按钮，并在弹出框内地下城列表输入[地下城列表数据](https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/stage-list.json)文件内的所有文本，并导入。  
    ![导入设置](https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/images/ioconfig.png)  
    （如果不做这一步，也可以自行“获取完整地下城数据”，但是这个过程极其缓慢）  
-4. 点击“检查今日开放地下城”，获取今天开放的地下城。
-5. 进入[登陆房间页面](http://pad.skyozora.com/multiplay/register/)享受便捷。
+5. 点击“检查今日开放地下城”，获取今天开放的地下城。
 
 ## Tips
 * 原始地下城列表旁的“⭐️”按钮的作用是将当前选中地下城添加到收藏。而“输入地下城收藏”按钮的区别是需要输入地下城名称。
