@@ -259,21 +259,29 @@ function registerPage()
 	stg1Box.className = "stg-box stg-box-1";
 	var stg1Ul = document.createElement("ul");stg1Box.appendChild(stg1Ul);
 
-	//添加每日类型
-	config.todayStage.forEach(function(stgs,index){
-		var stg1UlLi1 = document.createElement("li");stg1Ul.appendChild(stg1UlLi1);
-		if (typeof(stgs) != "object") return;
-		var stgType1 = new LabelInput(stgs.name, "stg-type","stg-type","radio",index,stgs.name.detail);
-		if (index == 0) stgType1.input.checked = true;
-		stgType1.input.onclick = typeClick;
-		stg1UlLi1.appendChild(stgType1);
-	})
+	function refresTypeList()
+	{
+		for (var ci = stg1Ul.childNodes.length-1;ci>=0;ci--) //清空主图列表
+		{
+			stg1Ul.childNodes[ci].remove();
+		}
+		//添加每日类型
+		config.todayStage.forEach(function(stgs,index){
+			var stg1UlLi1 = document.createElement("li");stg1Ul.appendChild(stg1UlLi1);
+			if (typeof(stgs) != "object") return;
+			var stgType1 = new LabelInput(stgs.name, "stg-type","stg-type","radio",index,stgs.name.detail);
+			//if (index == 0) stgType1.input.checked = true;
+			stgType1.input.onclick = typeClick;
+			stg1UlLi1.appendChild(stgType1);
+		})
 
+		//添加收藏类型
+		var stg1UlLi2 = document.createElement("li");stg1Ul.appendChild(stg1UlLi2);
+		var stgType2 = new LabelInput("我的收藏", "stg-type","stg-type","radio",100,"我收藏的地下城");
+		stgType2.input.onclick = typeClick;
+		stg1UlLi2.appendChild(stgType2);
+	}
 
-	var stg1UlLi2 = document.createElement("li");stg1Ul.appendChild(stg1UlLi2);
-	var stgType2 = new LabelInput("我的收藏", "stg-type","stg-type","radio",100,"我收藏的地下城");
-	stgType2.input.onclick = typeClick;
-	stg1UlLi2.appendChild(stgType2);
 
 	var stg2Box = document.createElement("div");stgBox.appendChild(stg2Box);
 	stg2Box.className = "stg-box stg-box-2";
@@ -313,16 +321,15 @@ function registerPage()
 		saveConfig(1);
 		refreshMessageList();
 	};
-	var msgAdd = document.createElement("input");msgBoxCtl.appendChild(msgAdd);
-	msgAdd.type = "button";
-	msgAdd.id = msgAdd.className = "message-remove";
-	msgAdd.value = "-";
-	msgAdd.onclick = function(){
+	var msgRmv = document.createElement("input");msgBoxCtl.appendChild(msgRmv);
+	msgRmv.type = "button";
+	msgRmv.id = msgRmv.className = "message-remove";
+	msgRmv.value = "-";
+	msgRmv.onclick = function(){
 		config.message.splice(msgBox.selectedIndex,1);
 		saveConfig(1);
 		refreshMessageList();
 	};
-
 
 	//刷新地下城列表类型
 	function refreshStageList1(type)
@@ -365,6 +372,7 @@ function registerPage()
 			
 		})
 	}
+
 	function refreshStageList2()
 	{
 		if (!this.checked) return; //如果并不是自身被选中，那么就没反应
@@ -476,6 +484,7 @@ function registerPage()
 	chkUpt.value = "检查今日开放地下城";
 	chkUpt.onclick = function(){
 		checkTodayUpdate(function(){
+			refresTypeList();
 			saveConfig(1);
 			refreshStageList1(0);
 		})
@@ -515,6 +524,7 @@ function registerPage()
 
 	var infoBox = document.createElement("div");box.appendChild(infoBox);
 	infoBox.id = infoBox.className = "info-box";
+	refresTypeList();
 	refreshStageList1(0); //先刷新地下城吧
 	refreshMessageList(); //刷新文本列表
 }
