@@ -1,0 +1,1636 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<base href="http://pad.skyozora.com">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="content-language" content="zh-hk">
+<meta name="viewport" content="width=device-width; initial-scale=0.5">
+<meta name="keywords" content="Puzzle & Dragons,Puzzle and Dragons,戰友系統及資訊網,戰友,資訊,討論區,龍族,拼圖,パズル＆ドラゴンズ,パズドラ,戰友列表,Friend List,通關隊伍,寵物圖鑑,素材計算,經驗計算,抽蛋,隊伍模擬" />
+<meta name="description" content="Puzzle & Dragons(パズル＆ドラゴンズ) 是 GungHo Online Entertainment 開發的智能手機遊戲。本網站為該遊戲提供戰友系統讓玩家搜尋戰友、最新的遊戲資訊、供玩家交流的討論區。" />
+<link rel="shortcut icon" type="image/x-icon" href="images/egg.ico">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-37903325-1', 'skyozora.com');
+  ga('send', 'pageview');
+
+</script>
+
+<title>協力地下城登錄＆參戰 - Puzzle & Dragons 戰友系統及資訊網</title>
+<script src="https://js.kiwihk.net/?id=skyozora" type="text/javascript"></script>
+
+
+<script>
+var KIWI = KIWI || {};
+var KIWI.geminiMobileSticky = true; // true or false
+var KIWI.geminiDesktopSticky = true; // true or false
+var KIWI.ypaDesktopNewFloating = true; // true or false
+</script>
+
+
+
+</head>
+<link rel="stylesheet" type="text/css" href="css/style.css?20161227233101">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" charset="utf-8"></script>
+
+<script type="text/javascript"> 
+
+this.tooltip = function(){	
+	/* CONFIG */		
+		xOffset = 10;
+		yOffset = 20;		
+		// these 2 variable determine popup's distance from the cursor
+		// you might want to adjust to get the right result		
+	/* END CONFIG */		
+	$("a.tooltip").hover(function(e){											  
+		this.t = this.title;
+		this.title = "";									  
+		$("body").append("<p id='tooltip'>"+ this.t +"</p>");
+		$("#tooltip")
+			.css("top",(e.pageY - xOffset) + "px")
+			.css("left",(e.pageX + yOffset) + "px")
+			.fadeIn("slow");		
+    },
+	function(){
+		this.title = this.t;		
+		$("#tooltip").remove();
+    });	
+	$("a.tooltip").mousemove(function(e){
+		$("#tooltip")
+			.css("top",(e.pageY - xOffset) + "px")
+			.css("left",(e.pageX + yOffset) + "px");
+	});	
+
+};
+
+// starting the script on page load
+$(document).ready(function(){
+	tooltip();
+});
+function showPic(name) { 
+	file = "images/pets/" + name + ".png";
+	document.getElementById("pics").innerHTML = "<img src='" + file + "' align=absmiddle>"; 
+} 
+function showPic2(name) { 
+	file = "images/pets/" + name + ".png";
+	document.getElementById("pics2").innerHTML = "<img src='" + file + "' align=absmiddle width=75>"; 
+} 
+function tools(){ 
+var top=$ (document).scrollTop(); 
+if(($.browser.msie==true)&&($.browser.version==6.0)){ 
+if(top>200)$("#box1_1").css({ position:"absolute",top:top-200}); 
+}else{ 
+if(top>200)$("#box1_1").css({position:"fixed",top:"-"&top+"px"} ); 
+} 
+if(top<=200)$("#box1_1").css({position:"static",top:0}); 
+} 
+$(function(){ 
+window.onscroll=tools; 
+window.onresize= tools; 
+}); 
+$(function() {
+	$(window).scroll(function() {
+		if($(this).scrollTop() != 0) {
+			$('#toTop').fadeIn();	
+		} else {
+			$('#toTop').fadeOut();
+		}
+	});
+ 
+	$('#toTop').click(function() {
+		$('body,html').animate({scrollTop:0},800);
+	});	
+});
+</script> 
+
+<link rel="image_src" href="http://i1296.photobucket.com/albums/ag18/skyozora/site/logo_zpslcvsdeff.png" />
+<body> 
+<div id="wrapper">
+
+<div id="toTop">^ Back to Top</div>
+
+<table width="1100" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td align="left">
+            <h1>
+                <a href="" style="text-decoration:none">
+                    <img src="http://i1296.photobucket.com/albums/ag18/skyozora/site/logo_zpslcvsdeff.png" />
+                </a>
+            </h1>
+        </td>
+        <td align="right" style="padding:10px">
+            <script language='JavaScript' type='text/javascript'>if (!window.af) var af = (function() {return {getcookie:function(n){var m=n+'=';var ca=document.cookie.split(';');for(var i=0;i < ca.length;i++) {var c=ca[i];while (c.charAt(0)==' ') c = c.substring(1,c.length);if (c.indexOf(m) == 0) return c.substring(m.length,c.length);}return null;},existcookie:function(n){var m=af.getcookie(n);if (m!=null&&m!=''){return true;}else{return false;}}};})(); if(af.existcookie('__AF')){afid = af.getcookie('__AF'); } else {afid = 0; } randomstr = new String (Math.random()); randomstr = randomstr.substring(2,8);document.write ("<" + "script language='JavaScript' type='text/javascript' src='" + "http://servedby.adsfactor.net/adj.php?ts=" + randomstr + "&amp;sid=883773715285&amp;afid=" + afid + "'><" + "/script>");
+</script><noscript><a href='http://servedby.adsfactor.net/adc.php?sid=883773715285' ><img src='http://servedby.adsfactor.net/adv.php?sid=883773715285' border='0'></a></noscript>			
+        </td>
+    </tr>
+</table>
+
+
+<div id='cssmenu'>
+<ul>
+    <li class="active"><a href=""><img src="images/home.png"></a></li>
+
+    <li><a href="/news/">遊戲資訊</a></li>
+<li><a href="/friendlist/add/">新增遊戲帳號</a></li><li class="has-sub"><a href="/friendlist/">搜尋戰友 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/seeker/">急徵戰友</a></li>
+</ul></li>
+
+<li class="has-sub"><a href="/pets/">寵物 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/pets/">寵物圖鑑</a></li>
+<li><a href="/pets/statistics/" style="color:#ffff00">寵物排名</a></li>
+<li><a href="/gacha/">抽蛋機內容</a></li>
+<li><a href="/news/「技能提升指南」">技能提升指南</a></li>
+<li><a href="/skill/主動技能一覽/">主動技能表</a></li>
+<li><a href="/skill/覺醒技能一覽/">覺醒技能表</a></li>
+<li><a href="/news/「究極進化」">究極進化介紹</a></li>
+<!----<li><a href="/pets/究極進化素材表/">究極進化素材表</a></li>--->
+<li><a href="/news/Ver.8.1-新系統「潛在覺醒」">潛在覺醒技能</a></li>
+<li><a href="/news/「技能繼承系統」">技能繼承系統</a></li>
+</ul></li>
+
+<li class="has-sub"><a href="/stage/">地下城 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/stage/">地下城列表</a></li>
+<li><a href="/news/S-Rank-%E8%A9%95%E7%B4%9A%E7%B3%BB%E7%B5%B1">S Rank 評級系統</a></li>
+<li><a href="/Challenge/">挑戰地下城開放期間查詢</a></li>
+<li><a href="/multiplay/">協力地下城登錄/參戰</a></li>
+</ul></li>
+	
+<li class="has-sub"><a href="/team/">通關隊伍 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/team/">通關隊伍</a></li>
+<li><a href="/profile/">我的通關隊伍</a></li>
+<li><a href="/team/add">新增通關隊伍</a></li>
+<li><a href="/video/">影片頻道</a></li>
+</ul></li>
+
+
+<li class="has-sub"><a>工具 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/Evolution/">素材計算器</a></li>
+<li><a href="/tools/2">寵物經驗計算器</a></li>
+<li><a href="/tools/3">寵物進食計算器</a></li>
+
+<li><a href="/TeamSimulator/">隊伍模擬器</a></li>
+<li><a href="/CoverMaker/">FB Cover Photo 製作</a></li>
+<li><a href="/PetsCount/">寵物點算表</a></li>
+</ul></li>
+
+<li class="has-sub"><a href="/news/PAD-Radar-的玩法介紹！">PAD Radar <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/news/PAD-Radar-的玩法介紹！">玩法介紹</a></li>
+<li><a href="/news/PAD-Radar-與本篇的連動方法">連動方法</a></li>
+<li><a href="/news/PAD-Radar-位置情報設定相關">位置情報設定</a></li>
+<li><a href="/news/使用-PAD-Radar-找尋附近的戰友！">透過 PADR 找戰友</a></li>
+
+</ul></li>
+
+
+<li class="has-sub"><a href="/guide/">其他資料 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/news/向-GungHo-申請取回帳號的方法">向 Gungho 申請取回帳號的方法</a></li>
+<li><a href="news/%E5%BE%9E%E6%97%A5%E6%9C%AC-Google-Play-%E4%B8%8B%E8%BC%89%E9%81%8A%E6%88%B2%E7%A8%8B%E5%BC%8F">從日本 Google Play 下載遊戲程式</a></li>
+<li><a href="/article/%E7%95%B0OS%E9%96%93%E7%9A%84%E9%81%8A%E6%88%B2%E6%95%B8%E6%93%9A%E7%A7%BB%E5%8B%95%E6%96%B9%E6%B3%95">異OS間的遊戲數據移動方法</a></li>
+<li><a href="/article/Android%20%E5%82%99%E4%BB%BD%E6%96%B9%E6%B3%95/%E6%A9%9F%E7%A8%AE%E8%BD%89%E6%8F%9B">Android 備份方法/機種轉換</a></li>
+
+</ul></li>
+
+<li><a href="/forum/">討論區</a></li>
+
+
+	<li><a href="/forum/member.php?mod=logging&action=logout&formhash=e8abe774">登出</a></li></ul>
+</div>
+
+<p>
+<table width="1100" border="0" cellpadding="0" cellspacing="5" style="border-collapse:collapse">
+<tr>
+<td style="padding: 8px 10px 8px 10px; border: #272727 1px solid; text-align:center; background: #000; font-size:14px">
+	<a href="/friendlist/">搜尋戰友請按此 <img src="images/searchBtn2.png" align="absmiddle" /></a>
+</td>
+
+<td style="padding: 15px 10px 8px 10px; border: #272727 1px solid; text-align:center; background: #000; font-size:14px" width="230">
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium" data-annotation="none" data-href=""></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'zh-TW'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="" data-text="Puzzle &amp; Dragons 戰友系統及資訊網" data-lang="zh-tw" data-dnt="true" data-count="none" data-hashtags="パズドラ">推文</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<a href="https://www.facebook.com/PuzzleDragonsSite" target=new class="tooltip" title="戰友系統及資訊網專頁"><img src="images/fb.png" width="20" style="vertical-align: baseline"></a> <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FPuzzleDragonsSite&amp;send=false&amp;layout=button_count&amp;width=85&amp;show_faces=false&amp;font=verdana&amp;colorscheme=light&amp;action=like&amp;height=20&amp;appId=181873884488" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:95px; height:20px;" allowTransparency="true" valign=center></iframe>
+
+</td>
+
+<td style="border: #272727 1px solid; text-align:left; width:680px; background: #000; font-size:14px">
+
+<script>
+  (function() {
+    var cx = '007298951143919793354:qs6pqgrash0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+<style>
+   div.gsc-control-cse {
+      padding: 2px;
+	  width:540px;
+    }
+  input.gsc-input {
+	width:520px;  
+	color:#000000;
+  }
+  input.gsc-search-button {
+	width:20px;
+  }
+</style>
+</td>
+
+</tr></table>
+</p>
+<script language='JavaScript' type='text/javascript'>if (!window.af) var af = (function() {return {getcookie:function(n){var m=n+'=';var ca=document.cookie.split(';');for(var i=0;i < ca.length;i++) {var c=ca[i];while (c.charAt(0)==' ') c = c.substring(1,c.length);if (c.indexOf(m) == 0) return c.substring(m.length,c.length);}return null;},existcookie:function(n){var m=af.getcookie(n);if (m!=null&&m!=''){return true;}else{return false;}}};})(); if(af.existcookie('__AF')){afid = af.getcookie('__AF'); } else {afid = 0; } randomstr = new String (Math.random()); randomstr = randomstr.substring(2,8);document.write ("<" + "script language='JavaScript' type='text/javascript' src='" + "http://servedby.adsfactor.net/adj.php?ts=" + randomstr + "&amp;sid=144145705283&amp;afid=" + afid + "'><" + "/script>");
+</script><noscript><a href='http://servedby.adsfactor.net/adc.php?sid=144145705283' ><img src='http://servedby.adsfactor.net/adv.php?sid=144145705283' border='0'></a></noscript>
+<style>
+h3 {
+	background: -moz-linear-gradient(left,  rgba(0,75,132,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,75,132,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgba(0,75,132,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgba(0,75,132,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgba(0,75,132,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: linear-gradient(to right,  rgba(0,75,132,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6004b84', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+   padding:10px 10px 10px 15px;
+	line-height:22px;
+	font-size:16px;
+	font-weight: normal;
+	color: #44c4ff;
+	overflow:hidden;
+	margin-left: -20px;
+}
+.style1 input,
+.style1 textarea,
+.style1 select {
+    border: 1px solid #333;
+    padding: 0.5em;
+    font-size: 12px;
+    line-height: 1.2em;
+    background: #444;
+
+    color: #fff;
+    font-family: helvetica, sans-serif;
+    background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#444));
+    -webkit-appearance: none;
+    /*box-shadow*/
+    -webkit-box-shadow: 1px 1px 1px #222;
+    -moz-box-shadow: 1px 1px 1px #222;
+    box-shadow: 1px 1px 1px #222;
+}
+.style1 input:focus,
+.style1 textarea:focus,
+.style1 select:focus { outline-color: #008be3 }
+.style1 textarea {
+    height: 55px;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.1, #333));
+	background: -moz-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.1, #333));
+	background: -o-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.1, #333));
+	background: -ms-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.1, #333));
+	background: gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.05, #333));
+}
+
+.style1 select {
+    padding: 0.5em 1em 0.5em 0.2em;
+    background: #333 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAADIAAAABACAIAAABXrnrvAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKTWlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVN3WJP3Fj7f92UPVkLY8LGXbIEAIiOsCMgQWaIQkgBhhBASQMWFiApWFBURnEhVxILVCkidiOKgKLhnQYqIWotVXDjuH9yntX167+3t+9f7vOec5/zOec8PgBESJpHmomoAOVKFPDrYH49PSMTJvYACFUjgBCAQ5svCZwXFAADwA3l4fnSwP/wBr28AAgBw1S4kEsfh/4O6UCZXACCRAOAiEucLAZBSAMguVMgUAMgYALBTs2QKAJQAAGx5fEIiAKoNAOz0ST4FANipk9wXANiiHKkIAI0BAJkoRyQCQLsAYFWBUiwCwMIAoKxAIi4EwK4BgFm2MkcCgL0FAHaOWJAPQGAAgJlCLMwAIDgCAEMeE80DIEwDoDDSv+CpX3CFuEgBAMDLlc2XS9IzFLiV0Bp38vDg4iHiwmyxQmEXKRBmCeQinJebIxNI5wNMzgwAABr50cH+OD+Q5+bk4eZm52zv9MWi/mvwbyI+IfHf/ryMAgQAEE7P79pf5eXWA3DHAbB1v2upWwDaVgBo3/ldM9sJoFoK0Hr5i3k4/EAenqFQyDwdHAoLC+0lYqG9MOOLPv8z4W/gi372/EAe/tt68ABxmkCZrcCjg/1xYW52rlKO58sEQjFu9+cj/seFf/2OKdHiNLFcLBWK8ViJuFAiTcd5uVKRRCHJleIS6X8y8R+W/QmTdw0ArIZPwE62B7XLbMB+7gECiw5Y0nYAQH7zLYwaC5EAEGc0Mnn3AACTv/mPQCsBAM2XpOMAALzoGFyolBdMxggAAESggSqwQQcMwRSswA6cwR28wBcCYQZEQAwkwDwQQgbkgBwKoRiWQRlUwDrYBLWwAxqgEZrhELTBMTgN5+ASXIHrcBcGYBiewhi8hgkEQcgIE2EhOogRYo7YIs4IF5mOBCJhSDSSgKQg6YgUUSLFyHKkAqlCapFdSCPyLXIUOY1cQPqQ28ggMor8irxHMZSBslED1AJ1QLmoHxqKxqBz0XQ0D12AlqJr0Rq0Hj2AtqKn0UvodXQAfYqOY4DRMQ5mjNlhXIyHRWCJWBomxxZj5Vg1Vo81Yx1YN3YVG8CeYe8IJAKLgBPsCF6EEMJsgpCQR1hMWEOoJewjtBK6CFcJg4Qxwicik6hPtCV6EvnEeGI6sZBYRqwm7iEeIZ4lXicOE1+TSCQOyZLkTgohJZAySQtJa0jbSC2kU6Q+0hBpnEwm65Btyd7kCLKArCCXkbeQD5BPkvvJw+S3FDrFiOJMCaIkUqSUEko1ZT/lBKWfMkKZoKpRzame1AiqiDqfWkltoHZQL1OHqRM0dZolzZsWQ8ukLaPV0JppZ2n3aC/pdLoJ3YMeRZfQl9Jr6Afp5+mD9HcMDYYNg8dIYigZaxl7GacYtxkvmUymBdOXmchUMNcyG5lnmA+Yb1VYKvYqfBWRyhKVOpVWlX6V56pUVXNVP9V5qgtUq1UPq15WfaZGVbNQ46kJ1Bar1akdVbupNq7OUndSj1DPUV+jvl/9gvpjDbKGhUaghkijVGO3xhmNIRbGMmXxWELWclYD6yxrmE1iW7L57Ex2Bfsbdi97TFNDc6pmrGaRZp3mcc0BDsax4PA52ZxKziHODc57LQMtPy2x1mqtZq1+rTfaetq+2mLtcu0W7eva73VwnUCdLJ31Om0693UJuja6UbqFutt1z+o+02PreekJ9cr1Dund0Uf1bfSj9Rfq79bv0R83MDQINpAZbDE4Y/DMkGPoa5hpuNHwhOGoEctoupHEaKPRSaMnuCbuh2fjNXgXPmasbxxirDTeZdxrPGFiaTLbpMSkxeS+Kc2Ua5pmutG003TMzMgs3KzYrMnsjjnVnGueYb7ZvNv8jYWlRZzFSos2i8eW2pZ8ywWWTZb3rJhWPlZ5VvVW16xJ1lzrLOtt1ldsUBtXmwybOpvLtqitm63Edptt3xTiFI8p0in1U27aMez87ArsmuwG7Tn2YfYl9m32zx3MHBId1jt0O3xydHXMdmxwvOuk4TTDqcSpw+lXZxtnoXOd8zUXpkuQyxKXdpcXU22niqdun3rLleUa7rrStdP1o5u7m9yt2W3U3cw9xX2r+00umxvJXcM970H08PdY4nHM452nm6fC85DnL152Xlle+70eT7OcJp7WMG3I28Rb4L3Le2A6Pj1l+s7pAz7GPgKfep+Hvqa+It89viN+1n6Zfgf8nvs7+sv9j/i/4XnyFvFOBWABwQHlAb2BGoGzA2sDHwSZBKUHNQWNBbsGLww+FUIMCQ1ZH3KTb8AX8hv5YzPcZyya0RXKCJ0VWhv6MMwmTB7WEY6GzwjfEH5vpvlM6cy2CIjgR2yIuB9pGZkX+X0UKSoyqi7qUbRTdHF09yzWrORZ+2e9jvGPqYy5O9tqtnJ2Z6xqbFJsY+ybuIC4qriBeIf4RfGXEnQTJAntieTE2MQ9ieNzAudsmjOc5JpUlnRjruXcorkX5unOy553PFk1WZB8OIWYEpeyP+WDIEJQLxhP5aduTR0T8oSbhU9FvqKNolGxt7hKPJLmnVaV9jjdO31D+miGT0Z1xjMJT1IreZEZkrkj801WRNberM/ZcdktOZSclJyjUg1plrQr1zC3KLdPZisrkw3keeZtyhuTh8r35CP5c/PbFWyFTNGjtFKuUA4WTC+oK3hbGFt4uEi9SFrUM99m/ur5IwuCFny9kLBQuLCz2Lh4WfHgIr9FuxYji1MXdy4xXVK6ZHhp8NJ9y2jLspb9UOJYUlXyannc8o5Sg9KlpUMrglc0lamUycturvRauWMVYZVkVe9ql9VbVn8qF5VfrHCsqK74sEa45uJXTl/VfPV5bdra3kq3yu3rSOuk626s91m/r0q9akHV0IbwDa0b8Y3lG19tSt50oXpq9Y7NtM3KzQM1YTXtW8y2rNvyoTaj9nqdf13LVv2tq7e+2Sba1r/dd3vzDoMdFTve75TsvLUreFdrvUV99W7S7oLdjxpiG7q/5n7duEd3T8Wej3ulewf2Re/ranRvbNyvv7+yCW1SNo0eSDpw5ZuAb9qb7Zp3tXBaKg7CQeXBJ9+mfHvjUOihzsPcw83fmX+39QjrSHkr0jq/dawto22gPaG97+iMo50dXh1Hvrf/fu8x42N1xzWPV56gnSg98fnkgpPjp2Snnp1OPz3Umdx590z8mWtdUV29Z0PPnj8XdO5Mt1/3yfPe549d8Lxw9CL3Ytslt0utPa49R35w/eFIr1tv62X3y+1XPK509E3rO9Hv03/6asDVc9f41y5dn3m978bsG7duJt0cuCW69fh29u0XdwruTNxdeo94r/y+2v3qB/oP6n+0/rFlwG3g+GDAYM/DWQ/vDgmHnv6U/9OH4dJHzEfVI0YjjY+dHx8bDRq98mTOk+GnsqcTz8p+Vv9563Or59/94vtLz1j82PAL+YvPv655qfNy76uprzrHI8cfvM55PfGm/K3O233vuO+638e9H5ko/ED+UPPR+mPHp9BP9z7nfP78L/eE8/sl0p8zAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAT+SURBVHja7N29cpNHFAbg1U9JEWJbwlUIxBkm4869ZUgRoIKOi0k+j9GN5BJSBQOekW8gXarExk4HHgMF1DoUBo0iS87MbqXs84yKz+s9zanfebe1tbWVAAAAAAAAAAAAavXHk9+yZ9vWBwAAAAAAAAAAkEcACwAAAAAAAAAAIFPXCgAAAAAAAAAAgKpFZI92o2AYAAAAAAAAAABg+eVnqDxBCAAAAAAAAAAAkMkThAAAAAAAAAAAQN1KniC0PQAAAAAAAAAAoG4CWAAAAAAAAAAAAHny81epGwX1WQAAAAAAAAAAAMtPAxYAAAAAAAAAAECeEMACAAAAAAAAAADIJIAFAAAAAAAAAACQp6QBKwqGAQAAAAAAAAAAlp8GLAAAAAAAAAAAgDwhgAUAAAAAAAAAAJBHAAsAAAAAAAAAACBXQQArCtJbAAAAAAAAAAAAS68gQqUBCwAAAAAAAAAAqJwnCAEAAAAAAAAAAPKEJwgBAAAAAAAAAADyxHjRf/Z2eiml3cOzRRc0YAEAAAAAAAAAAJWbX2K1t9NvtnsX37uHb+beEcACAAAAAAAAAADqNu8Vwen0VbPdSxFzM1idXq9ngQAAAAAAAAAAQLXOfng8c7K3c6MZ9KdPBjevtVvp8PTjzE0NWAAAAAAAAAAAQN3+3YC1d3c2fXWhGfRTit3R6+nDTr/ft0AAAAAAAAAAAKBaZ3ceTb6f3ltvBjcW3RzcvNZO6fDkw+TEE4QAAAAAAAAAAEDVJgGsp/fWf9lZv/ry57cIv2SwWpubmzYIAAAAAAAAAABU68/Hv2bPdq0PAAAAAAAAAACoWoyzR7sRYYEAAAAAAAAAAEC9CjJUGrAAAAAAAAAAAIDKCWABAAAAAAAAAADk0YAFAAAAAAAAAACQqSSAFQXDAAAAAAAAAAAAS08DFgAAAAAAAAAAQKYYZ48KYAEAAAAAAAAAAJXzBCEAAAAAAAAAAEAeDVgAAAAAAAAAAACZvpRYDX/69ucfv/nP68ODf5oXJxffnbW1NQsEAAAAAAAAAACqdb7x8OJjdPS+225t3/rqisvDg9Pm+cnkz87q6qoNAgAAAAAAAAAA1Tr//uHke3T8vtNuDRZksIYHp83zV9MnAlgAAAAAAAAAAEDVzr97kCImv9HRu067Nbh9feba8OVJs388fTNFCGABAAAAAAAAAABVO994MHNyOYM1fPmq2T++PNtZWVmxQQAAAAAAAAAAoFpvN+6nFDO/0dG7Tqs1uP11Smn44rjZP7p8J6XoWh8AAAAAAAAAAFC1iLnHzbO/Zz4uE8ACAAAAAAAAAADqtiCAlVJqfv/r6tFuLB4GAAAAAAAAAAD4/4tx9qgGLAAAAAAAAAAAoHL5JVYCWAAAAAAAAAAAQN3GBQ1YniAEAAAAAAAAAADqpgELAAAAAAAAAAAgTxQ0YNkeAAAAAAAAAABQtdCABQAAAAAAAAAAkKckgBUFwwAAAAAAAAAAAEvPE4QAAAAAAAAAAACZBLAAAAAAAAAAAAAylTxBaHsAAAAAAAAAAEDVSgJYUTAMAAAAAAAAAACw9DxBCAAAAAAAAAAAkEkACwAAAAAAAAAAIFfBE4SWBwAAAAAAAAAAVE0DFgAAAAAAAAAAQKZxQQNWRFggAAAAAAAAAABQLw1YAAAAAAAAAAAAuQoasCwPAAAAAAAAAACoWkED1icAAAD//wMATED/M1GZNfsAAAAASUVORK5CYII=") no-repeat right center;
+    /*background-size*/
+    -webkit-background-size: 1600px 32px;
+    -moz-background-size: 1600px 32px;
+    -o-background-size: 1600px 32px;
+    background-size: 1600px 32px;
+}
+.style1 input[type=text] { 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+	background: -moz-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+	background: -o-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+	background: -ms-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+	background:  gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+}
+.style1 input[type=submit] {
+    width: auto;
+    padding: 0.25em 1em;
+    line-height: 1.5em;
+    background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#333));
+	background: -moz-gradient(linear, left top, left bottom, from(#222), to(#333));
+	background: -o-gradient(linear, left top, left bottom, from(#222), to(#333));
+	background: -ms-gradient(linear, left top, left bottom, from(#222), to(#333));
+	background: gradient(linear, left top, left bottom, from(#222), to(#333));
+    border: 1px solid #008be3;
+    text-shadow: 0 0 2px #300;
+    font-weight: bold;
+    /*box-shadow*/
+    -webkit-box-shadow: 1px 1px 3px #000;
+    -moz-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+    margin-right: 0.5em;
+}
+.style1 input[type=reset] {
+    width: auto;
+    padding: 0.25em 1em;
+    line-height: 1.5em;
+    background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#222));
+	background: -moz-gradient(linear, left top, left bottom, from(#333), to(#222));
+	background: -o-gradient(linear, left top, left bottom, from(#333), to(#222));
+	background: -ms-gradient(linear, left top, left bottom, from(#333), to(#222));
+	background: gradient(linear, left top, left bottom, from(#333), to(#222));
+    border: 1px solid #444;
+    text-shadow: 0 0 2px #300;
+    font-weight: bold;
+    color: #999;
+    /*box-shadow*/
+    -webkit-box-shadow: 1px 1px 3px #000;
+    -moz-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+}
+.style1 input[type=checkbox],
+.style1 input[type=radio] {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1em;
+    margin: 0 0.25em 0 0;
+    padding: 0;
+    width: 1.25em;
+    height: 1.25em;
+    /*border-radius*/
+    -webkit-border-radius: 0.25em;
+    -moz-border-radius: 0.25em;
+    border-radius: 0.25em;
+    vertical-align: text-top;
+}
+.style1 input[type=radio] {
+    /*border-radius*/
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+}
+.style1 input[type=checkbox]:checked {
+    background: url("data:image/png;base64,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") no-repeat center center;
+    /*background-size*/
+    -webkit-background-size: 28px 28px;
+    -moz-background-size: 28px 28px;
+    -o-background-size: 28px 28px;
+    background-size: 28px 28px;
+}
+.style1 input[type=radio]:checked {
+    background: url("data:image/png;base64,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") no-repeat center center;
+    /*background-size*/
+    -webkit-background-size: 28px 28px;
+    -moz-background-size: 28px 28px;
+    -o-background-size: 28px 28px;
+    background-size: 28px 28px;
+}
+</style>
+
+<script src="javascript/stage.js?2017093023" type="text/javascript"></script>
+
+<table width="1100" align="center" cellpadding="0" border="0" cellspacing="0">
+	<tr>
+		<td valign="top" style="padding:3px 20px 20px 20px;font-size:14px" bgcolor="#000000">
+		
+					<h3>搜尋</h3>
+			
+				<form name="theForm"  method="get"  onSubmit="location.href='/multiplay/' + document.getElementById('stage').value + '/' + document.getElementById('stage2').value + '/' ; return false;" class="style1">
+
+<select name="column1" size=1 onChange="onChangeColumn1();">
+<script>
+for (i=0; i<dataTree.length; i++)
+document.writeln("<option value=\""+dataTree[i].name+"\">"+dataTree[i].name);
+</script>
+<option value="" selected>-------請選擇-------</option>
+</select>
+<select name="column2" size=1 id="stage" onChange="onChangeColumn2();">
+</select>
+<select id="stage2" name="column3" size=1 onChange="onChangeColumn3();">
+</select>
+
+				<input type="submit" name="button" value="搜尋" />
+				</form>
+			<p>找尋Whatsapp/Line/其他群組可到: <a href="http://pad.skyozora.com/forum/forum-107-1.html">http://pad.skyozora.com/forum/forum-107-1.html</a></p>
+			<h3>登錄自行創建的房間</h3>
+
+			<span class="yellow">★</span> <a href="multiplay/register/" style="color:#99e8ff">請按此登錄</a>
+			
+			<h3>其他玩家創建的房間</h3>
+			
+			<p>※點選地下城名稱可查看關卡資料</p>
+			
+			<table border="1" bordercolor="#3f3f3f" width="100%" style="font-size:12px; border-collapse:collapse" cellpadding="8" cellspacing="0">
+				<tr align="center" style="background:#181818; font-size:18px">
+					<td colspan="2">地下城</td>
+					<td>房間ID</td>
+					<td>徵求內容</td>
+					<td>登錄時間</td>
+				</tr>
+					<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">3596 0651</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										猶格					</td>
+					<td width="80">
+					剛剛					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/286s_zpsufx4yr4g.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A9%9F%E6%A2%B0%E9%BE%8D%E3%81%AE%E5%B7%A8%E5%A4%A7%E5%9F%BA%E5%9C%B0">機械龍の巨大基地</a><br /><a href="stage/%E6%A9%9F%E6%A2%B0%E9%BE%8D%E3%81%AE%E5%B7%A8%E5%A4%A7%E5%9F%BA%E5%9C%B0/%E7%9A%87%E3%81%AE%E9%96%83%E7%88%AA">皇の閃爪</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5759 4850</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										進抗神機					</td>
+					<td width="80">
+					37秒前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">1009 2638</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵					</td>
+					<td width="80">
+					46秒前					
+					</td>
+				</tr>
+
+		<tr><td colspan='5'><div id='ypaAdWrapper-List1'></div></td></tr>				<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">1307 9670</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										天央 我有增傷解lock					</td>
+					<td width="80">
+					54秒前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/227s_zpsxrqtqm4l.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E7%B7%91%E9%BE%8D%E3%81%AE%E5%B7%A3%E7%AA%9F%20%E4%B8%AD%E7%B4%9A">緑龍の巣窟 中級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5907 7433</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					1分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9923 9830</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										山本，全轉珠					</td>
+					<td width="80">
+					2分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6707 4089</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水mh					</td>
+					<td width="80">
+					2分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/438s_zpskdwvhtpq.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%90%E3%82%93%E3%81%BE%E3%82%B3%E3%83%A9%E3%83%9C">ぐんまコラボ</a><br /><a href="stage/%E3%81%90%E3%82%93%E3%81%BE%E3%82%B3%E3%83%A9%E3%83%9C/%E3%81%90%E3%82%93%E3%81%BE%E3%81%91%E3%82%93%20%E6%A5%B5%E6%A5%BD">ぐんまけん 極楽</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">7694 8405</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					2分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">1117 0197</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					3分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/619s_zpskhsbdeod.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81">エメドラ大量発生！</a><br /><a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81/%E8%B6%85%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E3%81%AE%E9%80%86%E8%A5%B2%EF%BC%81">超エメドラの逆襲！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5739 1608</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					3分鐘前					
+					</td>
+				</tr>
+
+		<tr><td colspan='5'><div id='ypaAdWrapper-List2'></div></td></tr>				<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/619s_zpskhsbdeod.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81">エメドラ大量発生！</a><br /><a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81/%E8%B6%85%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E3%81%AE%E9%80%86%E8%A5%B2%EF%BC%81">超エメドラの逆襲！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6782 2462</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					3分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">2155 2013</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										猶格					</td>
+					<td width="80">
+					5分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/650s_zpsiqe6x0iy.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/10%E6%9C%88%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">10月のクエストダンジョン</a><br /><a href="stage/10%E6%9C%88%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E3%82%BC%E3%82%A6%E3%82%B9%E3%83%BB%E3%83%87%E3%82%A3%E3%82%AA%E3%82%B9%E9%99%8D%E8%87%A8%EF%BC%81">ゼウス・ディオス降臨！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">4382 1690</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					5分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9438 5871</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵人					</td>
+					<td width="80">
+					5分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">4394 3370</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵連刷					</td>
+					<td width="80">
+					6分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/227s_zpsxrqtqm4l.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E7%B7%91%E9%BE%8D%E3%81%AE%E5%B7%A3%E7%AA%9F%20%E4%B8%AD%E7%B4%9A">緑龍の巣窟 中級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9825 1686</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					6分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E1">双極の女神1</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6893 2915</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										暗雅 斷					</td>
+					<td width="80">
+					7分鐘前					
+					</td>
+				</tr>
+
+		<tr><td colspan='5'><div id='ypaAdWrapper-List3'></div></td></tr>				<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/227s_zpsxrqtqm4l.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E7%B7%91%E9%BE%8D%E3%81%AE%E5%B7%A3%E7%AA%9F%20%E4%B8%AD%E7%B4%9A">緑龍の巣窟 中級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">3306 1729</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					7分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/619s_zpskhsbdeod.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81">エメドラ大量発生！</a><br /><a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81/%E8%B6%85%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E3%81%AE%E9%80%86%E8%A5%B2%EF%BC%81">超エメドラの逆襲！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6351 3836</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										你射					</td>
+					<td width="80">
+					7分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E1">双極の女神1</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9990 1320</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										優格有風神刷經驗					</td>
+					<td width="80">
+					7分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5901 4062</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵，最好有破吸					</td>
+					<td width="80">
+					8分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9144 3794</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										猶格 水獵					</td>
+					<td width="80">
+					11分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">4778 2128</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水猭					</td>
+					<td width="80">
+					14分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">8971 7739</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										优格 水猎					</td>
+					<td width="80">
+					16分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/797s_zpsnhvamdsy.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81">たまドラ大量発生！</a><br /><a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%82%92%E8%BF%BD%E3%81%88%EF%BC%81">たまドラを追え！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9209 0287</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										1					</td>
+					<td width="80">
+					16分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6275 3875</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水射					</td>
+					<td width="80">
+					18分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5051 2268</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										暗雅/彩龍 斷					</td>
+					<td width="80">
+					18分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">2799 9283</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										火獵b					</td>
+					<td width="80">
+					18分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">1385 4390</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										優格					</td>
+					<td width="80">
+					18分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">4586 6297</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵或優格					</td>
+					<td width="80">
+					19分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/797s_zpsnhvamdsy.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%81%AE%E9%87%8C">たまドラの里</a><br /><a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%81%AE%E9%87%8C/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%82%92%E8%BF%BD%E3%81%88%EF%BC%81">たまドラを追え！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">3368 0209</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										射擊!~連射開始!!					</td>
+					<td width="80">
+					20分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">8060 0146</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										筋肉人					</td>
+					<td width="80">
+					20分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/227s_zpsxrqtqm4l.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E7%B7%91%E9%BE%8D%E3%81%AE%E5%B7%A3%E7%AA%9F%20%E4%B8%AD%E7%B4%9A">緑龍の巣窟 中級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">8726 6141</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										射					</td>
+					<td width="80">
+					22分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/227s_zpsxrqtqm4l.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E7%B7%91%E9%BE%8D%E3%81%AE%E5%B7%A3%E7%AA%9F%20%E4%B8%AD%E7%B4%9A">緑龍の巣窟 中級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">3177 4773</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										我射					</td>
+					<td width="80">
+					23分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/619s_zpskhsbdeod.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81">エメドラ大量発生！</a><br /><a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81/%E8%B6%85%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E3%81%AE%E9%80%86%E8%A5%B2%EF%BC%81">超エメドラの逆襲！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">3139 8517</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					23分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5860 5898</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										優格					</td>
+					<td width="80">
+					24分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2890s_zpsktm7boub.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/10%E6%9C%88%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">10月のクエストダンジョン</a><br /><a href="stage/10%E6%9C%88%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E3%82%BB%E3%83%A9%E3%83%95%E3%82%A3%E3%82%B9%E9%99%8D%E8%87%A8%EF%BC%81">セラフィス降臨！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">4617 4997</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					27分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E1">双極の女神1</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5509 7733</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										暗雅					</td>
+					<td width="80">
+					28分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/thursdays_zpsgtslrb8w.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E5%A4%A2%E8%A6%8B%E6%B4%9E%20%E8%B6%85%E5%9C%B0%E7%8D%84%E7%B4%9A">夢見洞 超地獄級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">8832 2617</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					29分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/227s_zpsxrqtqm4l.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E7%B7%91%E9%BE%8D%E3%81%AE%E5%B7%A3%E7%AA%9F%20%E4%B8%AD%E7%B4%9A">緑龍の巣窟 中級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">2390 7266</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					30分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9145 5326</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵					</td>
+					<td width="80">
+					31分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6148 5292</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵					</td>
+					<td width="80">
+					31分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/797s_zpsnhvamdsy.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81">たまドラ大量発生！</a><br /><a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%82%92%E8%BF%BD%E3%81%88%EF%BC%81">たまドラを追え！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9592 4253</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					33分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/227s_zpsxrqtqm4l.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E7%B7%91%E9%BE%8D%E3%81%AE%E5%B7%A3%E7%AA%9F%20%E4%B8%AD%E7%B4%9A">緑龍の巣窟 中級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">3882 2392</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										以前觉得没用，现在又要好多龙种……					</td>
+					<td width="80">
+					37分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">1135 0759</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										尤格					</td>
+					<td width="80">
+					37分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/438s_zpskdwvhtpq.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%90%E3%82%93%E3%81%BE%E3%82%B3%E3%83%A9%E3%83%9C">ぐんまコラボ</a><br /><a href="stage/%E3%81%90%E3%82%93%E3%81%BE%E3%82%B3%E3%83%A9%E3%83%9C/%E3%81%90%E3%82%93%E3%81%BE%E3%81%91%E3%82%93%20%E6%A5%B5%E6%A5%BD">ぐんまけん 極楽</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">4722 5232</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					38分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6680 4988</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵					</td>
+					<td width="80">
+					39分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">4233 8692</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水hunter					</td>
+					<td width="80">
+					41分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/619s_zpskhsbdeod.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81">エメドラ大量発生！</a><br /><a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81/%E8%B6%85%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E3%81%AE%E9%80%86%E8%A5%B2%EF%BC%81">超エメドラの逆襲！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6527 8061</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					41分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2948s_zps3ohe6eat.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/10%E6%9C%88%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">10月のクエストダンジョン</a><br /><a href="stage/10%E6%9C%88%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E3%83%81%E3%83%A3%E3%83%AC%E3%83%B3%E3%82%B8Lv10%E3%80%90%E3%83%89%E3%83%A9%E3%82%B4%E3%83%B3%E5%BC%B7%E5%8C%96%E3%80%91">チャレンジLv10【ドラゴン強化】</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">8523 7664</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					41分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/438s_zpskdwvhtpq.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%90%E3%82%93%E3%81%BE%E3%82%B3%E3%83%A9%E3%83%9C">ぐんまコラボ</a><br /><a href="stage/%E3%81%90%E3%82%93%E3%81%BE%E3%82%B3%E3%83%A9%E3%83%9C/%E3%81%90%E3%82%93%E3%81%BE%E3%81%91%E3%82%93%20%E6%A5%B5%E6%A5%BD">ぐんまけん 極楽</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">9424 0219</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										劉					</td>
+					<td width="80">
+					42分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6270 0710</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵					</td>
+					<td width="80">
+					43分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">2792 3875</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										優格 已帶增, 你帶解珠					</td>
+					<td width="80">
+					44分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/797s_zpsnhvamdsy.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%81%AE%E9%87%8C">たまドラの里</a><br /><a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%81%AE%E9%87%8C/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%82%92%E8%BF%BD%E3%81%88%EF%BC%81">たまドラを追え！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6242 0573</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					44分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">6997 6262</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										猶格					</td>
+					<td width="80">
+					45分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5739 7345</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水h					</td>
+					<td width="80">
+					46分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">8300 7780</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										霊央					</td>
+					<td width="80">
+					46分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2948s_zps3ohe6eat.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/10%E6%9C%88%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">10月のクエストダンジョン</a><br /><a href="stage/10%E6%9C%88%E3%81%AE%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E3%83%81%E3%83%A3%E3%83%AC%E3%83%B3%E3%82%B8Lv10%E3%80%90%E3%83%89%E3%83%A9%E3%82%B4%E3%83%B3%E5%BC%B7%E5%8C%96%E3%80%91">チャレンジLv10【ドラゴン強化】</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">2007 6079</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										我水獵，招鏖魔，帶龍寵及回血技，我有加轉珠時間技					</td>
+					<td width="80">
+					47分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">1056 5914</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水獵					</td>
+					<td width="80">
+					48分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/438s_zpskdwvhtpq.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%90%E3%82%93%E3%81%BE%E3%82%B3%E3%83%A9%E3%83%9C">ぐんまコラボ</a><br /><a href="stage/%E3%81%90%E3%82%93%E3%81%BE%E3%82%B3%E3%83%A9%E3%83%9C/%E3%81%90%E3%82%93%E3%81%BE%E3%81%91%E3%82%93%20%E6%A5%B5%E6%A5%BD">ぐんまけん 極楽</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">7952 8413</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					48分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">1895 9302</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										彩龍					</td>
+					<td width="80">
+					49分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/619s_zpskhsbdeod.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81">エメドラ大量発生！</a><br /><a href="stage/%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E5%A4%A7%E9%87%8F%E7%99%BA%E7%94%9F%EF%BC%81/%E8%B6%85%E3%82%A8%E3%83%A1%E3%83%89%E3%83%A9%E3%81%AE%E9%80%86%E8%A5%B2%EF%BC%81">超エメドラの逆襲！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5569 4691</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										射					</td>
+					<td width="80">
+					50分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5358 0288</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										男水獵 暗雅 兇龍喚					</td>
+					<td width="80">
+					51分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">4142 8130</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										優格 要有龍神殺+貂蟬 我有buff 龍神殺解鎖打boss 連刷					</td>
+					<td width="80">
+					51分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/797s_zpsnhvamdsy.png
+" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%81%AE%E9%87%8C">たまドラの里</a><br /><a href="stage/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%81%AE%E9%87%8C/%E3%81%9F%E3%81%BE%E3%83%89%E3%83%A9%E3%82%92%E8%BF%BD%E3%81%88%EF%BC%81">たまドラを追え！</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">3544 7695</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+															</td>
+					<td width="80">
+					53分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E3">双極の女神3</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">5068 5113</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										水男					</td>
+					<td width="80">
+					54分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/kalis_zpsmdmhznbc.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4">極限の闘技場</a><br /><a href="stage/%E6%A5%B5%E9%99%90%E3%81%AE%E9%97%98%E6%8A%80%E5%A0%B4/%E5%8F%8C%E6%A5%B5%E3%81%AE%E5%A5%B3%E7%A5%9E1">双極の女神1</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">8107 0834</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										靈央神，斷					</td>
+					<td width="80">
+					55分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/2893s_zpsnguyulmd.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81">超極限北欧ラッシュ！</a><br /><a href="stage/%E8%B6%85%E6%A5%B5%E9%99%90%E5%8C%97%E6%AC%A7%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%81/%E6%B7%B1%E5%86%A5%E7%95%8C%20%E5%A3%8A%E6%BB%85%E7%B4%9A">深冥界 壊滅級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">1772 4457</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										猶格					</td>
+					<td width="80">
+					56分鐘前					
+					</td>
+				</tr>
+
+						<tr align="center">
+
+					<td width="70">
+						<img src="http://i1296.photobucket.com/albums/ag18/skyozora/stage/227s_zpsxrqtqm4l.png" width="70" />
+					</td>
+					<td>
+						<a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3">木曜ダンジョン</a><br /><a href="stage/%E6%9C%A8%E6%9B%9C%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3/%E7%B7%91%E9%BE%8D%E3%81%AE%E5%B7%A3%E7%AA%9F%20%E4%B8%AD%E7%B4%9A">緑龍の巣窟 中級</a>
+					</td>
+					<td class="yellow bold big130" style="white-space:nowrap; padding:8px 15px 8px 15px">7864 4220</td>
+					<td width="220" style="word-WRAP: break-word;word-break: break-all;">
+										隨便					</td>
+					<td width="80">
+					58分鐘前					
+					</td>
+				</tr>
+
+					</table>
+			
+				</td>
+
+		<td width="15"></td>
+
+		<td valign="top" width="300" align="center">
+			<div style="background:#000000; padding:5px">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Skyozora_336x280 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-5454875279695201"
+     data-ad-slot="5104522419"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script><script language='JavaScript' type='text/javascript'>if (!window.af) var af = (function() {return {getcookie:function(n){var m=n+'=';var ca=document.cookie.split(';');for(var i=0;i < ca.length;i++) {var c=ca[i];while (c.charAt(0)==' ') c = c.substring(1,c.length);if (c.indexOf(m) == 0) return c.substring(m.length,c.length);}return null;},existcookie:function(n){var m=af.getcookie(n);if (m!=null&&m!=''){return true;}else{return false;}}};})(); if(af.existcookie('__AF')){afid = af.getcookie('__AF'); } else {afid = 0; } randomstr = new String (Math.random()); randomstr = randomstr.substring(2,8);document.write ("<" + "script language='JavaScript' type='text/javascript' src='" + "http://servedby.adsfactor.net/adj.php?ts=" + randomstr + "&amp;sid=910471385284&amp;afid=" + afid + "'><" + "/script>");
+</script><noscript><a href='http://servedby.adsfactor.net/adc.php?sid=910471385284' ><img src='http://servedby.adsfactor.net/adv.php?sid=910471385284' border='0'></a></noscript><div class="kiwi-ad-wrapper-300x250"></div><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Skyozora_336x280 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-5454875279695201"
+     data-ad-slot="5104522419"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>			</div>
+		</td>
+	</tr>
+
+</table>
+
+
+  <script src="javascript/jquery.lazyload.js" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+      $(function() {
+          $("img").lazyload({
+              effect : "fadeIn"
+          });
+      });
+  </script>
+<table align="center" border="0" width="1100">
+   <tr>
+      <td align="left">
+      Graphics © Copyright by Gungho Online Entertainment, Inc.<br>
+      <a href="http://pad.skyozora.com">戰友系統及資訊網</a> 由 Sky C. 持有，介面設計 Naldo W.<br>
+      如對本網站有任何查詢，歡迎電郵至 <a href="/cdn-cgi/l/email-protection#640d0a020b24170f1d0b1e0b16054a070b09"><span class="__cf_email__" data-cfemail="11787f777e51627a687e6b7e63703f727e7c">[email&#160;protected]</span></a>
+      </td>
+      
+      <td align="right">
+
+              <script style="display: none !important;">!function(e,t,r,n,c,a,l){function i(t,r){return r=e.createElement('div'),r.innerHTML='<a href="'+t.replace(/"/g,'&quot;')+'"></a>',r.childNodes[0].getAttribute('href')}function o(e,t,r,n){for(r='',n='0x'+e.substr(t,2)|0,t+=2;t<e.length;t+=2)r+=String.fromCharCode('0x'+e.substr(t,2)^n);return i(r)}try{for(c=e.getElementsByTagName('a'),l='/cdn-cgi/l/email-protection#',n=0;n<c.length;n++)try{(t=(a=c[n]).href.indexOf(l))>-1&&(a.href='mailto:'+o(a.href,t+l.length))}catch(e){}for(c=e.querySelectorAll('.__cf_email__'),n=0;n<c.length;n++)try{(a=c[n]).parentNode.replaceChild(e.createTextNode(o(a.getAttribute('data-cfemail'),0)),a)}catch(e){}}catch(e){}}(document);</script><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Skyozora_728x90 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5454875279695201"
+     data-ad-slot="2151106659"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </td>
+   </tr>
+</table>
+
+
+
+</div>
+
+
+
+
+</body>
+</html>
