@@ -6,8 +6,8 @@
 // @description:zh-CN 智龙迷城战友系统及资讯网，协力页面，显示体力，登陆页面可快速添加今日地图
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
-// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v5
-// @version     1.1.12
+// @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v6
+// @version     1.1.13
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -681,6 +681,18 @@ function mainStage(name,iconUrl)
 			onload: function(response){ //获取成功
 				var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
 				var subStageList = PageDOM.querySelector("#wrapper>table:nth-of-type(3) ul"); //子关卡的列表ul
+				if (subStageList == undefined) //如果没找到，试试手机版
+				{
+					subStageList = document.querySelector(".content>ul");
+					if (subStageList!=undefined)
+					{
+						mobile = true;
+					}else
+					{
+						alert("😰 " + name + " 页面未找到關卡資料");
+					}
+				}
+
 				var subStage = subStageList.getElementsByTagName("li"); //所有的li
 
 				obj.subStage.length = 0; //去掉所有的旧数据
@@ -733,7 +745,7 @@ function checkAllStageList(resetAll = false)
 		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
 		if (resetAll) stageList.length = 0; //先清空
 		//所有地下城表格
-		var stageTd = PageDOM.querySelector(".content>table:nth-of-type(3) td");
+		var stageTd = PageDOM.querySelector("#wrapper>table:nth-of-type(3) td");
 		if (stageTd == undefined) //如果没找到，试试手机版
 		{
 			stageTd = document.querySelector(".content");
