@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v5
-// @version     1.1.11
+// @version     1.1.12
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -258,7 +258,7 @@ function registerPage()
 	var stg1Box = document.createElement("div");stgBox.appendChild(stg1Box);
 	stg1Box.className = "stg-box stg-box-1";
 	var stg1Ul = document.createElement("ul");stg1Box.appendChild(stg1Ul);
-
+	
 	function refresTypeList()
 	{
 		for (var ci = stg1Ul.childNodes.length-1;ci>=0;ci--) //清空主图列表
@@ -437,7 +437,7 @@ function registerPage()
 			else{
 				config.starStage.push(name);
 				saveConfig(1);
-				stgType2.input.click(); //点击刷新
+				stg1Ul.querySelector("input[value='100']").click(); //点击刷新
 				//alert("💗“"+ name +"”收藏成功");
 			}
 		}else
@@ -451,7 +451,7 @@ function registerPage()
 		{
 			config.starStage.length = 0; //如果没有输入，直接清空
 			saveConfig(1);
-			stgType2.input.click(); //点击刷新
+			stg1Ul.querySelector("input[value='100']").click(); //点击刷新
 			//alert("收藏清空了");
 			return;
 		}
@@ -463,7 +463,7 @@ function registerPage()
 		{
 			config.starStage.splice(index,1)
 			saveConfig(1);
-			stgType2.input.click(); //点击刷新
+			stg1Ul.querySelector("input[value='100']").click(); //点击刷新
 			//alert("“"+ name +"”被删掉了");
 		}
 	}
