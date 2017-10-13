@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v6
-// @version     1.1.13
+// @version     1.1.15
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -86,6 +86,66 @@ if(typeof(GM_listValues) == "undefined")
 		return keys;
 	}
 }
+var formatJson = function (json, options) {
+	var reg = null,
+			formatted = '',
+			pad = 0,
+			PADDING = '    ';
+	options = options || {};
+	options.newlineAfterColonIfBeforeBraceOrBracket = (options.newlineAfterColonIfBeforeBraceOrBracket === true) ? true : false;
+	options.spaceAfterColon = (options.spaceAfterColon === false) ? false : true;
+	if (typeof json !== 'string') {
+		json = JSON.stringify(json);
+	} else {
+		json = JSON.parse(json);
+		json = JSON.stringify(json);
+	}
+	reg = /([\{\}])/g;
+	json = json.replace(reg, '\r\n$1\r\n');
+	reg = /([\[\]])/g;
+	json = json.replace(reg, '\r\n$1\r\n');
+	reg = /(\,)/g;
+	json = json.replace(reg, '$1\r\n');
+	reg = /(\r\n\r\n)/g;
+	json = json.replace(reg, '\r\n');
+	reg = /\r\n\,/g;
+	json = json.replace(reg, ',');
+	if (!options.newlineAfterColonIfBeforeBraceOrBracket) {
+		reg = /\:\r\n\{/g;
+		json = json.replace(reg, ':{');
+		reg = /\:\r\n\[/g;
+		json = json.replace(reg, ':[');
+	}
+	if (options.spaceAfterColon) {
+		reg = /\:/g;
+		json = json.replace(reg, ':');
+	}
+	(json.split('\r\n')).forEach(function (node, index) {
+				var i = 0,
+						indent = 0,
+						padding = '';
+
+				if (node.match(/\{$/) || node.match(/\[$/)) {
+					indent = 1;
+				} else if (node.match(/\}/) || node.match(/\]/)) {
+					if (pad !== 0) {
+						pad -= 1;
+					}
+				} else {
+					indent = 0;
+				}
+
+				for (i = 0; i < pad; i++) {
+					padding += PADDING;
+				}
+
+				formatted += padding + node + '\r\n';
+				pad += indent;
+			}
+	);
+	formatted = formatted.replace(/^\s*|\s*$/g,""); //去掉首尾空格
+	return formatted;
+};
 //创建带Label的Input类
 var LabelInput = function(text, classname, name, type, value, title = "", beforeText = true) {
 	var label = document.createElement("label");
@@ -526,8 +586,8 @@ function registerPage()
 		var dlg = ioConfigDialog();
 		form.parentElement.appendChild(dlg);
 		dlg.classList.remove("display-none");
-		dlg.configText.value = JSON.stringify(config);
-		dlg.stageListText.value = JSON.stringify(stageList);
+		dlg.configText.value = formatJson(config);
+		dlg.stageListText.value = formatJson(stageList);
 	};
 
 	//收藏按钮
