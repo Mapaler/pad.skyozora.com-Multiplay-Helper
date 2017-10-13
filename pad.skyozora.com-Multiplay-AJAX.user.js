@@ -404,15 +404,22 @@ function buildMainFramework()
 			return obj;
 		})
 
-		allStgCs = [starStgC].concat(toDayStgCs,reqStgCs); //所有地下城放到一起
+		allStgCs = [starStgC].concat(toDayStgCs,new Array(11).join("-"),reqStgCs); //所有地下城放到一起
 
 		allStgCs.forEach(function(item){
 			var typeli = stgList1.appendChild(document.createElement("li"));
-			var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-type",id:"stage-type-" + item.type,value:item.type}));
-			ipt.typeName = item.name;
-			ipt.stages = item.stages;
-			ipt.onclick = chooseStageType;
-			var lbl = typeli.appendChild(new Label(item.name,ipt.id,"stage-type-label"));
+			if (typeof(item) == "object")
+			{
+				var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-type",id:"stage-type-" + item.type,value:item.type}));
+				ipt.typeName = item.name;
+				ipt.stages = item.stages;
+				ipt.onclick = chooseStageType;
+				var lbl = typeli.appendChild(new Label(item.name,ipt.id,"stage-type-label"));
+			}else
+			{ //没有数据的地图
+				typeli.appendChild(document.createTextNode(item));
+				typeli.className = "line-between";
+			}
 		})
 
 		stageListPage.classList.remove("display-none"); //最后显示出来
