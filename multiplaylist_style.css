@@ -1,0 +1,55 @@
+body
+{
+	background: #222;
+	color: #fff;
+}
+.mltlist
+{
+	list-style: none;
+	padding: 0;
+	display: inline-table;
+}
+.mltlist li
+{
+	box-sizing: border-box;
+	border: 1px solid #F66;
+	display: table-row;
+}
+.mltlist li>div
+{
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #6F6;
+	position: relative;
+	vertical-align: middle;
+	text-align: center;
+	display: table-cell;
+}
+.mlt-image
+{
+	width:auto;
+	height:auto;
+}
+
+.mlt-stage-2-box
+{
+	margin-top: 0.2em;
+}
+.mlt-stage-1,.mlt-stage-2
+{
+	color: #FFF;
+}
+.mlt-roomId-box
+{
+	color: #F2FF1C;
+	font-weight: bold;
+	font-size: 2em;
+	cursor: pointer;
+}
+.mlt-roomId-space
+{
+	display: inline-block;
+	font-size: 0.5em;
+	width: 0.5em;
+	line-height: 1px;
+}

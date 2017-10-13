@@ -89,6 +89,24 @@ if(typeof(GM_listValues) == "undefined")
 		return keys;
 	}
 }
+// 复制文字的程序
+function copyArticle(element) {
+	const range = document.createRange();
+	range.selectNode(element);
+
+	const selection = window.getSelection();
+	if(selection.rangeCount > 0) selection.removeAllRanges();
+	selection.addRange(range);
+	document.execCommand('copy');
+}
+//给数字字符串补零，不支持负数
+function padNumber(num, fill) {
+    //改自：http://blog.csdn.net/aimingoo/article/details/4492592
+    var len = ('' + num).length;
+    return (Array(
+        fill > len ? fill - len + 1 || 0 : 0
+    ).join(0) + num);
+}
 //一个按钮对象
 var Button = function(value,className,onClick)
 {
@@ -156,7 +174,12 @@ function refresh()
 function dealMultiplay(response)
 {
 	var mltArray = getMultiplayArray(response);
-	buildMultiplayList(mltArray);
+	var liArr = buildMultiplayList(mltArray);
+	var list = document.querySelector(".mltlist");
+	liArr.forEach(function(element) {
+		list.appendChild(element);
+	});
+
 }
 //将协力列表页面转化为数组
 function getMultiplayArray(response)
@@ -217,5 +240,54 @@ function getMultiplayArray(response)
 //将协力数组构建为网页
 function buildMultiplayList(mltArray)
 {
-	console.log(mltArray);
+	var liArr = mltArray.map(function(mlt){
+		var li = document.createElement("li");
+		var imageBox = li.appendChild(document.createElement("div"));
+		imageBox.className = "mlt-image-box";
+		var image = imageBox.appendChild(document.createElement("img"));
+		image.className = "mlt-image";
+		image.src = mlt.image;
+		
+		var stageBox = li.appendChild(document.createElement("div"));
+		imageBox.className = "mlt-stage-box";
+		var stage1Box = stageBox.appendChild(document.createElement("div"));
+		stage1Box.className = "mlt-stage-1-box";
+		var stage1 = stage1Box.appendChild(document.createElement("a"));
+		stage1.className = "mlt-stage-1";
+		stage1.href = "stage/" + mlt.stage1;
+		stage1.appendChild(document.createTextNode(mlt.stage1));
+		var stage2Box = stageBox.appendChild(document.createElement("div"));
+		stage2Box.className = "mlt-stage-2-box";
+		var stage2 = stage2Box.appendChild(document.createElement("a"));
+		stage2.className = "mlt-stage-2";
+		stage2.href = "stage/" + mlt.stage1 + "/" + mlt.stage2;
+		stage2.appendChild(document.createTextNode(mlt.stage2));
+
+		var roomIdBox = li.appendChild(document.createElement("div"));
+		roomIdBox.className = "mlt-roomId-box";
+		roomIdBox.onclick = function(){
+			copyArticle(this);
+		}
+		var id1 = roomIdBox.appendChild(document.createElement("span"));
+		id1.className = "mlt-roomId-1";
+		id1.appendChild(document.createTextNode( padNumber(parseInt(mlt.roomId / 10000),4) ));
+
+		var ids = roomIdBox.appendChild(document.createElement("span"));
+		ids.className = "mlt-roomId-space";
+
+		var id2 = roomIdBox.appendChild(document.createElement("span"));
+		id2.className = "mlt-roomId-2";
+		id2.appendChild(document.createTextNode( padNumber(parseInt(mlt.roomId % 10000),4) ));
+
+		var aksBox = li.appendChild(document.createElement("div"));
+		aksBox.className = "mlt-ask-box";
+		aksBox.appendChild(document.createTextNode(mlt.ask));
+
+		var timeBox = li.appendChild(document.createElement("div"));
+		timeBox.className = "mlt-time-box";
+		timeBox.appendChild(document.createTextNode(mlt.time));
+
+		return li;
+	});
+	return liArr;
 }
