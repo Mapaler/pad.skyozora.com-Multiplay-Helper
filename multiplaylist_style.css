@@ -1,21 +1,44 @@
+.display-none
+{/*任何需要隐藏的*/
+  display:none !important;
+}
 body
 {
 	background: #222;
 	color: #fff;
 	margin: 0;
 }
-.title-box
+.main-box
+{
+	position: relative;
+}
+.page
+{
+	position: absolute;
+}
+/* 这样写后可以让手机版页面固定
+.list-box
+{
+	overflow: auto;
+	width: 100%;
+	height: calc(100vh - 40px);
+}
+*/
+.list-title
 {
 	font-size: 1.5em;
 	background-image: linear-gradient(to right,rgba(30,90,200,1),rgba(30,90,200,0));
 	background-size: 360px 100%;
 	background-repeat: repeat-y;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 .mltlist
 {
 	list-style: none;
 	padding: 0;
-	margin-bottom: 100px;
+	margin-top: 0;
+	margin-bottom: 60px;
 }
 .mltlist li
 {
@@ -78,6 +101,7 @@ body
 {
 	width: 260px;
 	color: #F2FF1C;
+	text-shadow: orange 0 0 1px;
 	font-weight: bold;
 	font-size: 2em;
 	cursor: pointer;
@@ -105,13 +129,14 @@ body
 	height: 40px;
 	background: #ddd;
 	box-shadow: white 0 0 2px;
+	z-index: 1000;
 }
-.control-button
+.action-button
 {
 	box-sizing: border-box;
 	height:50px;
 }
-.control-button-refresh
+.action-button
 {
 	padding: 0;
 	color: white;
@@ -127,12 +152,12 @@ body
 	border: none;
 	box-shadow: rgba(200,200,200,0.5) 2px 5px 5px -1px;
 }
-.control-button-refresh:hover
+.action-button:hover
 {
 	background: #00D9A9;
 	box-shadow: #00D0A3 0 0 2px,rgba(200,200,200,0.5) 2px 5px 5px -1px;
 }
-.control-button-refresh:active
+.action-button:active
 {
 	background: #00C093;
 	box-shadow: inset black 0 0 3px;

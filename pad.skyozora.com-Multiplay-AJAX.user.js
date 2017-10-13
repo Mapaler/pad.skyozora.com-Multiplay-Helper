@@ -108,14 +108,80 @@ function padNumber(num, fill) {
     ).join(0) + num);
 }
 //一个按钮对象
-var Button = function(value,className,onClick)
+var Button = function(value,className,title,onClick)
 {
 	var btn = document.createElement("button");
 	btn.className = className;
+	btn.title = title;
 	btn.appendChild(document.createTextNode(value));
 	btn.onclick = onClick;
 	return btn;
 }
+//创建Label类
+var Label = function(text, forId = "", classname = "") {
+	var label = document.createElement("label");
+	label.appendChild(document.createTextNode(text));
+	if (forId != undefined)
+		label.setAttribute("for",forId);
+	if (classname != undefined)
+		label.className = classname;
+	return label;
+};
+//创建Input类
+var Input = function(options) {
+	var ipt = document.createElement("input");
+
+	for (var attr in options) {
+		ipt[attr] = options[attr];
+	}
+
+	return ipt;
+};
+//创建带Label的Input类
+var LabelInput = function(text, classname, name, type, value, title = "", beforeText = true) {
+	var label = document.createElement("label");
+	if (text != undefined) label.appendChild(document.createTextNode(text));
+	label.className = classname;
+	if (typeof(title) != "undefined")
+		label.title = title;
+
+	var ipt = document.createElement("input");
+	ipt.name = name;
+	ipt.id = ipt.name;
+	ipt.type = type;
+	ipt.value = value;
+
+	label.input = ipt;
+	if (beforeText)
+		label.insertBefore(ipt, label.firstChild);
+	else
+		label.appendChild(ipt);
+	return label;
+};
+//一个Post数据
+var PostDataObject = function(obj) {
+	var postdata = new Object;
+	if (obj)
+		postdata.data = Object.assign({}, obj); //合并obj
+	postdata.increase = function(obj) {
+		postdata.data = Object.assign(postdata.data, obj); //合并obj
+	}
+	postdata.toPostString = function() {
+		var arr = new Array;
+		for (var na in postdata.data) {
+			var item = [na, postdata.data[na]];
+			arr.push(item);
+		}
+
+		var str = arr.map(
+			function(item) {
+				return item.join("=");
+			}
+		).join("&");
+		return str;
+	}
+	return postdata;
+};
 //一个协力请求对象
 var Multiplay = function(stage1,stage2,image,roomId,ask,time)
 {
@@ -137,27 +203,106 @@ function buildMainFramework()
 {
 	var mBox = document.body.appendChild(document.createElement("div")); //总框架
 	mBox.id = mBox.className = "main-box";
+	var boxArr = [];
 
-	var titleBox = mBox.appendChild(document.createElement("div")); //列表框架
-	titleBox.className = "title-box";
-	titleBox.appendChild(document.createTextNode("其他玩家创建的房间"));
+	var listBox = document.createElement("div"); //列表框架
+	listBox.className = "list-box page";
+	var title = listBox.appendChild(document.createElement("div"));
+	title.className = "list-title";
+	title.appendChild(document.createTextNode("其他玩家创建的房间"));
 
-	var listBox = mBox.appendChild(document.createElement("div")); //列表框架
-	listBox.className = "list-box";
 	var list = listBox.appendChild(document.createElement("ul")); //列表ul
 	list.className = "mltlist";
 
-	var controlBox = mBox.appendChild(document.createElement("div")); //控制按钮框架
+	listBox.appendChild(new Button("refresh","material-icons action-button action-button-refresh","刷新列表",function(){refresh()}));
+
+
+	/* 添加请求页面 */
+	var createBox = document.createElement("div"); //添加请求框架
+	createBox.className = "create-box page display-none";
+	var title = createBox.appendChild(document.createElement("div"));
+	title.className = "list-title";
+	title.appendChild(document.createTextNode("登陆自行创建的房间"));
+
+	var roomIdBox = createBox.appendChild(document.createElement("div"));
+	var lblRoomId = roomIdBox.appendChild(new Label("房间ID","roomid"));
+	var iptRoomId = roomIdBox.appendChild(new Input({type:"number",id:"roomid",max:"99999999",min:"0",step:"1"}));
+
+	var stageBox = createBox.appendChild(document.createElement("div"));
+	var lblStage = stageBox.appendChild(new Label("地下城","stage"));
+	var btnStage = stageBox.appendChild(new Button("点击选择","create-button-stage","点击显示地下城选择页面",function(){alert("地下城")}));
+
+	var askBox = createBox.appendChild(document.createElement("div"));
+	var lblAsk = askBox.appendChild(new Label("征求队伍","req"));
+	var iptAsk = askBox.appendChild(new Input({type:"text",id:"req",maxLength:"50"}));
+
+	createBox.appendChild(new Button("send","material-icons action-button action-button-send","发送征求",function(){
+		var postObj = new PostDataObject({ //Post时发送的数据
+			roomid: iptRoomId.value,
+			//column1: "",
+			column2: "",
+			column3: "",
+			req: iptAsk.value,
+			//button:"登錄",
+		})
+		GM_xmlhttpRequest({
+			method: "POST",
+			//url: "http://pad.skyozora.com/multiplay/",
+			//url: "test.html",
+			url: "test.html",
+			data: postObj.toPostString(),
+			onload: dealMultiplay,
+			onerror: function(response) {
+				info("发送征求信息失败");
+				console.error("发送征求信息失败",response);
+			}
+		});
+	}));
+
+
+	/* 设置页面 */
+	var settingsBox = document.createElement("div"); //设置框架
+	settingsBox.className = "settings-box page display-none";
+	var title = settingsBox.appendChild(document.createElement("div"));
+	title.className = "list-title";
+	title.appendChild(document.createTextNode("程序设置"));
+
+	settingsBox.appendChild(new Button("done","material-icons action-button action-button-done","保存设置",function(){alert("保存")}));
+
+
+	/* 控制栏 */
+	var controlBox = document.createElement("div"); //控制按钮框架
 	controlBox.className = "control-box";
-	controlBox.appendChild(new Button("refresh","material-icons control-button control-button-refresh",function(){refresh()}));
-	controlBox.appendChild(new Button("create","material-icons control-button control-button-create",function(){alert("添加")}));
-	controlBox.appendChild(new Button("settings","material-icons control-button control-button-settings",function(){alert("设置")}));
+	controlBox.appendChild(new Button("list","material-icons control-button control-button-list","全部协力列表",function(){showPage("list")}));
+	controlBox.appendChild(new Button("create","material-icons control-button control-button-create","添加我的协力请求",function(){showPage("create")}));
+	//controlBox.appendChild(new Button("filter_list","material-icons control-button control-button-filter",function(){alert("筛选")}));
+	controlBox.appendChild(new Button("settings","material-icons control-button control-button-settings","程序设置",function(){showPage("settings")}));
 
-	var addBox = mBox.appendChild(document.createElement("div")); //添加请求框架
-	addBox.className = "add-box";
 
-	var configBox = mBox.appendChild(document.createElement("div")); //设置框架
-	configBox.className = "config-box";
+	boxArr.push(
+		listBox,
+		createBox,
+		settingsBox,
+		controlBox
+	)
+	boxArr.forEach(function(element) {
+		mBox.appendChild(element);
+	});
+	function showPage(type)
+	{
+		var pageArr = ["list","create","settings"];
+		pageArr.forEach(function(item){
+			var box = mBox.querySelector("." + item + "-box");
+			if (box)
+				var cL = box.classList;
+			else
+				return;
+			if (item == type)
+				cL.remove("display-none");
+			else
+				cL.add("display-none");
+		})
+	}
 }
 //刷新
 function refresh()
