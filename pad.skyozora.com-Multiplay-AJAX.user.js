@@ -332,6 +332,15 @@ function buildMainFramework()
 	var iptAsk = askBox.appendChild(new Input({type:"text",id:"req",maxLength:"50"}));
 
 	createBox.appendChild(new Button("send","material-icons action-button action-button-send","发送征求",function(){
+		if (iptRoomId.value.replace(/[^0-9]/g,"").length<8)
+		{
+			info("房间号输入错误");
+			return;
+		}else if (iptStage2.value.length<=0)
+		{
+			info("未选择地图");
+			return;
+		}
 		var postObj = new PostDataObject({ //Post时发送的数据
 			roomid: iptRoomId.value,
 			//column1: "",
@@ -400,18 +409,20 @@ function buildMainFramework()
 		allStgCs.forEach(function(item){
 			var typeli = stgList1.appendChild(document.createElement("li"));
 			var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-type",id:"stage-type-" + item.type,value:item.type}));
+			ipt.typeName = item.name;
+			ipt.stages = item.stages;
+			ipt.onclick = chooseStageType;
 			var lbl = typeli.appendChild(new Label(item.name,ipt.id,"stage-type-label"));
-			ipt.onclick = function(){
-				if (this.checked)
-					chooseStageType(this.value);
-			}
 		})
 
 		stageListPage.classList.remove("display-none"); //最后显示出来
 		document.querySelector("#stage-type-0").click();
 	}
-	function chooseStageType(type = 0)
+	function chooseStageType()
 	{
+		if (!this.checked) return;
+		var typeName = this.typeName;
+		var stages = this.stages;
 		while(stgList2.childNodes.length>0)
 		{
 			delete stgList2.firstChild.remove(); //清空原来的，并从内存删除
@@ -420,20 +431,6 @@ function buildMainFramework()
 		{
 			delete stgList3.firstChild.remove(); //清空原来的，并从内存删除
 		}
-		var stages;
-		if (type == 0)
-		{
-			stages = config.starStage;
-		}else if (type >= 10 && type < 100)
-		{
-			stages = config.todayStage[type - 10].stages;
-		}else if (type >= 100 && type < 200)
-		{
-			stages = config.reqStageList[type - 100].stages;
-		}else
-		{
-			info("未知的地下城类型" + type);
-		}
 
 		stages.forEach(function(item,index){
 			var typeli = stgList2.appendChild(document.createElement("li"));
@@ -441,6 +438,9 @@ function buildMainFramework()
 			if (stg)
 			{
 				var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-1",id:"stage-1-" + index,value:index}));
+				ipt.typeName = typeName;
+				ipt.stage = stg;
+				ipt.onclick = chooseMainStage;
 				var lbl = typeli.appendChild(new Label(item,ipt.id,"stage-1-label"));
 				//插图
 				var ico = lbl.insertBefore(document.createElement("img"),lbl.firstChild);
@@ -452,33 +452,55 @@ function buildMainFramework()
 				typeli.className = "line-between";
 			}
 		})
+		document.querySelector("#stage-1-0").click();
 	}
-	function chooseMainStage(index = 0)
+	function chooseMainStage()
 	{
+		if (!this.checked) return;
+		var typeName = this.typeName;
+		var stage = this.stage;
+		var subStages = this.stage.subStage;
+		//var stgIndex = this.value;
 		while(stgList3.childNodes.length>0)
 		{
 			delete stgList3.firstChild.remove(); //清空原来的，并从内存删除
 		}
-		var stages;
-		if (type == 0)
-		{
-			stages = config.starStage;
-		}else if (type >= 10 && type < 100)
-		{
-			stages = config.todayStage[type - 10].stages;
-		}else if (type >= 100 && type < 200)
-		{
-			stages = config.reqStageList[type - 100].stages;
-		}else
-		{
-			info("未知的地下城类型" + type);
-		}
 
-		stages.forEach(function(item,index){
-			var typeli = stgList2.appendChild(document.createElement("li"));
-			var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-1",id:"stage-1-" + index,value:index}));
-			var lbl = typeli.appendChild(new Label(item,ipt.id,"stage-1-label"));
+		subStages.forEach(function(item,index){
+			var typeli = stgList3.appendChild(document.createElement("li"));
+			var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-2",id:"stage-2-" + index,value:index}));
+			var lbl = typeli.appendChild(new Label(item.name,ipt.id,"stage-2-label"));
 			//插图
+			var ico = lbl.insertBefore(document.createElement("img"),lbl.firstChild);
+			ico.className = "stage-icon";
+			ico.src = item.iconUrl;
+
+			ipt.onclick = function()
+			{
+				iptStage1.value = stage.name;
+				iptStage2.value = item.name;
+				while(btnStage.childNodes.length>0)
+				{
+					delete btnStage.firstChild.remove(); //清空选择按钮的内容
+				}
+				var stgI1 = btnStage.appendChild(document.createElement("span"));
+				stgI1.className = "stage-chose-show-1";
+				stgI1.appendChild(document.createTextNode(typeName));
+				var stgI2 = btnStage.appendChild(document.createElement("span"));
+				stgI2.className = "stage-chose-show-2";
+				var ico2 = stgI2.appendChild(document.createElement("img"));
+				ico2.className = "stage-icon";
+				ico2.src = stage.iconUrl;
+				stgI2.appendChild(document.createTextNode(stage.name));
+				var stgI3 = btnStage.appendChild(document.createElement("span"));
+				stgI3.className = "stage-chose-show-3";
+				var ico3 = stgI3.appendChild(document.createElement("img"));
+				ico3.className = "stage-icon";
+				ico3.src = item.iconUrl;
+				stgI3.appendChild(document.createTextNode(item.name));
+
+				stageListPage.classList.add("display-none"); //最后显示出来
+			}
 		})
 	}
 
@@ -510,21 +532,22 @@ function buildMainFramework()
 	boxArr.forEach(function(element) {
 		mBox.appendChild(element);
 	});
-	function showPage(type)
-	{
-		var pageArr = ["list","create","settings"];
-		pageArr.forEach(function(item){
-			var box = mBox.querySelector("." + item + "-box");
-			if (box)
-				var cL = box.classList;
-			else
-				return;
-			if (item == type)
-				cL.remove("display-none");
-			else
-				cL.add("display-none");
-		})
-	}
+}
+function showPage(type)
+{
+	var pageArr = ["list","create","settings"];
+	var mBox = document.querySelector("#main-box");
+	pageArr.forEach(function(item){
+		var box = mBox.querySelector("." + item + "-box");
+		if (box)
+			var cL = box.classList;
+		else
+			return;
+		if (item == type)
+			cL.remove("display-none");
+		else
+			cL.add("display-none");
+	})
 }
 //刷新
 function refresh()
@@ -561,7 +584,7 @@ function dealMultiplay(response)
 	liArr.forEach(function(element) {
 		list.appendChild(element);
 	});
-
+	showPage("list");
 }
 //将协力列表页面转化为数组
 function getMultiplayArray(response)
