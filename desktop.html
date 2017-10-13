@@ -1,0 +1,698 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<base href="http://pad.skyozora.com">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="content-language" content="zh-hk">
+<meta name="viewport" content="width=device-width; initial-scale=0.5">
+<meta name="keywords" content="Puzzle & Dragons,Puzzle and Dragons,戰友系統及資訊網,戰友,資訊,討論區,龍族,拼圖,パズル＆ドラゴンズ,パズドラ,戰友列表,Friend List,通關隊伍,寵物圖鑑,素材計算,經驗計算,抽蛋,隊伍模擬" />
+<meta name="description" content="Puzzle & Dragons(パズル＆ドラゴンズ) 是 GungHo Online Entertainment 開發的智能手機遊戲。本網站為該遊戲提供戰友系統讓玩家搜尋戰友、最新的遊戲資訊、供玩家交流的討論區。" />
+<link rel="shortcut icon" type="image/x-icon" href="images/egg.ico">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-37903325-1', 'skyozora.com');
+  ga('send', 'pageview');
+
+</script>
+
+<title>Puzzle & Dragons 戰友系統及資訊網</title><script src="https://js.kiwihk.net/?id=skyozora" type="text/javascript"></script>
+
+<script src="https://js.kiwihk.net/skyozora/v1/popup.js" type="text/javascript"></script>
+<script>
+var KIWI = KIWI || {};
+var KIWI.geminiMobileSticky = true; // true or false
+var KIWI.geminiDesktopSticky = true; // true or false
+var KIWI.ypaDesktopNewFloating = true; // true or false
+</script>
+
+
+
+</head>
+<link rel="stylesheet" type="text/css" href="css/style.css?20161227233101">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" charset="utf-8"></script>
+
+<script type="text/javascript"> 
+
+this.tooltip = function(){	
+	/* CONFIG */		
+		xOffset = 10;
+		yOffset = 20;		
+		// these 2 variable determine popup's distance from the cursor
+		// you might want to adjust to get the right result		
+	/* END CONFIG */		
+	$("a.tooltip").hover(function(e){											  
+		this.t = this.title;
+		this.title = "";									  
+		$("body").append("<p id='tooltip'>"+ this.t +"</p>");
+		$("#tooltip")
+			.css("top",(e.pageY - xOffset) + "px")
+			.css("left",(e.pageX + yOffset) + "px")
+			.fadeIn("slow");		
+    },
+	function(){
+		this.title = this.t;		
+		$("#tooltip").remove();
+    });	
+	$("a.tooltip").mousemove(function(e){
+		$("#tooltip")
+			.css("top",(e.pageY - xOffset) + "px")
+			.css("left",(e.pageX + yOffset) + "px");
+	});	
+
+};
+
+// starting the script on page load
+$(document).ready(function(){
+	tooltip();
+});
+function showPic(name) { 
+	file = "images/pets/" + name + ".png";
+	document.getElementById("pics").innerHTML = "<img src='" + file + "' align=absmiddle>"; 
+} 
+function showPic2(name) { 
+	file = "images/pets/" + name + ".png";
+	document.getElementById("pics2").innerHTML = "<img src='" + file + "' align=absmiddle width=75>"; 
+} 
+function tools(){ 
+var top=$ (document).scrollTop(); 
+if(($.browser.msie==true)&&($.browser.version==6.0)){ 
+if(top>200)$("#box1_1").css({ position:"absolute",top:top-200}); 
+}else{ 
+if(top>200)$("#box1_1").css({position:"fixed",top:"-"&top+"px"} ); 
+} 
+if(top<=200)$("#box1_1").css({position:"static",top:0}); 
+} 
+$(function(){ 
+window.onscroll=tools; 
+window.onresize= tools; 
+}); 
+$(function() {
+	$(window).scroll(function() {
+		if($(this).scrollTop() != 0) {
+			$('#toTop').fadeIn();	
+		} else {
+			$('#toTop').fadeOut();
+		}
+	});
+ 
+	$('#toTop').click(function() {
+		$('body,html').animate({scrollTop:0},800);
+	});	
+});
+</script> 
+
+<link rel="image_src" href="http://i1296.photobucket.com/albums/ag18/skyozora/site/logo_zpslcvsdeff.png" />
+<body> 
+<div id="wrapper">
+
+<div id="toTop">^ Back to Top</div>
+
+<table width="1100" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td align="left">
+            <h1>
+                <a href="" style="text-decoration:none">
+                    <img src="http://i1296.photobucket.com/albums/ag18/skyozora/site/logo_zpslcvsdeff.png" />
+                </a>
+            </h1>
+        </td>
+        <td align="right" style="padding:10px">
+            <script language='JavaScript' type='text/javascript'>if (!window.af) var af = (function() {return {getcookie:function(n){var m=n+'=';var ca=document.cookie.split(';');for(var i=0;i < ca.length;i++) {var c=ca[i];while (c.charAt(0)==' ') c = c.substring(1,c.length);if (c.indexOf(m) == 0) return c.substring(m.length,c.length);}return null;},existcookie:function(n){var m=af.getcookie(n);if (m!=null&&m!=''){return true;}else{return false;}}};})(); if(af.existcookie('__AF')){afid = af.getcookie('__AF'); } else {afid = 0; } randomstr = new String (Math.random()); randomstr = randomstr.substring(2,8);document.write ("<" + "script language='JavaScript' type='text/javascript' src='" + "http://servedby.adsfactor.net/adj.php?ts=" + randomstr + "&amp;sid=883773715285&amp;afid=" + afid + "'><" + "/script>");
+</script><noscript><a href='http://servedby.adsfactor.net/adc.php?sid=883773715285' ><img src='http://servedby.adsfactor.net/adv.php?sid=883773715285' border='0'></a></noscript>			
+        </td>
+    </tr>
+</table>
+
+
+<div id='cssmenu'>
+<ul>
+    <li class="active"><a href=""><img src="images/home.png"></a></li>
+
+    <li><a href="/news/">遊戲資訊</a></li>
+<li><a href="/friendlist/add/">新增遊戲帳號</a></li><li class="has-sub"><a href="/friendlist/">搜尋戰友 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/seeker/">急徵戰友</a></li>
+</ul></li>
+
+<li class="has-sub"><a href="/pets/">寵物 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/pets/">寵物圖鑑</a></li>
+<li><a href="/pets/statistics/" style="color:#ffff00">寵物排名</a></li>
+<li><a href="/gacha/">抽蛋機內容</a></li>
+<li><a href="/news/「技能提升指南」">技能提升指南</a></li>
+<li><a href="/skill/主動技能一覽/">主動技能表</a></li>
+<li><a href="/skill/覺醒技能一覽/">覺醒技能表</a></li>
+<li><a href="/news/「究極進化」">究極進化介紹</a></li>
+<!----<li><a href="/pets/究極進化素材表/">究極進化素材表</a></li>--->
+<li><a href="/news/Ver.8.1-新系統「潛在覺醒」">潛在覺醒技能</a></li>
+<li><a href="/news/「技能繼承系統」">技能繼承系統</a></li>
+</ul></li>
+
+<li class="has-sub"><a href="/stage/">地下城 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/stage/">地下城列表</a></li>
+<li><a href="/news/S-Rank-%E8%A9%95%E7%B4%9A%E7%B3%BB%E7%B5%B1">S Rank 評級系統</a></li>
+<li><a href="/Challenge/">挑戰地下城開放期間查詢</a></li>
+<li><a href="/multiplay/">協力地下城登錄/參戰</a></li>
+</ul></li>
+	
+<li class="has-sub"><a href="/team/">通關隊伍 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/team/">通關隊伍</a></li>
+<li><a href="/profile/">我的通關隊伍</a></li>
+<li><a href="/team/add">新增通關隊伍</a></li>
+<li><a href="/video/">影片頻道</a></li>
+</ul></li>
+
+
+<li class="has-sub"><a>工具 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/Evolution/">素材計算器</a></li>
+<li><a href="/tools/2">寵物經驗計算器</a></li>
+<li><a href="/tools/3">寵物進食計算器</a></li>
+
+<li><a href="/TeamSimulator/">隊伍模擬器</a></li>
+<li><a href="/CoverMaker/">FB Cover Photo 製作</a></li>
+<li><a href="/PetsCount/">寵物點算表</a></li>
+</ul></li>
+
+<li class="has-sub"><a href="/news/PAD-Radar-的玩法介紹！">PAD Radar <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/news/PAD-Radar-的玩法介紹！">玩法介紹</a></li>
+<li><a href="/news/PAD-Radar-與本篇的連動方法">連動方法</a></li>
+<li><a href="/news/PAD-Radar-位置情報設定相關">位置情報設定</a></li>
+<li><a href="/news/使用-PAD-Radar-找尋附近的戰友！">透過 PADR 找戰友</a></li>
+
+</ul></li>
+
+
+<li class="has-sub"><a href="/guide/">其他資料 <img src="images/caret.png" border=0></a>
+<ul>
+<li><a href="/news/向-GungHo-申請取回帳號的方法">向 Gungho 申請取回帳號的方法</a></li>
+<li><a href="news/%E5%BE%9E%E6%97%A5%E6%9C%AC-Google-Play-%E4%B8%8B%E8%BC%89%E9%81%8A%E6%88%B2%E7%A8%8B%E5%BC%8F">從日本 Google Play 下載遊戲程式</a></li>
+<li><a href="/article/%E7%95%B0OS%E9%96%93%E7%9A%84%E9%81%8A%E6%88%B2%E6%95%B8%E6%93%9A%E7%A7%BB%E5%8B%95%E6%96%B9%E6%B3%95">異OS間的遊戲數據移動方法</a></li>
+<li><a href="/article/Android%20%E5%82%99%E4%BB%BD%E6%96%B9%E6%B3%95/%E6%A9%9F%E7%A8%AE%E8%BD%89%E6%8F%9B">Android 備份方法/機種轉換</a></li>
+
+</ul></li>
+
+<li><a href="/forum/">討論區</a></li>
+
+
+	<li><a href="/forum/member.php?mod=logging&action=logout&formhash=87dde4a8">登出</a></li></ul>
+</div>
+
+<p>
+<table width="1100" border="0" cellpadding="0" cellspacing="5" style="border-collapse:collapse">
+<tr>
+<td style="padding: 8px 10px 8px 10px; border: #272727 1px solid; text-align:center; background: #000; font-size:14px">
+	<a href="/friendlist/">搜尋戰友請按此 <img src="images/searchBtn2.png" align="absmiddle" /></a>
+</td>
+
+<td style="padding: 15px 10px 8px 10px; border: #272727 1px solid; text-align:center; background: #000; font-size:14px" width="230">
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium" data-annotation="none" data-href=""></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'zh-TW'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="" data-text="Puzzle &amp; Dragons 戰友系統及資訊網" data-lang="zh-tw" data-dnt="true" data-count="none" data-hashtags="パズドラ">推文</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<a href="https://www.facebook.com/PuzzleDragonsSite" target=new class="tooltip" title="戰友系統及資訊網專頁"><img src="images/fb.png" width="20" style="vertical-align: baseline"></a> <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FPuzzleDragonsSite&amp;send=false&amp;layout=button_count&amp;width=85&amp;show_faces=false&amp;font=verdana&amp;colorscheme=light&amp;action=like&amp;height=20&amp;appId=181873884488" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:95px; height:20px;" allowTransparency="true" valign=center></iframe>
+
+</td>
+
+<td style="border: #272727 1px solid; text-align:left; width:680px; background: #000; font-size:14px">
+
+<script>
+  (function() {
+    var cx = '007298951143919793354:qs6pqgrash0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+<style>
+   div.gsc-control-cse {
+      padding: 2px;
+	  width:540px;
+    }
+  input.gsc-input {
+	width:520px;  
+	color:#000000;
+  }
+  input.gsc-search-button {
+	width:20px;
+  }
+</style>
+</td>
+
+</tr></table>
+</p>
+<script language='JavaScript' type='text/javascript'>if (!window.af) var af = (function() {return {getcookie:function(n){var m=n+'=';var ca=document.cookie.split(';');for(var i=0;i < ca.length;i++) {var c=ca[i];while (c.charAt(0)==' ') c = c.substring(1,c.length);if (c.indexOf(m) == 0) return c.substring(m.length,c.length);}return null;},existcookie:function(n){var m=af.getcookie(n);if (m!=null&&m!=''){return true;}else{return false;}}};})(); if(af.existcookie('__AF')){afid = af.getcookie('__AF'); } else {afid = 0; } randomstr = new String (Math.random()); randomstr = randomstr.substring(2,8);document.write ("<" + "script language='JavaScript' type='text/javascript' src='" + "http://servedby.adsfactor.net/adj.php?ts=" + randomstr + "&amp;sid=144145705283&amp;afid=" + afid + "'><" + "/script>");
+</script><noscript><a href='http://servedby.adsfactor.net/adc.php?sid=144145705283' ><img src='http://servedby.adsfactor.net/adv.php?sid=144145705283' border='0'></a></noscript>
+<script type="text/javascript" src="javascript/jquery.countdown.pack.js"></script>
+<script src="javascript/masonry.pkgd.min.js"></script>
+
+<style type="text/css">
+table.sample td {
+background:#000000 ;
+}
+.evre01 {background-color:#C00; padding:3px 5px 3px 5px; border-radius:5px; }
+.evre02 {background-color:#055EBB; padding:3px 5px 3px 5px; border-radius:5px; }
+.evre03 {background-color:#088;  padding:3px 5px 3px 5px; border-radius:5px; }
+.evre04 {background-color:#0BB100; padding:3px 5px 3px 5px; border-radius:5px; }
+.evre05 {background-color:#D59876; padding:3px 5px 3px 5px; border-radius:5px;}
+.evre06 {background-color:#F252A1;}
+.evre07 {background-color:#F70;}
+h2{ 
+font-size:18px;
+font-weight:normal;
+margin-top:8px; 
+margin-bottom:8px;
+}
+.item {
+	width:550px;
+	margin-top:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-bottom:10px;
+	padding:0;
+	float: left;
+}
+.item2 {
+	margin-bottom:10px;
+	float: left;
+ }
+#container{
+  float:left; 
+	width:1100px;
+  }
+.stages img{
+	width:43px;
+	height:43px;
+	padding:1px;
+}
+.i40{
+	width:40px;
+	height:40px;
+}
+.border1 { border-top:1px; border-left:0px; border-right:0px; border-bottom:0px; border-style:solid; border-color: #222222;}
+.border2 { border-top:1px; border-left:0px; border-right:1px; border-bottom:0px; border-style:solid; border-color: #222222;}
+</style>
+<script type="text/javascript">
+setTimeout(
+  function() 
+  {
+
+$(function(){  
+  $('#container').masonry({
+    columnWidth : 275
+  });
+}); 
+ $(function(){
+ $('#container').masonry({
+
+isAnimated:true, //是否使用jquery動畫效果
+animationOptions:{
+//jquery animate屬性 ，動畫效果選項參考http://api.jquery.com/animate/
+},
+gutterWidth:10,//列的間隙
+isFitWidth:true,//自動適應寬度
+isResizableL:true,// 是否可調整大小
+isRTL:false,//右到左的排列方式
+ });
+});  }, 2000);
+</script>
+
+
+
+<div id="container">
+
+<div class="item">
+
+
+<table width="540" bgcolor="#000" cellpadding="0" cellspacing="0" border="0">
+	<tr align="center">
+		<td><a href="/multiplay/">
+		<div style="padding-top:10px; display:inline-block; position: absolute; margin-top:70px;width: 540px; height: 44px; background: rgba(0,0,0,0.5); font-size:24px;" >登錄房間ID/參戰請按此</div>
+		<img src="http://pad.gungho.jp/member/multi_dungeon/img/151211/top_beta.jpg" width="540" height="124"></a>
+
+		</td>
+	</tr>
+</table>
+
+<p style="line-height:5px"></p>
+
+<script>
+function FindGroup() {
+	UserID = document.getElementById("UserID").value;
+	$('.GroupX, .GroupY, .GroupZ').css({"background-color":"#000000"});
+	if (UserID%3=="0") $('.GroupX').css({"background-color":"#363636"});
+	else if (UserID%3=="1") $('.GroupY').css({"background-color":"#363636"});
+	else if( UserID%3=="2") $('.GroupZ').css({"background-color":"#363636"});
+}
+</script>
+	
+
+
+
+
+<table width="540" cellpadding="3" cellspacing="0" border="0" style="table-layout:fixed;" class="sample">
+	<tr>
+		<td colspan="6" style="padding:5px 15px 5px 15px">
+			<h2>緊急活動地下城 (港澳台時間)</h2>
+		</td>
+	</tr>
+	<tr align="center">
+		<td class="border2">日期</td>
+		<td class="border2" style="font-size:16px">A</td>
+		<td class="border2" style="font-size:16px">B</td>
+		<td class="border2" style="font-size:16px">C</td>
+		<td class="border2" style="font-size:16px">D</td>
+		<td class="border1" style="font-size:16px">E</td>
+	</tr>
+<tr align=center><td rowspan=5 class="border2">10/13</td><td colspan="5" class="border1"><a href="/s/大泥棒参上！" class="tooltip" title="大泥棒参上！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/565_zpsenoqfmu3.png " class="i40"></a><a href="/s/メジェドラ降臨！" class="tooltip" title="メジェドラ降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/1837_zpszaosrjjn.png " class="i40"></a><a href="/s/エノク降臨！" class="tooltip" title="エノク降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3600_zpskhqxmvnn.png" class="i40"></a><a href="/s/スカーレット降臨！" class="tooltip" title="スカーレット降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/2206_zpsruse5yva.png" class="i40"></a><br />(10/12 23時 ~ 10/13 23時)</td></tr><tr align=center><td class="border2"><a href="/s/西洋神 覚醒素材降臨！1" class="tooltip" title="西洋神 覚醒素材降臨！1"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/1748_zpsmq9aeutj.png " class="i40"> 13時</a></td><td class="border2"><a href="/s/西洋神 覚醒素材降臨！1" class="tooltip" title="西洋神 覚醒素材降臨！1"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/1748_zpsmq9aeutj.png " class="i40"> 14:30</a></td><td class="border2"><a href="/s/西洋神 覚醒素材降臨！1" class="tooltip" title="西洋神 覚醒素材降臨！1"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/1748_zpsmq9aeutj.png " class="i40"> 08時</a></td><td class="border2"><a href="/s/西洋神 覚醒素材降臨！1" class="tooltip" title="西洋神 覚醒素材降臨！1"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/1748_zpsmq9aeutj.png " class="i40"> 09:30</a></td><td class="border1"><a href="/s/西洋神 覚醒素材降臨！1" class="tooltip" title="西洋神 覚醒素材降臨！1"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/1748_zpsmq9aeutj.png " class="i40"> 11:30</a></td></tr><tr align=center><td class="border2"><a href="/s/星宝の遺跡" class="tooltip" title="星宝の遺跡"><img src="images/PlusEgg.png" class="i40"> 20:30</a></td><td class="border2"><a href="/s/星宝の遺跡" class="tooltip" title="星宝の遺跡"><img src="images/PlusEgg.png" class="i40"> 22時</a></td><td class="border2"><a href="/s/星宝の遺跡" class="tooltip" title="星宝の遺跡"><img src="images/PlusEgg.png" class="i40"> 16時</a></td><td class="border2"><a href="/s/星宝の遺跡" class="tooltip" title="星宝の遺跡"><img src="images/PlusEgg.png" class="i40"> 17:30</a></td><td class="border1"><a href="/s/星宝の遺跡" class="tooltip" title="星宝の遺跡"><img src="images/PlusEgg.png" class="i40"> 19時</a></td></tr><tr align=center><td class="border2"><a href="/s/星宝の魔窟" class="tooltip" title="星宝の魔窟"><img src="images/PlusEgg2.png" class="i40"> 20:30</a></td><td class="border2"><a href="/s/星宝の魔窟" class="tooltip" title="星宝の魔窟"><img src="images/PlusEgg2.png" class="i40"> 22時</a></td><td class="border2"><a href="/s/星宝の魔窟" class="tooltip" title="星宝の魔窟"><img src="images/PlusEgg2.png" class="i40"> 16時</a></td><td class="border2"><a href="/s/星宝の魔窟" class="tooltip" title="星宝の魔窟"><img src="images/PlusEgg2.png" class="i40"> 17:30</a></td><td class="border1"><a href="/s/星宝の魔窟" class="tooltip" title="星宝の魔窟"><img src="images/PlusEgg2.png" class="i40"> 19時</a></td></tr><tr align=center><td class="border2"><a href="/s/ドラクリスト降臨！" class="tooltip" title="ドラクリスト降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/2939_zpsrfotaaqz.png" class="i40"> 16時</a></td><td class="border2"><a href="/s/ドラクリスト降臨！" class="tooltip" title="ドラクリスト降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/2939_zpsrfotaaqz.png" class="i40"> 09:30</a></td><td class="border2"><a href="/s/ドラクリスト降臨！" class="tooltip" title="ドラクリスト降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/2939_zpsrfotaaqz.png" class="i40"> 19時</a></td><td class="border2"><a href="/s/ドラクリスト降臨！" class="tooltip" title="ドラクリスト降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/2939_zpsrfotaaqz.png" class="i40"> 13時</a></td><td class="border1"><a href="/s/ドラクリスト降臨！" class="tooltip" title="ドラクリスト降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/2939_zpsrfotaaqz.png" class="i40"> 22時</a></td></tr>
+
+	
+	<tr align="center">
+		<td colspan="6" align="center" class="border1">
+			<span class='yellow'>[A-E]</span> 組別確認方法： フレンド > ID検索 > ID 的第3個數字<br />
+			A組: 0/5　B組: 1/6　C組: 2/7　D組: 3/8　E組: 4/9
+		<p></p>
+			<span class='yellow'>[X-Z]</span> 組別確認方法： ID除以3後的餘數<br />
+			X組: 餘數為0　Y組: 餘數為1　Z組: 餘數為2
+		</td>
+	</tr>
+	
+	<tr align="center">
+		<td class="border1" colspan="6">
+			<img src="images/drops/Fire.png" width="25" height="25" /><img src="images/drops/Water.png" width="25" height="25" /><img src="images/drops/Wood.png" width="25" height="25" />
+			代表初始選擇的寵物，如忘記了的話可在遊戲中看看自己名字左邊的珠子顏色
+		</td>
+	</tr>
+	
+</table>
+
+
+<p style="line-height:5px"></p>
+
+
+
+<p style="line-height:5px"></p>
+
+<table width="540" cellpadding="3" cellspacing="0" border="0" class="sample">
+	<tr>
+		<td style="border-bottom: 1px solid #222222; padding-top:10px;padding-bottom:10px;padding-left:15px; " align="left">
+			<h2>最新實裝寵物 (2017-10-13)</h2>
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="padding:5px" align="left">
+		<a href="pets/3987" class="tooltip" title="3987 - "><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon2/3987_zpsv35nvald.png" width="54" height="54" style="padding:2px" /></a><a href="pets/3988" class="tooltip" title="3988 - "><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon2/3988_zpsm1c4s9ls.png" width="54" height="54" style="padding:2px" /></a><a href="pets/3989" class="tooltip" title="3989 - "><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon2/3989_zpsiuqvivfr.png" width="54" height="54" style="padding:2px" /></a><a href="pets/3990" class="tooltip" title="3990 - "><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon2/3990_zpswqd50l8f.png" width="54" height="54" style="padding:2px" /></a><a href="pets/3991" class="tooltip" title="3991 - "><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon2/3991_zpszxf3o8ll.png" width="54" height="54" style="padding:2px" /></a>		</td>
+	</tr>
+</table>
+
+<p style="line-height:5px"></p>
+
+<table width=540 cellpadding=0 cellspacing=0 border=0 class="sample">
+	<tr>
+		<td><div class="kiwi-ad-wrapper-320x100"></div></td>
+		<td><a href="CoverMaker/"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/news/fbcover_zpse3mll3zd.png" width="220" height="50" /></a></td>
+	</tr>
+</table>
+		
+
+
+</div>
+<div class="item">
+
+
+
+
+
+
+
+
+
+
+
+<table width="540" bgcolor="#000000" cellpadding="0" cellspacing="1" border="0">
+	<tr>
+		<td style="border-bottom: 1px solid #222222; padding:15px; font-size:18px; font-weight:normal; vertical-align:center" align="left" colspan="2">
+			<h2 style="display:none">遊戲資訊</h2>
+			遊戲資訊
+			<a href="quest/" style="color:#91C7FF">(任務列表)</a>
+			<div style="float:right"><a href="/?mode=list" style="color:#ababab">·列表模式</a></div>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td style="border-bottom: 1px solid #222222" colspan="2">
+
+			<script type='text/javascript' src='/javascript/unitegallery.min.js'></script>	
+
+	<link rel='stylesheet' href='/css/unite-gallery.css?2222' type='text/css' />
+	
+	<script type='text/javascript' src='javascript/ug-theme-grid.js'></script>
+	<div id="gallery" style="display:none;">
+					<a href="news/附有限制的降臨地下城每日交替出現！"><img alt="附有限制的降臨地下城每日交替出現！"
+			 src="http://pad.gungho.jp/member/advent/img/171012_limit/top.jpg"
+			 data-image="http://pad.gungho.jp/member/advent/img/171012_limit/top.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>今天 15:48"></a><a href="news/「デュエル・マスターズ」合作活動第5彈實施!!"><img alt="「デュエル・マスターズ」合作活動第5彈實施!!"
+			 src="http://pad.gungho.jp/member/collabo/dm/img/171013/top.jpg"
+			 data-image="http://pad.gungho.jp/member/collabo/dm/img/171013/top.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>今天 15:39"></a><a href="news/［寵物商店］「デュエル・マスターズ」合作活動角色登場！"><img alt="［寵物商店］「デュエル・マスターズ」合作活動角色登場！"
+			 src="http://pad.gungho.jp/member/collabo/dm/img/171013/top_purchase.jpg"
+			 data-image="http://pad.gungho.jp/member/collabo/dm/img/171013/top_purchase.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>今天 15:38"></a><a href="news/（10/13實裝）部份角色輔助進化＆PowerUp！"><img alt="（10/13實裝）部份角色輔助進化＆PowerUp！"
+			 src="http://pad.gungho.jp/member/collabo/dm/img/171013/top_powerup.jpg"
+			 data-image="http://pad.gungho.jp/member/collabo/dm/img/171013/top_powerup.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>今天 15:32"></a><a href="news/「デュエル・マスターズコラボ」新登場角色介紹!!"><img alt="「デュエル・マスターズコラボ」新登場角色介紹!!"
+			 src="https://pbs.twimg.com/media/DL_Y2pyUQAEZnjP.jpg"
+			 data-image="https://pbs.twimg.com/media/DL_Y2pyUQAEZnjP.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>今天 12:57"></a><a href="news/GodFes.開催！(後半)"><img alt="GodFes.開催！(後半)"
+			 src="http://pad.gungho.jp/member/event/godfes/img/171012/top.jpg"
+			 data-image="http://pad.gungho.jp/member/event/godfes/img/171012/top.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>昨天 16:23"></a><a href="news/GodFes.開催！(前半)"><img alt="GodFes.開催！(前半)"
+			 src="http://pad.gungho.jp/member/event/godfes/img/171012/top.jpg"
+			 data-image="http://pad.gungho.jp/member/event/godfes/img/171012/top.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>昨天 16:23"></a><a href="news/友情抽蛋「進化カーニバル」！"><img alt="友情抽蛋「進化カーニバル」！"
+			 src="http://pad.gungho.jp/member/carnival/sinka/top3.jpg"
+			 data-image="http://pad.gungho.jp/member/carnival/sinka/top3.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>昨天 16:08"></a><a href="news/★5以上確定嘉年華！"><img alt="★5以上確定嘉年華！"
+			 src="http://pad.gungho.jp/member/carnival/star5/171012/top.jpg"
+			 data-image="http://pad.gungho.jp/member/carnival/star5/171012/top.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>昨天 16:06"></a><a href="news/Android-更新檔下載點"><img alt="Android 更新檔下載點"
+			 src="http://i1296.photobucket.com/albums/ag18/skyozora/news/-1_zpslg05gnfm.png"
+			 data-image="http://i1296.photobucket.com/albums/ag18/skyozora/news/-1_zpslg05gnfm.png"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>2017-10-11"></a><a href="news/（10月中旬）部份素材寵物的技能更新！"><img alt="（10月中旬）部份素材寵物的技能更新！"
+			 src="http://pad.gungho.jp/member/img/week_dungeon.jpg?=160314"
+			 data-image="http://pad.gungho.jp/member/img/week_dungeon.jpg?=160314"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>2017-10-11"></a><a href="news/特別地下城「無限回廊チャレンジ！」登場!!"><img alt="特別地下城「無限回廊チャレンジ！」登場!!"
+			 src="http://pad.gungho.jp/member/event/img/171006/challenge_mugen.jpg"
+			 data-image="http://pad.gungho.jp/member/event/img/171006/challenge_mugen.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>2017-10-11"></a><a href="news/「ぐんまコラボ」復刻！"><img alt="「ぐんまコラボ」復刻！"
+			 src="http://pad.gungho.jp/member/collabo/gunma/img/171011/top.jpg"
+			 data-image="http://pad.gungho.jp/member/collabo/gunma/img/171011/top.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>2017-10-11"></a><a href="news/（10/12實裝）部份寵物究極進化＆PowerUp！"><img alt="（10/12實裝）部份寵物究極進化＆PowerUp！"
+			 src="http://pad.gungho.jp/member/sinka/powerup/img/171011.jpg"
+			 data-image="http://pad.gungho.jp/member/sinka/powerup/img/171011.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>2017-10-11"></a><a href="news/【PADR】對戰模式實裝記念活動!!"><img alt="【PADR】對戰模式實裝記念活動!!"
+			 src="http://padr.gungho.jp/event/img/171010/top.jpg"
+			 data-image="http://padr.gungho.jp/event/img/171010/top.jpg"
+			 data-description=" <span style='color:#FF73B7'>NEW!! </span>2017-10-11"></a><a href="news/【PADR】Ver.2.0-更新情報"><img alt="【PADR】Ver.2.0 更新情報"
+			 src="http://padr.gungho.jp/update/img/ver2_0_0/top.jpg"
+			 data-image="http://padr.gungho.jp/update/img/ver2_0_0/top.jpg"
+			 data-description="2017-10-10"></a><a href="news/「ニジピィ」的效果將於下回更新起提升！"><img alt="「ニジピィ」的效果將於下回更新起提升！"
+			 src="https://instagram.fhkg3-1.fna.fbcdn.net/t51.2885-15/e35/21688888_1217300345041585_2009775086545928192_n.jpg"
+			 data-image="https://instagram.fhkg3-1.fna.fbcdn.net/t51.2885-15/e35/21688888_1217300345041585_2009775086545928192_n.jpg"
+			 data-description="2017-10-06"></a><a href="news/PADR-500萬下載量突破記念活動(後半)!!"><img alt="PADR 500萬下載量突破記念活動(後半)!!"
+			 src="http://pad.gungho.jp/member/event/img/171006/top.jpg"
+			 data-image="http://pad.gungho.jp/member/event/img/171006/top.jpg"
+			 data-description="2017-10-06"></a><a href="news/新任務「ノーコンクエスト」登場!!"><img alt="新任務「ノーコンクエスト」登場!!"
+			 src="http://pad.gungho.jp/member/quest/img/171006/top.jpg"
+			 data-image="http://pad.gungho.jp/member/quest/img/171006/top.jpg"
+			 data-description="2017-10-06"></a><a href="news/（10/05實裝）部份寵物究極進化！"><img alt="（10/05實裝）部份寵物究極進化！"
+			 src="http://pad.gungho.jp/member/sinka/powerup/img/171004.jpg"
+			 data-image="http://pad.gungho.jp/member/sinka/powerup/img/171004.jpg"
+			 data-description="2017-10-04"></a>		
+	</div>
+	<script type="text/javascript">
+
+			jQuery("#gallery").unitegallery({
+				
+				gallery_autoplay:true,
+				gallery_play_interval: 8000,				//play interval of the slideshow
+				gallery_pause_on_mouseover: true,
+				gallery_min_width: 400,
+				gallery_width: 540,							//gallery width		
+				gallery_height:280,							//gallery height
+				gallery_control_thumbs_mousewheel:true,	//true,false - enable / disable the mousewheel
+				gallery_control_keyboard: true,				//true,false - enable / disble keyboard controls
+				
+				theme_panel_position: "right"	,
+				
+				slider_control_zoom:false,					//true, false - enable zooming control				
+				slider_scale_mode: "fit",
+				slider_enable_bullets: false,
+				slider_enable_arrows: true,
+				slider_enable_play_button: true,
+				slider_play_button_offset_hor:10,
+				slider_enable_fullscreen_button: false,
+				slider_enable_zoom_panel: false,
+				slider_enable_text_panel: true,
+				
+				thumb_border_width:2,
+				thumb_over_border_width:2,
+				thumb_fixed_size:false,	
+				thumb_width:130,
+				
+				grid_num_cols:1,
+				grid_num_rows:1,
+				gridpanel_enable_handle: false,
+				gridpanel_grid_align: "top",
+				gridpanel_vertical_scroll:true,
+				gridpanel_padding_border_top: 2,		    //padding between the top border of the panel
+				gridpanel_padding_border_bottom: 2,			//padding between the bottom border of the panel
+				gridpanel_padding_border_left: 5,			//padding between the left border of the panel
+				gridpanel_padding_border_right: 5,			//padding between the right border of the panel			
+				grid_carousel: true
+				
+			});
+
+		
+	</script>
+
+</td></tr>
+
+</table>
+
+
+<p style="line-height:5px"></p>
+
+
+
+
+
+<p style="line-height:5px"></p>
+
+
+<table width="540" bgcolor="#000000" cellpadding="5" cellspacing="0" border="0">
+<tr><td style="border-bottom: 1px solid #222222; padding-left: 15px; " align="left" colspan="4">
+<h2>活動時間表</h2>
+
+</td></tr>
+
+<tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px" align="center">星期五</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="stage/金曜ダンジョン" class="tooltip" title="金曜ダンジョン"><img src="images/pets/915.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px" colspan="2"><a href="stage/金曜ダンジョン">金曜ダンジョン</a>　<a href="stage/ゴルドラ大量発生！" class="tooltip" title="ゴルドラ大量発生！"><img src="images/pets/309.png" height="40"> ゴルドラ大量発生！</a></td></tr><tr height="37">
+<td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px" align="center">配信中</td>
+<td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="stage/配信中的金幣地下城" class="tooltip" title="配信中的金幣地下城"><img src="/images/coin.png" height="40"></a></td>
+<td style="border-bottom: 1px solid #222222; padding-left:3px" colspan="2"><a href="stage/配信中的金幣地下城">配信中的金幣地下城</a></td>
+</tr>
+<tr height="37">
+<td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px" align="center">配信中</td>
+<td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/news/「モンスター購入」商品更新" class="tooltip" title="寵物購入商店"><img src="/images/mpt.png" height="40"></a></td>
+<td style="border-bottom: 1px solid #222222; padding-left:3px" colspan="2"><a href="/news/「モンスター購入」商品更新">寵物購入商店</a></td>
+</tr>
+<tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">09/30 23時<br />～10/31 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/10月のクエストダンジョン" class="tooltip" title="10月のクエストダンジョン"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3795_zpssm58qkfl.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span class="evre04">任務地下城</span> <a href="/s/10月のクエストダンジョン">10月のクエストダンジョン</a></td><script type="text/javascript">$(function () {$('#countdown1').countdown({until:$.countdown.UTCDate(+8, 2017, 09 - 1, 30,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown2').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 31,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown2" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/02 09時<br />～10/16 09時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/ドラゴンズドグマ コラボ" class="tooltip" title="ドラゴンズドグマ コラボ"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/843_zps1jbxsyzy.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span style="color:#7bb5ff;">[日版限定] </span><a href="/s/ドラゴンズドグマ コラボ">ドラゴンズドグマ コラボ</a></td><script type="text/javascript">$(function () {$('#countdown3').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 02,09,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown4').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 16,09,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown4" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/08 23時<br />～10/15 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/news/PADR-500萬下載量突破記念活動(後半)!!" class="tooltip" title="PADR 500萬下載量突破記念活動(後半)"><img src="images/MagicStone.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><a href="/news/PADR-500萬下載量突破記念活動(後半)!!">PADR 500萬下載量突破記念活動(後半)</a></td><script type="text/javascript">$(function () {$('#countdown5').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 08,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown6').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown6" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/08 23時<br />～10/15 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/news/PADR-500萬下載量突破記念活動(後半)!!#padr" class="tooltip" title="虹珠出現率＆寶珠出現數1.5倍"><img src="images/padr_icon.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><a href="/news/PADR-500萬下載量突破記念活動(後半)!!#padr">虹珠出現率＆寶珠出現數1.5倍</a></td><script type="text/javascript">$(function () {$('#countdown7').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 08,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown8').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown8" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/08 23時<br />～10/15 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/ゼウス（＋297）降臨！" class="tooltip" title="ゼウス（＋297）降臨！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/187_zpspjj1ygxb.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span style="color:#7bb5ff;">[一次通關限定] </span><a href="/s/ゼウス（＋297）降臨！">ゼウス（＋297）降臨！</a></td><script type="text/javascript">$(function () {$('#countdown9').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 08,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown10').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown10" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/08 23時<br />～10/15 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/一度きりの超絶経験値" class="tooltip" title="一度きりの超絶経験値"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/2067_zpsaeai8tis.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span style="color:#7bb5ff;">[一次通關限定] </span><a href="/s/一度きりの超絶経験値">一度きりの超絶経験値</a></td><script type="text/javascript">$(function () {$('#countdown11').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 08,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown12').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown12" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/08 23時<br />～10/15 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/水の護神龍" class="tooltip" title="水の護神龍【7×6マス】"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3208_zpsfaxinsto.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><a href="/s/水の護神龍">水の護神龍【7×6マス】</a></td><script type="text/javascript">$(function () {$('#countdown13').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 08,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown14').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown14" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/09 11時<br />～10/16 11時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/イベント記念ダンジョン！" class="tooltip" title="イベント記念ダンジョン！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/797_zpsbxybqfxw.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span style="color:#7bb5ff;">[每天一場] </span><a href="/s/イベント記念ダンジョン！">イベント記念ダンジョン！</a></td><script type="text/javascript">$(function () {$('#countdown15').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 09,11,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown16').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 16,11,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown16" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/12 23時<br />～10/15 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/無限回廊チャレンジ！" class="tooltip" title="無限回廊チャレンジ！"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3642_zpsscnfmbd3.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><a href="/s/無限回廊チャレンジ！">無限回廊チャレンジ！</a></td><script type="text/javascript">$(function () {$('#countdown17').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 12,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown18').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown18" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/13 11時<br />～10/20 11時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="news/★5以上確定嘉年華！" class="tooltip" title="★5以上確定嘉年華！"><img src="images/gacha/Machine_GOLD.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span class="evre01">抽蛋活動</span> <a href="news/★5以上確定嘉年華！">★5以上確定嘉年華！</a></td><script type="text/javascript">$(function () {$('#countdown19').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 13,11,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown20').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 20,11,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown20" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/13 11時<br />～10/20 11時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/gacha/進化カーニバル#gacha" class="tooltip" title="進化カーニバル"><img src="images/gacha/Machine_NORM.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span class="evre01">抽蛋活動</span> <a href="/gacha/進化カーニバル#gacha">進化カーニバル</a></td><script type="text/javascript">$(function () {$('#countdown21').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 13,11,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown22').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 20,11,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown22" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/13 11時<br />～10/14 11時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/news/GodFes.開催！(前半)" class="tooltip" title="神UP - ゴッドフェス (前半)"><img src="images/gacha/RareMachine-god.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span class="evre01">抽蛋活動</span> <a href="/news/GodFes.開催！(前半)">神UP - ゴッドフェス (前半)</a></td><script type="text/javascript">$(function () {$('#countdown23').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 13,11,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown24').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 14,11,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown24" style="display:inline"></div>後結束</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/13 23時<br />～10/15 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/火水木金ダンジョン" class="tooltip" title="火水木金ダンジョン"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/1176_zps7tatscpn.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><a href="/s/火水木金ダンジョン">火水木金ダンジョン</a></td><script type="text/javascript">$(function () {$('#countdown25').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 13,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown26').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown25" style="display:inline"></div>後開始</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/14 11時<br />～10/15 11時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/news/GodFes.開催！(後半)" class="tooltip" title="神UP - ゴッドフェス (後半)"><img src="images/gacha/RareMachine-god.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><span class="evre01">抽蛋活動</span> <a href="/news/GodFes.開催！(後半)">神UP - ゴッドフェス (後半)</a></td><script type="text/javascript">$(function () {$('#countdown27').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 14,11,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown28').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,11,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown27" style="display:inline"></div>後開始</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/15 23時<br />～10/22 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/木の護神龍" class="tooltip" title="木の護神龍【7×6マス】"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3209_zps0lab9wvl.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><a href="/s/木の護神龍">木の護神龍【7×6マス】</a></td><script type="text/javascript">$(function () {$('#countdown29').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 15,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown30').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 22,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown29" style="display:inline"></div>後開始</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/22 23時<br />～10/29 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/光の護神龍" class="tooltip" title="光の護神龍【7×6マス】"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3210_zps40x8oet9.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><a href="/s/光の護神龍">光の護神龍【7×6マス】</a></td><script type="text/javascript">$(function () {$('#countdown31').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 22,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown32').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 29,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown31" style="display:inline"></div>後開始</td></tr><tr height="37"><td style="border-bottom: 1px solid #222222; padding-left:10px; font-size:11px; width:85px" align="center">10/29 23時<br />～11/05 23時</td><td style="border-bottom: 1px solid #222222;" align="center" width="40"><a href="/s/闇の護神龍" class="tooltip" title="闇の護神龍【7×6マス】"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3211_zpshqoqzcg1.png" height="40"></a></td><td style="border-bottom: 1px solid #222222; padding-left:3px"><a href="/s/闇の護神龍">闇の護神龍【7×6マス】</a></td><script type="text/javascript">$(function () {$('#countdown33').countdown({until:$.countdown.UTCDate(+8, 2017, 10 - 1, 29,23,00), format: 'DHMS',  layout:  '<b><span style="color:#FF5755;font-size:16px">{dn} </font></b>天 '+'<b><span style="color:#FF5755;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FF5755;font-size:16px">{mn}</span></b> '});$('#countdown34').countdown({until:$.countdown.UTCDate(+8, 2017, 11 - 1, 05,23,0), format: 'DHMS',  layout:  '<b><span style="color:#FDFF55;font-size:16px">{dn} </span></b>天 '+'<b><span style="color:#FDFF55;font-size:16px">{hn}:</span></b>'+'<b><span style="color:#FDFF55;font-size:16px">{mn}</span></b> '});});</script><td style="border-bottom: 1px solid #222222" width="150"><div id="countdown33" style="display:inline"></div>後開始</td></tr></table>
+
+
+
+</div>
+
+
+<div class="item2">
+<table width="540" bgcolor="#000" cellpadding="0" cellspacing="0" border="0">
+	<tr align="center">
+		<td><a href="/boss-skill/">
+		<div style="padding-top:10px; display:inline-block; position: absolute; margin-top:63px;width: 540px; height: 44px; background: rgba(0,0,0,0.5); font-size:24px;" >查看當前素材寵物持有的技能</div>
+		<img src="http://pad.gungho.jp/member/img/week_dungeon.jpg" width="540" height="117"></a>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div class="item2">
+
+
+<table width="540" cellpadding="0" cellspacing="0" border="0" class="sample">
+	<tr>
+		<td valign="top"><a href="TeamSimulator/"><img src="http://i1296.photobucket.com/albums/ag18/skyozora/news/teamsim_zpsgaxazewz.png" width="238" height="250" /></a></td>
+		<td>
+		<script language='JavaScript' type='text/javascript'>if (!window.af) var af = (function() {return {getcookie:function(n){var m=n+'=';var ca=document.cookie.split(';');for(var i=0;i < ca.length;i++) {var c=ca[i];while (c.charAt(0)==' ') c = c.substring(1,c.length);if (c.indexOf(m) == 0) return c.substring(m.length,c.length);}return null;},existcookie:function(n){var m=af.getcookie(n);if (m!=null&&m!=''){return true;}else{return false;}}};})(); if(af.existcookie('__AF')){afid = af.getcookie('__AF'); } else {afid = 0; } randomstr = new String (Math.random()); randomstr = randomstr.substring(2,8);document.write ("<" + "script language='JavaScript' type='text/javascript' src='" + "http://servedby.adsfactor.net/adj.php?ts=" + randomstr + "&amp;sid=910471385284&amp;afid=" + afid + "'><" + "/script>");
+</script><noscript><a href='http://servedby.adsfactor.net/adc.php?sid=910471385284' ><img src='http://servedby.adsfactor.net/adv.php?sid=910471385284' border='0'></a></noscript></td>
+	</tr>
+</table>
+
+</div>
+
+
+
+<div class="item">
+<table width="540" cellpadding="20" cellspacing="0" border="0" class="sample">
+	<tr>
+		<td align="center"><a href="/stage/" style="font-size: 28px; font-weight:bold; color: #ffdd00">地下城列表請按此</a></td>
+	</tr>
+</table>
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+<table align="center" border="0" width="1100">
+   <tr>
+      <td align="left">
+      Graphics © Copyright by Gungho Online Entertainment, Inc.<br>
+      <a href="http://pad.skyozora.com">戰友系統及資訊網</a> 由 Sky C. 持有，介面設計 Naldo W.<br>
+      如對本網站有任何查詢，歡迎電郵至 <a href="/cdn-cgi/l/email-protection#c3aaada5ac83b0a8baacb9acb1a2eda0acae"><span class="__cf_email__" data-cfemail="70191e161f30031b091f0a1f02115e131f1d">[email&#160;protected]</span></a>
+      </td>
+      
+      <td align="right">
+
+              <script style="display: none !important;">!function(e,t,r,n,c,a,l){function i(t,r){return r=e.createElement('div'),r.innerHTML='<a href="'+t.replace(/"/g,'&quot;')+'"></a>',r.childNodes[0].getAttribute('href')}function o(e,t,r,n){for(r='',n='0x'+e.substr(t,2)|0,t+=2;t<e.length;t+=2)r+=String.fromCharCode('0x'+e.substr(t,2)^n);return i(r)}try{for(c=e.getElementsByTagName('a'),l='/cdn-cgi/l/email-protection#',n=0;n<c.length;n++)try{(t=(a=c[n]).href.indexOf(l))>-1&&(a.href='mailto:'+o(a.href,t+l.length))}catch(e){}for(c=e.querySelectorAll('.__cf_email__'),n=0;n<c.length;n++)try{(a=c[n]).parentNode.replaceChild(e.createTextNode(o(a.getAttribute('data-cfemail'),0)),a)}catch(e){}}catch(e){}}(document);</script><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Skyozora_728x90 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5454875279695201"
+     data-ad-slot="2151106659"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </td>
+   </tr>
+</table>
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

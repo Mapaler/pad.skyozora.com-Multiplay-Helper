@@ -13,8 +13,48 @@
 window.onload = function()
 {
 	buildMainFramework(); //构建主结构
-	refresh(); //刷新
+
+	if (GM_getValue("helper-config") == undefined && location.pathname == "/multiplay/register/")
+	{
+		saveConfig();
+		info("💗欢迎使用！\n请先导入地下城列表数据\n然后检查今日开放地下城。");
+		console.log("配置不存在，储存默认配置");
+	}else
+	{
+		loadConfig(GM_getValue("helper-config"),GM_getValue("helper-stage-list"));
+		//console.log("配置存在",config);
+	
+		var now = getLocalTime(9);var last = new Date(config.updateDate);
+		if (now > last && now.getDate() != last.getDate())
+		{
+			console.log("今天的开放地图还没检查");
+			info("💗又是新的一天了！\n先检查今天开放的地下城。");
+			config.todayStage.length = 0; //清空昨天的
+			config.reqStageList.length = 0; //清空昨天的
+			checkTodayUpdate(function(){
+				//refresTypeList();
+				//saveConfig(1);
+				//refreshStageList1(0);
+			})
+		}else
+		{
+			console.log("已经是今天的开放地图");
+		}
+	}
+
+	refresh(); //刷新列表
 }
+var config={
+	version:1, //储存当前设置结构版本
+	updateDate:0, //储存今日开放地图上次更新时间
+	todayStage:[], //储存当前开放的地图
+	starStage:[], //储存收藏的地图
+	reqStageList:[], //储存可以发表征求的地图信息（从网站stage.js中获得的）
+	message:[],
+};
+var stageList=[]; //储存全部地图的数据
+var mobile = false; //是否为手机版
+var stageTestReg = "^/?s(?:tage)?/"; //用来测试href是不是地下城的
 
 //仿GM_xmlhttpRequest函数v1.3
 if (typeof(GM_xmlhttpRequest) == "undefined")
@@ -107,6 +147,20 @@ function padNumber(num, fill) {
         fill > len ? fill - len + 1 || 0 : 0
     ).join(0) + num);
 }
+//得到标准时区的时间的函数
+function getLocalTime(i)
+{
+	//参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
+	if (typeof i !== 'number') return;
+	var d = new Date();
+	//得到1970年一月一日到现在的秒数
+	var len = d.getTime();
+	//本地时间与GMT时间的时间偏移差
+	var offset = d.getTimezoneOffset() * 60000;
+	//得到现在的格林尼治时间
+	var utcTime = len + offset;
+	return new Date(utcTime + 3600000 * i);
+}
 //一个按钮对象
 var Button = function(value,className,title,onClick)
 {
@@ -121,9 +175,9 @@ var Button = function(value,className,title,onClick)
 var Label = function(text, forId = "", classname = "") {
 	var label = document.createElement("label");
 	label.appendChild(document.createTextNode(text));
-	if (forId != undefined)
+	if (forId.length>0)
 		label.setAttribute("for",forId);
-	if (classname != undefined)
+	if (classname.length>0)
 		label.className = classname;
 	return label;
 };
@@ -136,27 +190,6 @@ var Input = function(options) {
 	}
 
 	return ipt;
-};
-//创建带Label的Input类
-var LabelInput = function(text, classname, name, type, value, title = "", beforeText = true) {
-	var label = document.createElement("label");
-	if (text != undefined) label.appendChild(document.createTextNode(text));
-	label.className = classname;
-	if (typeof(title) != "undefined")
-		label.title = title;
-
-	var ipt = document.createElement("input");
-	ipt.name = name;
-	ipt.id = ipt.name;
-	ipt.type = type;
-	ipt.value = value;
-
-	label.input = ipt;
-	if (beforeText)
-		label.insertBefore(ipt, label.firstChild);
-	else
-		label.appendChild(ipt);
-	return label;
 };
 //一个Post数据
 var PostDataObject = function(obj) {
@@ -195,10 +228,69 @@ var Multiplay = function(stage1,stage2,image,roomId,ask,time)
 	}
 	return obj;
 }
+//一个地下城分类收藏
+var StageCollection = function(name,detail = "",stage = [])
+{
+	var obj = {
+		name:name,
+		detail:detail,
+		stages:stage
+	}
+	return obj;
+}
+
+
 function info(message)
 {
-
+	console.log("info:",message);
 }
+function loadConfig(configStr,stageListStr,reset = false)
+{
+	var bk = [true,true];
+	var saConfig = JSON.parse(configStr);
+	console.log("设置JSON>",saConfig)
+	var saStageList = JSON.parse(stageListStr);
+	console.log("地图数据>",saStageList)
+
+	if (saConfig != null && typeof(saConfig) == "object")
+	{
+		if (reset)
+		{
+			config = saConfig;
+		}
+		else
+			config = Object.assign(config, saConfig);
+	}	
+	else
+	{
+		console.error("配置损坏，使用默认配置");
+		bk[0] = false;
+	}
+	if (saStageList != null && typeof(saStageList) == "object")
+		stageList = saStageList.concat();
+	else
+	{
+		console.error("完整地下城数据丢失，使用空配置");
+		bk[1] = false;
+	}
+	return bk;
+}
+function saveConfig(type)
+{
+	if (type == undefined) type = 255;
+	if (1 == (type & 1))
+	{
+		var configStr = JSON.stringify(config);
+		GM_setValue("helper-config", configStr);
+	}
+	if (2 == (type & 2))
+	{
+		var stageListStr = JSON.stringify(stageList);
+		GM_setValue("helper-stage-list", stageListStr);
+	}
+}
+
+
 function buildMainFramework()
 {
 	var mBox = document.body.appendChild(document.createElement("div")); //总框架
@@ -230,7 +322,10 @@ function buildMainFramework()
 
 	var stageBox = createBox.appendChild(document.createElement("div"));
 	var lblStage = stageBox.appendChild(new Label("地下城","stage"));
-	var btnStage = stageBox.appendChild(new Button("点击选择","create-button-stage","点击显示地下城选择页面",function(){alert("地下城")}));
+	var btnStage = stageBox.appendChild(new Button("点击选择","create-button-stage","点击显示地下城选择页面",function(){chooseStage()}));
+	btnStage.id = "stage";
+	var iptStage1 = stageBox.appendChild(new Input({type:"hidden",id:"stage1"}));
+	var iptStage2 = stageBox.appendChild(new Input({type:"hidden",id:"stage2"}));
 
 	var askBox = createBox.appendChild(document.createElement("div"));
 	var lblAsk = askBox.appendChild(new Label("征求队伍","req"));
@@ -240,8 +335,8 @@ function buildMainFramework()
 		var postObj = new PostDataObject({ //Post时发送的数据
 			roomid: iptRoomId.value,
 			//column1: "",
-			column2: "",
-			column3: "",
+			column2: iptStage1.value,
+			column3: iptStage2.value,
 			req: iptAsk.value,
 			//button:"登錄",
 		})
@@ -259,6 +354,133 @@ function buildMainFramework()
 		});
 	}));
 
+	var stageListPage = createBox.appendChild(document.createElement("div")); //地下城列表页面
+	stageListPage.className = "stage-list-box page display-none";
+	var stgList1Box = stageListPage.appendChild(document.createElement("div")); //类型
+	stgList1Box.className =  "stage-list-1-box";
+	var stgList1 = stgList1Box.appendChild(document.createElement("ul"));
+	stgList1.className =  "stage-list-1";
+	var stgList2Box = stageListPage.appendChild(document.createElement("div")); //主管卡
+	stgList2Box.className =  "stage-list-2-box";
+	var stgList2 = stgList2Box.appendChild(document.createElement("ul"));
+	stgList2.className =  "stage-list-2";
+	var stgList3Box = stageListPage.appendChild(document.createElement("div")); //子关卡
+	stgList3Box.className =  "stage-list-3-box";
+	var stgList3 = stgList3Box.appendChild(document.createElement("ul"));
+	stgList3.className =  "stage-list-3";
+
+	function chooseStage()
+	{
+		while(stgList1.childNodes.length>0)
+		{
+			delete stgList1.firstChild.remove(); //清空原来的，并从内存删除
+		}
+		while(stgList2.childNodes.length>0)
+		{
+			delete stgList2.firstChild.remove(); //清空原来的，并从内存删除
+		}
+		while(stgList3.childNodes.length>0)
+		{
+			delete stgList3.firstChild.remove(); //清空原来的，并从内存删除
+		}
+		
+		var starStgC = new StageCollection("我的收藏","我收藏的地下城列表",config.starStage); //收藏类型值0
+		starStgC.type = 0;
+		var toDayStgCs = config.todayStage.map(function(item,index){ //今日地下城类型值10 + i
+			var obj = Object.assign({type:index + 10}, item);
+			return obj;
+		})
+		var reqStgCs = config.reqStageList.map(function(item,index){ //征求地下城类型值100 + i
+			var obj = Object.assign({type:index + 100}, item);
+			return obj;
+		})
+
+		allStgCs = [starStgC].concat(toDayStgCs,reqStgCs); //所有地下城放到一起
+
+		allStgCs.forEach(function(item){
+			var typeli = stgList1.appendChild(document.createElement("li"));
+			var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-type",id:"stage-type-" + item.type,value:item.type}));
+			var lbl = typeli.appendChild(new Label(item.name,ipt.id,"stage-type-label"));
+			ipt.onclick = function(){
+				if (this.checked)
+					chooseStageType(this.value);
+			}
+		})
+
+		stageListPage.classList.remove("display-none"); //最后显示出来
+		document.querySelector("#stage-type-0").click();
+	}
+	function chooseStageType(type = 0)
+	{
+		while(stgList2.childNodes.length>0)
+		{
+			delete stgList2.firstChild.remove(); //清空原来的，并从内存删除
+		}
+		while(stgList3.childNodes.length>0)
+		{
+			delete stgList3.firstChild.remove(); //清空原来的，并从内存删除
+		}
+		var stages;
+		if (type == 0)
+		{
+			stages = config.starStage;
+		}else if (type >= 10 && type < 100)
+		{
+			stages = config.todayStage[type - 10].stages;
+		}else if (type >= 100 && type < 200)
+		{
+			stages = config.reqStageList[type - 100].stages;
+		}else
+		{
+			info("未知的地下城类型" + type);
+		}
+
+		stages.forEach(function(item,index){
+			var typeli = stgList2.appendChild(document.createElement("li"));
+			var stg = stageList.filter(function(stg){return stg.name == item;})[0];
+			if (stg)
+			{
+				var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-1",id:"stage-1-" + index,value:index}));
+				var lbl = typeli.appendChild(new Label(item,ipt.id,"stage-1-label"));
+				//插图
+				var ico = lbl.insertBefore(document.createElement("img"),lbl.firstChild);
+				ico.className = "stage-icon";
+				ico.src = stg.iconUrl;
+			}else
+			{ //没有数据的地图
+				typeli.appendChild(document.createTextNode(item));
+				typeli.className = "line-between";
+			}
+		})
+	}
+	function chooseMainStage(index = 0)
+	{
+		while(stgList3.childNodes.length>0)
+		{
+			delete stgList3.firstChild.remove(); //清空原来的，并从内存删除
+		}
+		var stages;
+		if (type == 0)
+		{
+			stages = config.starStage;
+		}else if (type >= 10 && type < 100)
+		{
+			stages = config.todayStage[type - 10].stages;
+		}else if (type >= 100 && type < 200)
+		{
+			stages = config.reqStageList[type - 100].stages;
+		}else
+		{
+			info("未知的地下城类型" + type);
+		}
+
+		stages.forEach(function(item,index){
+			var typeli = stgList2.appendChild(document.createElement("li"));
+			var ipt = typeli.appendChild(new Input({type:"radio",name:"stage-1",id:"stage-1-" + index,value:index}));
+			var lbl = typeli.appendChild(new Label(item,ipt.id,"stage-1-label"));
+			//插图
+		})
+	}
 
 	/* 设置页面 */
 	var settingsBox = document.createElement("div"); //设置框架
@@ -468,4 +690,147 @@ function buildMultiplayList(mltArray)
 		return li;
 	});
 	return liArr;
+}
+
+
+function checkTodayUpdate(callback)
+{
+	info("开始检查今日地下城");
+	GM_xmlhttpRequest({
+		method: "GET",
+		//url: "desktop/", //主页
+		url: "desktop.html", //主页
+		onload: function(response1){
+			GM_xmlhttpRequest({
+				method: "GET",
+				//url: "javascript/stage.js?" + new Date().getTime(), //主页
+				url: "stage.js", //主页
+				onload: function(response2){
+					dealMainPage(response1);
+					dealStageJS(response2);
+					config.updateDate = getLocalTime(9).getTime();
+					saveConfig(1);
+					callback();
+				},
+				onerror: function(response) {
+					info("获取可征求列表失败");
+					console.error("获取可征求列表失败",response);
+				}
+			});
+		},
+		onerror: function(response) {
+			info("获取主页地下城活动失败");
+			console.error("获取主页地下城活动失败",response);
+		}
+	});
+	//处理首页
+	function dealMainPage(response)
+	{
+
+		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
+		//紧急活动地下城表格
+		var JinJiEvent = PageDOM.querySelector("#container>.item:nth-of-type(1)>table:nth-of-type(2)");
+		//今天的降临
+		if (JinJiEvent.rows[2] == undefined || JinJiEvent.rows[2].cells[1] == undefined) {info("😅未发现今日数据，是不是主页格式有问题？"); return;}
+		
+		config.todayStage.length = 0; //先清空
+
+		var JiangLin = JinJiEvent.rows[2].cells[1].getElementsByTagName("a");
+		var stgs1 = new StageCollection("每日降临","每天都会更换一次的降临神，保持24小时。");
+		for (var ai=0;ai<JiangLin.length;ai++)
+		{
+			var link = JiangLin[ai];
+			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) && stgs1.stages.indexOf(link.title)<0)
+			{
+				stgs1.stages.push(link.title);
+			}
+		}
+		
+		//今天的紧急
+		var stgs2 = new StageCollection("紧急降临","每天分组出现的紧急本，每个组一小时。");
+		for (var ri=1;ri<JinJiEvent.rows[2].cells[0].rowSpan;ri++)
+		{
+			var link = JinJiEvent.rows[2+ri].cells[0].querySelector("a");
+			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) && stgs2.stages.indexOf(link.title)<0)
+			{
+				stgs2.stages.push(link.title);
+			}
+		}
+	
+		//长期活动地下城表格
+		//第一行周回本
+		var ChangQiEvent = PageDOM.querySelector("#container>.item:nth-of-type(2)>table:nth-of-type(2)");
+		var stgs3 = new StageCollection("今日周回","每周分星期几固定出现的本，原耀日本。");
+		var imgs = ChangQiEvent.rows[1].getElementsByTagName("img");
+		for (var ii=0;ii<imgs.length;ii++)
+		{
+			var link = imgs[ii].parentElement;
+			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) //是场景
+				&& stgs3.stages.indexOf(link.title)<0
+			)
+			{
+				stgs3.stages.push(link.title);
+			}
+		}
+
+		//后面的活动
+		var stgs4 = new StageCollection("长期活动","各种官方活动、合作活动的本。");
+		for (var ri=4;ri<ChangQiEvent.rows.length;ri++)
+		{
+			var imgs = ChangQiEvent.rows[ri].getElementsByTagName("img");
+			var typeStr = ""; //储存地下城类型说明
+			var typeSpan = ChangQiEvent.rows[ri].cells[2].querySelector("span");
+			if (typeSpan != undefined)
+			{
+				typeStr = typeSpan.textContent;
+			}
+			var endTime = "";
+			var endTimeTd = ChangQiEvent.rows[ri].cells[3];
+			if (endTimeTd != undefined)
+			{
+				endTime = endTimeTd.childNodes[1].nodeValue;
+			}
+			for (var ii=0;ii<imgs.length;ii++)
+			{
+				var link = imgs[ii].parentElement;
+				if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) //是场景
+					&& !/coin\.png/igm.test(imgs[ii].getAttribute("src")) //不是金币地下城
+					&& !/一次通關限定/igm.test(typeStr) //不是一次通关限定
+					&& !/排名地下城/igm.test(typeStr) //不是排名地下城
+					&& !/每天一場/igm.test(typeStr) //不是每天一场限定
+					&& !/後開始/igm.test(endTime) //不是还没有开始的
+					&& stgs4.stages.indexOf(link.title)<0
+				)
+				{
+					stgs4.stages.push(link.title);
+				}
+			}
+		}
+
+		config.todayStage.push(
+			stgs1,
+			stgs2,
+			stgs3,
+			stgs4
+		);
+
+		info("今日有" + config.todayStage.reduce(function(previous, current){return previous + current.stages.length},0) + "个地下城");
+		//console.log("今日地下城获取完毕",config);
+	}
+	// 处理征求地下城列表
+	function dealStageJS(response)
+	{
+		var dataTree;
+		var jsTxt = response.responseText;
+		eval(jsTxt);
+
+		var stgCs = dataTree.map(function(item){
+			var stgC = new StageCollection(item.name);
+			stgC.stages = item.child.map(function(item2){
+				return item2.name;
+			})
+			return stgC;
+		})
+		config.reqStageList = stgCs;
+	}
 }
