@@ -768,15 +768,15 @@ function checkAllStageList(resetAll = false)
 		function checkExistAdd(newStage,resetAll = false)
 		{
 			var oldStage = stageList.filter(function(item){ //查找以前有没有这个地图
-				return item.name == link.title;
+				return item.name == newStage.name;
 			})[0];
-			if (!resetAll && oldStage != undefined)
-			{
-				oldStage.name = newStage.name;
-				oldStage.iconUrl = newStage.iconUrl;
-			}else
+			if (resetAll || oldStage == undefined)
 			{ //没有就添加新的
 				newStages.push(newStage);
+			}else
+			{ //有的话就什么也不改变
+				//oldStage.name = newStage.name;
+				//oldStage.iconUrl = newStage.iconUrl;
 			}
 		}
 
