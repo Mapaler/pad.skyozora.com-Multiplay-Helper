@@ -138,6 +138,10 @@ function buildMainFramework()
 	var mBox = document.body.appendChild(document.createElement("div")); //总框架
 	mBox.id = mBox.className = "main-box";
 
+	var titleBox = mBox.appendChild(document.createElement("div")); //列表框架
+	titleBox.className = "title-box";
+	titleBox.appendChild(document.createTextNode("其他玩家创建的房间"));
+
 	var listBox = mBox.appendChild(document.createElement("div")); //列表框架
 	listBox.className = "list-box";
 	var list = listBox.appendChild(document.createElement("ul")); //列表ul
@@ -145,9 +149,9 @@ function buildMainFramework()
 
 	var controlBox = mBox.appendChild(document.createElement("div")); //控制按钮框架
 	controlBox.className = "control-box";
-	controlBox.appendChild(new Button("refresh","material-icons",function(){refresh()}));
-	controlBox.appendChild(new Button("add","material-icons",function(){alert("添加")}));
-	controlBox.appendChild(new Button("settings","material-icons",function(){alert("设置")}));
+	controlBox.appendChild(new Button("refresh","material-icons control-button control-button-refresh",function(){refresh()}));
+	controlBox.appendChild(new Button("create","material-icons control-button control-button-create",function(){alert("添加")}));
+	controlBox.appendChild(new Button("settings","material-icons control-button control-button-settings",function(){alert("设置")}));
 
 	var addBox = mBox.appendChild(document.createElement("div")); //添加请求框架
 	addBox.className = "add-box";
@@ -174,8 +178,19 @@ function refresh()
 function dealMultiplay(response)
 {
 	var mltArray = getMultiplayArray(response);
+	if (mltArray.length<=0)
+	{
+		info("获取列表数据出错");
+		return;
+	}
 	var liArr = buildMultiplayList(mltArray);
 	var list = document.querySelector(".mltlist");
+
+	while(list.childNodes.length>0)
+	{
+		delete list.firstChild.remove(); //清空原来的，并从内存删除
+	}
+
 	liArr.forEach(function(element) {
 		list.appendChild(element);
 	});
@@ -240,16 +255,20 @@ function getMultiplayArray(response)
 //将协力数组构建为网页
 function buildMultiplayList(mltArray)
 {
-	var liArr = mltArray.map(function(mlt){
+	var liArr = mltArray.map(function(mlt,index){
+		var divArr = [];
+
 		var li = document.createElement("li");
-		var imageBox = li.appendChild(document.createElement("div"));
+		li.className = index%2?"row-even":"row-odd";
+
+		var imageBox = document.createElement("div");
 		imageBox.className = "mlt-image-box";
 		var image = imageBox.appendChild(document.createElement("img"));
 		image.className = "mlt-image";
 		image.src = mlt.image;
 		
-		var stageBox = li.appendChild(document.createElement("div"));
-		imageBox.className = "mlt-stage-box";
+		var stageBox = document.createElement("div");
+		stageBox.className = "mlt-stage-box";
 		var stage1Box = stageBox.appendChild(document.createElement("div"));
 		stage1Box.className = "mlt-stage-1-box";
 		var stage1 = stage1Box.appendChild(document.createElement("a"));
@@ -263,7 +282,7 @@ function buildMultiplayList(mltArray)
 		stage2.href = "stage/" + mlt.stage1 + "/" + mlt.stage2;
 		stage2.appendChild(document.createTextNode(mlt.stage2));
 
-		var roomIdBox = li.appendChild(document.createElement("div"));
+		var roomIdBox = document.createElement("div");
 		roomIdBox.className = "mlt-roomId-box";
 		roomIdBox.onclick = function(){
 			copyArticle(this);
@@ -272,21 +291,35 @@ function buildMultiplayList(mltArray)
 		id1.className = "mlt-roomId-1";
 		id1.appendChild(document.createTextNode( padNumber(parseInt(mlt.roomId / 10000),4) ));
 
-		var ids = roomIdBox.appendChild(document.createElement("span"));
-		ids.className = "mlt-roomId-space";
-
 		var id2 = roomIdBox.appendChild(document.createElement("span"));
 		id2.className = "mlt-roomId-2";
 		id2.appendChild(document.createTextNode( padNumber(parseInt(mlt.roomId % 10000),4) ));
 
-		var aksBox = li.appendChild(document.createElement("div"));
-		aksBox.className = "mlt-ask-box";
-		aksBox.appendChild(document.createTextNode(mlt.ask));
-
-		var timeBox = li.appendChild(document.createElement("div"));
+		var timeBox = document.createElement("div");
 		timeBox.className = "mlt-time-box";
-		timeBox.appendChild(document.createTextNode(mlt.time));
+		var time = timeBox.appendChild(document.createElement("span"));
+		time.appendChild(document.createTextNode(mlt.time));
 
+		divArr.push(
+			imageBox,
+			stageBox,
+			timeBox,
+			roomIdBox
+		)
+
+		if (mlt.ask.length>0)
+		{
+			var aksBox = document.createElement("div");
+			aksBox.className = "mlt-ask-box";
+			var ask = aksBox.appendChild(document.createElement("span"));
+			ask.appendChild(document.createTextNode(mlt.ask));
+			divArr.push(aksBox);
+		}
+
+
+		divArr.forEach(function(element) {
+			li.appendChild(element);
+		});
 		return li;
 	});
 	return liArr;
