@@ -700,7 +700,9 @@ function checkTodayUpdate(callback)
 					&& stgs4.stages.indexOf(link.title)<0
 				)
 				{
-					stgs4.stages.push(link.title);
+					var realName = link.title.replace(/【.*】/igm,"");
+					console.log(link.title,realName);
+					stgs4.stages.push(realName);
 				}
 			}
 		}

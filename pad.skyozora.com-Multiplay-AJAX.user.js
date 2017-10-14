@@ -832,7 +832,8 @@ function checkTodayUpdate(callback)
 					&& stgs4.stages.indexOf(link.title)<0
 				)
 				{
-					stgs4.stages.push(link.title);
+					var realName = link.title.replace(/【.*】/igm,""); //去掉可能存在的特殊要求
+					stgs4.stages.push(realName);
 				}
 			}
 		}
