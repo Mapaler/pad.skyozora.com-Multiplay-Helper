@@ -171,6 +171,15 @@ var Button = function(value,className,title,onClick)
 	btn.onclick = onClick;
 	return btn;
 }
+//一个有material-icons图标的按钮
+var IconButton = function(value,iconName,className,title,onClick)
+{
+	var btn = new Button(value,className,title,onClick);
+	var icon = btn.insertBefore(document.createElement("span"),btn.firstChild);
+	icon.className = "material-icons";
+	icon.appendChild(document.createTextNode(iconName));
+	return btn;
+}
 //创建Label类
 var Label = function(text, forId = "", classname = "") {
 	var label = document.createElement("label");
@@ -517,6 +526,19 @@ function buildMainFramework()
 	var title = settingsBox.appendChild(document.createElement("div"));
 	title.className = "list-title";
 	title.appendChild(document.createTextNode("程序设置"));
+
+	var checkToday = settingsBox.appendChild(new IconButton("检查今日地下城","date_range","normal-button normal-button-refresh","检查今日开放的降临、活动地下城。",function(){checkTodayUpdate(
+		function(){info("今日地下城获取完毕");}
+	)}));
+	var checkAllStage = settingsBox.appendChild(new IconButton("更新完整地下城数据","update","normal-button normal-button-refresh","获取完整的地下城数据库，增量更新。",function(){checkTodayUpdate(
+		function(){info("地下城数据库获取完毕");}
+	)}));
+	var clearStar = settingsBox.appendChild(new IconButton("清空我的收藏","delete_forever","normal-button normal-button-refresh","删除我收藏的所有地下城。",function(){checkTodayUpdate(
+		function(){info("收藏清空");}
+	)}));
+	var clearStar = settingsBox.appendChild(new IconButton("导入设置","input","normal-button normal-button-refresh","将上方两个文本框内容导入到我的设置。",function(){checkTodayUpdate(
+		function(){info("收藏清空");}
+	)}));
 
 	settingsBox.appendChild(new Button("done","material-icons action-button action-button-done","保存设置",function(){alert("保存")}));
 
