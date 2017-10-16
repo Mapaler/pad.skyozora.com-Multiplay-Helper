@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v6
-// @version     1.1.17
+// @version     1.1.18
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -596,7 +596,7 @@ function checkTodayUpdate(callback)
 	
 		//长期活动地下城表格
 		//第一行周回本
-		var ChangQiEvent = PageDOM.querySelector("#container>.item:nth-of-type(2)>table:nth-of-type(2)");
+		var ChangQiEvent = PageDOM.querySelector("#container>.item:nth-of-type(2)>table:nth-last-of-type(1)");
 		var stgs3 = {name:"耀日本",detail:"每周分星期几固定出现的本",stages:[]};
 		var imgs = ChangQiEvent.rows[1].getElementsByTagName("img");
 		for (var ii=0;ii<imgs.length;ii++)

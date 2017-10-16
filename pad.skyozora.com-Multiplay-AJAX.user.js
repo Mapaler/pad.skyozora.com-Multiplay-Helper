@@ -811,7 +811,7 @@ function checkTodayUpdate(callback)
 	
 		//长期活动地下城表格
 		//第一行周回本
-		var ChangQiEvent = PageDOM.querySelector("#container>.item:nth-of-type(2)>table:nth-of-type(2)");
+		var ChangQiEvent = PageDOM.querySelector("#container>.item:nth-of-type(2)>table:nth-last-of-type(1)");
 		var stgs3 = new StageCollection("今日周回","每周分星期几固定出现的本，原耀日本。");
 		var imgs = ChangQiEvent.rows[1].getElementsByTagName("img");
 		for (var ii=0;ii<imgs.length;ii++)
