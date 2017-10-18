@@ -161,6 +161,23 @@ function getLocalTime(i)
 	var utcTime = len + offset;
 	return new Date(utcTime + 3600000 * i);
 }
+//光标处插入文字函数
+function insertText(obj,str) {
+	if (document.selection) {
+		var sel = document.selection.createRange();
+		sel.text = str;
+	} else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+		var startPos = obj.selectionStart,
+		endPos = obj.selectionEnd,
+		cursorPos = startPos,
+		tmpStr = obj.value;
+		obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
+		cursorPos += str.length;
+		obj.selectionStart = obj.selectionEnd = cursorPos;
+	} else {
+		obj.value += str;
+	}
+}
 //一个按钮对象
 var Button = function(value,className,title,onClick)
 {
@@ -339,6 +356,15 @@ function buildMainFramework()
 	var askBox = createBox.appendChild(document.createElement("div"));
 	var lblAsk = askBox.appendChild(new Label("征求队伍","req"));
 	var iptAsk = askBox.appendChild(new Input({type:"text",id:"req",maxLength:"50"}));
+	var fastAskBox = createBox.appendChild(document.createElement("div")); //快速填入文字的位置
+	var msgLst = fastAskBox.appendChild(document.createElement("select"));
+	msgLst.size = 5;
+	msgLst.className = "message-list";
+	msgLst.onclick = function(){
+		var msg = config.message[this.value];
+		if (msg !== undefined)
+			insertText(iptAsk,msg);
+	}
 
 	createBox.appendChild(new Button("send","material-icons action-button action-button-send","发送征求",function(){
 		if (iptRoomId.value.replace(/[^0-9]/g,"").length<8)
