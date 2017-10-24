@@ -161,6 +161,23 @@ function getLocalTime(i)
 	var utcTime = len + offset;
 	return new Date(utcTime + 3600000 * i);
 }
+//光标处插入文字函数
+function insertText(obj,str) {
+	if (document.selection) {
+		var sel = document.selection.createRange();
+		sel.text = str;
+	} else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+		var startPos = obj.selectionStart,
+		endPos = obj.selectionEnd,
+		cursorPos = startPos,
+		tmpStr = obj.value;
+		obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
+		cursorPos += str.length;
+		obj.selectionStart = obj.selectionEnd = cursorPos;
+	} else {
+		obj.value += str;
+	}
+}
 //一个按钮对象
 var Button = function(value,className,title,onClick)
 {
@@ -339,6 +356,15 @@ function buildMainFramework()
 	var askBox = createBox.appendChild(document.createElement("div"));
 	var lblAsk = askBox.appendChild(new Label("征求队伍","req"));
 	var iptAsk = askBox.appendChild(new Input({type:"text",id:"req",maxLength:"50"}));
+	var fastAskBox = createBox.appendChild(document.createElement("div")); //快速填入文字的位置
+	var msgLst = fastAskBox.appendChild(document.createElement("select"));
+	msgLst.size = 5;
+	msgLst.className = "message-list";
+	msgLst.onclick = function(){
+		var msg = config.message[this.value];
+		if (msg !== undefined)
+			insertText(iptAsk,msg);
+	}
 
 	createBox.appendChild(new Button("send","material-icons action-button action-button-send","发送征求",function(){
 		if (iptRoomId.value.replace(/[^0-9]/g,"").length<8)
@@ -527,6 +553,7 @@ function buildMainFramework()
 	title.className = "list-title";
 	title.appendChild(document.createTextNode("程序设置"));
 
+		
 	var checkToday = settingsBox.appendChild(new IconButton("检查今日地下城","date_range","normal-button normal-button-refresh","检查今日开放的降临、活动地下城。",function(){checkTodayUpdate(
 		function(){info("今日地下城获取完毕");}
 	)}));
@@ -536,8 +563,9 @@ function buildMainFramework()
 	var clearStar = settingsBox.appendChild(new IconButton("清空我的收藏","delete_forever","normal-button normal-button-refresh","删除我收藏的所有地下城。",function(){checkTodayUpdate(
 		function(){info("收藏清空");}
 	)}));
-	var clearStar = settingsBox.appendChild(new IconButton("导入设置","input","normal-button normal-button-refresh","将上方两个文本框内容导入到我的设置。",function(){checkTodayUpdate(
-		function(){info("收藏清空");}
+
+	var importSettings = settingsBox.appendChild(new IconButton("导入设置","input","normal-button normal-button-refresh","将上方两个文本框内容导入到我的设置。",function(){checkTodayUpdate(
+		function(){info("导入设置");}
 	)}));
 
 	settingsBox.appendChild(new Button("done","material-icons action-button action-button-done","保存设置",function(){alert("保存")}));
@@ -680,12 +708,14 @@ function buildMultiplayList(mltArray)
 		var li = document.createElement("li");
 		li.className = index%2?"row-even":"row-odd";
 
+		//图标
 		var imageBox = document.createElement("div");
 		imageBox.className = "mlt-image-box";
 		var image = imageBox.appendChild(document.createElement("img"));
 		image.className = "mlt-image";
 		image.src = mlt.image;
 		
+		//地下城名称
 		var stageBox = document.createElement("div");
 		stageBox.className = "mlt-stage-box";
 		var stage1Box = stageBox.appendChild(document.createElement("div"));
@@ -700,6 +730,35 @@ function buildMultiplayList(mltArray)
 		stage2.className = "mlt-stage-2";
 		stage2.href = "stage/" + mlt.stage1 + "/" + mlt.stage2;
 		stage2.appendChild(document.createTextNode(mlt.stage2));
+
+		//体力和层数
+		var staminaBox = document.createElement("div");
+		staminaBox.className = "mlt-stamina-box";
+		var stamina1Box = staminaBox.appendChild(document.createElement("div"));
+		stamina1Box.className = "mlt-stamina-1-box";
+		var stamina2Box = staminaBox.appendChild(document.createElement("div"));
+		stamina2Box.className = "mlt-stamina-2-box";
+
+		var stg1 = stageList.filter(function(item){
+			return item.name == mlt.stage1;
+		})[0];
+		if (stg1 == undefined) //如果发现没有数据的图，跳过
+		{
+			console.error("没有主关卡数据", mlt.stage1);
+		}else
+		{
+			var stg2 = stg1.subStage.filter(function(item){
+				return item.name == mlt.stage2;
+			})[0];
+			if (stg2 == undefined) //如果发现没有数据的图，跳过
+			{
+				console.error("没有子关卡数据", mlt.stage2);
+			}else
+			{ //有子关卡的时候添加关卡数据
+				stamina1Box.appendChild(document.createTextNode(Math.round(stg2.stamina/2) + "体"));
+				stamina2Box.appendChild(document.createTextNode(stg2.battles + "层"));
+			}
+		}
 
 		var roomIdBox = document.createElement("div");
 		roomIdBox.className = "mlt-roomId-box";
@@ -722,18 +781,19 @@ function buildMultiplayList(mltArray)
 		divArr.push(
 			imageBox,
 			stageBox,
-			timeBox,
-			roomIdBox
+			staminaBox,
+			roomIdBox,
+			timeBox
 		)
 
-		if (mlt.ask.length>0)
-		{
+		//if (mlt.ask.length>0)
+		//{
 			var aksBox = document.createElement("div");
 			aksBox.className = "mlt-ask-box";
 			var ask = aksBox.appendChild(document.createElement("span"));
 			ask.appendChild(document.createTextNode(mlt.ask));
 			divArr.push(aksBox);
-		}
+		//}
 
 
 		divArr.forEach(function(element) {
