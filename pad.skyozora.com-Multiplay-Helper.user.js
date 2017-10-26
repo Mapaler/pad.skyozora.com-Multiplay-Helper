@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v6
-// @version     1.1.18
+// @version     1.1.20
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -685,7 +685,7 @@ function mainStage(name,iconUrl)
 				var subStageList = PageDOM.querySelector("#wrapper>table:nth-of-type(3) ul"); //子关卡的列表ul
 				if (subStageList == undefined) //如果没找到，试试手机版
 				{
-					subStageList = document.querySelector(".content>ul");
+					subStageList = PageDOM.querySelector(".content>ul");
 					if (subStageList!=undefined)
 					{
 						mobile = true;
@@ -750,7 +750,7 @@ function checkAllStageList(resetAll = false)
 		var stageTd = PageDOM.querySelector("#wrapper>table:nth-of-type(3) td");
 		if (stageTd == undefined) //如果没找到，试试手机版
 		{
-			stageTd = document.querySelector(".content");
+			stageTd = PageDOM.querySelector(".content");
 			if (stageTd!=undefined)
 			{
 				mobile = true;
@@ -764,7 +764,11 @@ function checkAllStageList(resetAll = false)
 		{
 			stages = stageTd.getElementsByTagName("a"); //获取所有的链接
 		}
-
+		stages = Array.prototype.slice.call(stages); //将类数组转换为数组
+		stages = stages.filter(function(item){ //清除没有图标的链接和不是地下城的链接
+			return new RegExp(stageTestReg,"igm").test(item.getAttribute("href")) //是地下城链接
+					&& item.querySelector("img") != undefined; //有图标
+		})
 
 		//检查是否已经存在，否则添加新的
 		function checkExistAdd(newStage,resetAll = false)
@@ -784,16 +788,11 @@ function checkAllStageList(resetAll = false)
 
 		var newStages = [];
 		//所有地下城
-		for (var si=1,si_l=stages.length;si<si_l;si++)
-		{
-			var link = stages[si];
-			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")))
-			{
-				var img= link.querySelector("img");
-				imgUrl = img.getAttribute("data-original");
-				checkExistAdd(new mainStage(mobile?img.alt:link.title,imgUrl),resetAll);
-			}
-		}
+		stages.forEach(function(item) {
+			var img= item.querySelector("img");
+			imgUrl = img.getAttribute("data-original");
+			checkExistAdd(new mainStage(mobile?img.alt:item.title,imgUrl),resetAll);
+		});
 		//▼添加暂时没有的特殊图
 		//checkExistAdd(new mainStage("闇の戦武龍","http://i1296.photobucket.com/albums/ag18/skyozora/pets_icon/3839_zpsinupxf0j.png"),resetAll);
 		//▲添加暂时没有的特殊图
