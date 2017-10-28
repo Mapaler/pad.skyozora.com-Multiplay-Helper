@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v6
-// @version     1.1.21
+// @version     1.1.22
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -233,7 +233,7 @@ if(location.pathname == "/multiplay/register/") //注册页面
 
 function registerPage()
 {
-	var form = document.querySelector("#wrapper>table:nth-of-type(3) form"); //主要版面的表单
+	var form = document.querySelector("#wrapper>table:nth-last-of-type(2) form"); //主要版面的表单
 	if (form == undefined) //如果没找到，试试手机版
 	{
 		form = document.querySelector(".content>form");
@@ -682,7 +682,7 @@ function mainStage(name,iconUrl)
 			url: "stage/" + this.name,
 			onload: function(response){ //获取成功
 				var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
-				var subStageList = PageDOM.querySelector("#wrapper>table:nth-of-type(3) ul"); //子关卡的列表ul
+				var subStageList = PageDOM.querySelector("#wrapper>table:nth-last-of-type(2) ul"); //子关卡的列表ul
 				if (subStageList == undefined) //如果没找到，试试手机版
 				{
 					subStageList = PageDOM.querySelector(".content>ul");
@@ -747,7 +747,7 @@ function checkAllStageList(resetAll = false)
 		var PageDOM = new DOMParser().parseFromString(response.responseText, "text/html");
 		if (resetAll) stageList.length = 0; //先清空
 		//所有地下城表格
-		var stageTd = PageDOM.querySelector("#wrapper>table:nth-of-type(3) td");
+		var stageTd = PageDOM.querySelector("#wrapper>table:nth-last-of-type(2) td");
 		if (stageTd == undefined) //如果没找到，试试手机版
 		{
 			stageTd = PageDOM.querySelector(".content");
