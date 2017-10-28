@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v6
-// @version     1.1.20
+// @version     1.1.21
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -829,7 +829,7 @@ function checkAllStageList(resetAll = false)
  */
 function multiplayPage()
 {
-	var table = document.querySelector("#wrapper>table:nth-of-type(3) table"); //协力请求表格
+	var table = document.querySelector("#wrapper>table:nth-last-of-type(2) table"); //协力请求表格
 	if (table == undefined) //如果没找到，试试手机版
 	{
 		table = document.querySelector(".content>table");
