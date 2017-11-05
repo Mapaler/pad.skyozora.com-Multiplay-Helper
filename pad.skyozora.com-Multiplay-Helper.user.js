@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v6
-// @version     1.1.22
+// @version     1.1.24
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -631,7 +631,8 @@ function checkTodayUpdate(callback)
 			for (var ii=0;ii<imgs.length;ii++)
 			{
 				var link = imgs[ii].parentElement;
-				if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) //是场景
+				var href = link.getAttribute("href");
+				if (new RegExp(stageTestReg,"igm").test(href) //是场景
 					&& !/coin\.png/igm.test(imgs[ii].getAttribute("src")) //不是金币地下城
 					&& !/一次通關限定/igm.test(typeStr) //不是一次通关限定
 					&& !/排名地下城/igm.test(typeStr) //不是排名地下城
@@ -641,8 +642,19 @@ function checkTodayUpdate(callback)
 				)
 				{
 					var realName = link.title.replace(/【.*】/igm,"");
-					console.log(link.title,realName);
-					stgs4.stages.push(realName);
+					if (href.indexOf(realName)>=0)
+					{
+						//console.log(link.title,realName);
+						stgs4.stages.push(realName);
+					}else //那些活动title和场景stage名字不符
+					{
+						var subStageReg = "^/?s(?:tage)?/([^/]+)/[^/]+"; //用来测试href是不是有子地下城的
+						if (new RegExp(subStageReg,"igm").test(href))
+						{
+							var stgV = new RegExp(subStageReg,"igm").exec(href);
+							stgs4.stages.push(stgV[1]);
+						}
+					}
 				}
 			}
 		}
