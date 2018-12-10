@@ -7,7 +7,7 @@
 // @include     http://pad.skyozora.com/multiplay/register/
 // @include     http://pad.skyozora.com/multiplay/
 // @resource    style     https://raw.githubusercontent.com/Mapaler/pad.skyozora.com-Multiplay-Helper/master/style.css?v6
-// @version     1.1.24
+// @version     1.2.25
 // @copyright	2017+, Mapaler <mapaler@163.com>
 // @grant       GM_getResourceText
 // ==/UserScript==
@@ -269,7 +269,7 @@ function registerPage()
 		config.todayStage.forEach(function(stgs,index){
 			var stg1UlLi1 = document.createElement("li");stg1Ul.appendChild(stg1UlLi1);
 			if (typeof(stgs) != "object") return;
-			var stgType1 = new LabelInput(stgs.name, "stg-type","stg-type","radio",index,stgs.name.detail);
+			var stgType1 = new LabelInput(stgs.name, "stg-type","stg-type","radio",index,stgs.detail);
 			//if (index == 0) stgType1.input.checked = true;
 			stgType1.input.onclick = typeClick;
 			stg1UlLi1.appendChild(stgType1);
@@ -471,7 +471,7 @@ function registerPage()
 	var btnAddStg = document.createElement("input");btnBox1.appendChild(btnAddStg);
 	btnAddStg.type = "button";
 	btnAddStg.id = btnAddStg.className = "add-stage-string";
-	btnAddStg.value = "输入地下城收藏";
+	btnAddStg.value = "直接输入名称添加收藏";
 	btnAddStg.onclick = function(){
 		addStarStage(prompt("请输入地下城名称"));
 	};
@@ -598,15 +598,19 @@ function checkTodayUpdate(callback)
 		//第一行周回本
 		var ChangQiEvent = PageDOM.querySelector("#container>.item:nth-of-type(2)>table:nth-last-of-type(1)");
 		var stgs3 = {name:"耀日本",detail:"每周分星期几固定出现的本",stages:[]};
-		var imgs = ChangQiEvent.rows[1].getElementsByTagName("img");
-		for (var ii=0;ii<imgs.length;ii++)
+		var imgsArr = [ChangQiEvent.rows[1].getElementsByTagName("img"),ChangQiEvent.rows[3].getElementsByTagName("img")];
+		for (var iAi=0;iAi<imgsArr.length;iAi++)
 		{
-			var link = imgs[ii].parentElement;
-			if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) //是场景
-				&& stgs3.stages.indexOf(link.title)<0
-			)
+			var imgs = imgsArr[iAi];
+			for (var ii=0;ii<imgs.length;ii++)
 			{
-				stgs3.stages.push(link.title);
+				var link = imgs[ii].parentElement;
+				if (new RegExp(stageTestReg,"igm").test(link.getAttribute("href")) //是场景
+					&& stgs3.stages.indexOf(link.title)<0
+				)
+				{
+					stgs3.stages.push(link.title);
+				}
 			}
 		}
 		config.todayStage.push(stgs3);
@@ -617,13 +621,18 @@ function checkTodayUpdate(callback)
 		{
 			var imgs = ChangQiEvent.rows[ri].getElementsByTagName("img");
 			var typeStr = ""; //储存地下城类型说明
-			var typeSpan = ChangQiEvent.rows[ri].cells[2].querySelector("span");
+			var typeSpan = ChangQiEvent.rows[ri].cells[2].querySelector("span"); //获取文字型类别
 			if (typeSpan != undefined)
 			{
 				typeStr = typeSpan.textContent;
 			}
+			var typeImg = ChangQiEvent.rows[ri].cells[2].querySelector("img"); //获取图片型类别
+			if (typeImg != undefined)
+			{
+				typeStr = typeImg.alt;
+			}
 			var endTime = "";
-			var endTimeTd = ChangQiEvent.rows[ri].cells[3];
+			var endTimeTd = ChangQiEvent.rows[ri].cells[3]; //获取开始时间
 			if (endTimeTd != undefined)
 			{
 				endTime = endTimeTd.childNodes[1].nodeValue;
@@ -634,20 +643,24 @@ function checkTodayUpdate(callback)
 				var href = link.getAttribute("href");
 				if (new RegExp(stageTestReg,"igm").test(href) //是场景
 					&& !/coin\.png/igm.test(imgs[ii].getAttribute("src")) //不是金币地下城
+					&& !/後開始/igm.test(endTime) //不是还没有开始的
 					&& !/一次通關限定/igm.test(typeStr) //不是一次通关限定
 					&& !/排名地下城/igm.test(typeStr) //不是排名地下城
 					&& !/每天一場/igm.test(typeStr) //不是每天一场限定
-					&& !/後開始/igm.test(endTime) //不是还没有开始的
+					&& !/單人限定/igm.test(typeStr) //不是单人限定
 					&& stgs4.stages.indexOf(link.title)<0
 				)
 				{
 					var realName = link.title.replace(/【.*】/igm,"");
-					if (href.indexOf(realName)>=0)
+					if (href.indexOf(link.title)>=0)
 					{
-						//console.log(link.title,realName);
+						stgs4.stages.push(link.title);
+					}else if (href.indexOf(realName)>=0)
+					{
 						stgs4.stages.push(realName);
 					}else //那些活动title和场景stage名字不符
 					{
+						var realName = link.title.replace(/【.*】/igm,"");
 						var subStageReg = "^/?s(?:tage)?/([^/]+)/[^/]+"; //用来测试href是不是有子地下城的
 						if (new RegExp(subStageReg,"igm").test(href))
 						{
